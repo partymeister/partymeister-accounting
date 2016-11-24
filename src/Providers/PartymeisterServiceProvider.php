@@ -2,6 +2,7 @@
 
 namespace Partymeister\Accounting\Providers;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,13 @@ class PartymeisterServiceProvider extends ServiceProvider
         $this->permissions();
         $this->registerCommands();
         $this->migrations();
+        $this->validators();
+
+    }
+
+    public function validators()
+    {
+        Validator::extend('currency_compatibility', 'Partymeister\Accounting\Validators\CurrencyCompatibilityValidator@validate');
     }
 
 

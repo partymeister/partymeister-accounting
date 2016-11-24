@@ -23,10 +23,11 @@ class BalanceRowRenderer
     {
         $balance = 0;
         foreach ($this->paginator->getCollection() as $record) {
+            $currency = $record->currency_iso_4217;
             $balance += $record->balance;
         }
 
-        $renderer = new CurrencyRenderer($balance);
+        $renderer = new CurrencyRenderer($balance, [ 'currency' => $currency ]);
 
         return $renderer->render();
     }

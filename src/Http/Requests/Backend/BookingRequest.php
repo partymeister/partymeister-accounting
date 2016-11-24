@@ -26,7 +26,16 @@ class BookingRequest extends Request
     public function rules()
     {
         return [
+            'description' => 'required',
+            'currency_iso_4217' => 'currency_compatibility'
 
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'currency_compatibility' => trans('partymeister-accounting::backend/bookings.currency_compatibility_error'),
         ];
     }
 }

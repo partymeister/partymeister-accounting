@@ -20,4 +20,6 @@ return [
     'is_manual_booking' => 'Manual booking',
     'book_in'           => 'Book in (from outside account)',
     'book_out'          => 'Book out (to outside account)',
+
+    'currency_compatibility_error' => 'The accounts and the booking have incompatible currencies'
 ];

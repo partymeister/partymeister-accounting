@@ -3,19 +3,20 @@
 namespace Partymeister\Accounting\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use Sofa\Eloquence\Eloquence;
 use Motor\Core\Traits\Filterable;
+
 use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
 
-class Account extends Model
+class Booking extends Model
 {
 
     use Eloquence;
     use Filterable;
+
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
 
     /**
@@ -38,33 +39,31 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
-        'account_type_id',
-        'is_cashbox',
+        'from_account_id',
+        'to_account_id',
+        'description',
+        'vat_percentage',
+        'price_with_vat',
+        'price_without_vat',
         'currency_iso_4217',
-        'has_pos'
+        'is_manual_booking'
     ];
 
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function account_type()
+    public function from_account()
     {
-        return $this->belongsTo(AccountType::class);
+        return $this->belongsTo(Account::class, 'from_account_id');
     }
 
 
-    public function getBalanceAttribute()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function to_account()
     {
-        $incoming = DB::table('bookings')->where('to_account_id', $this->id)->sum('price_with_vat');
-        $outgoing = DB::table('bookings')->where('from_account_id', $this->id)->sum('price_with_vat');
-
-        return $total = $incoming - $outgoing;
-    }
-
-    public function getLastBookingAttribute()
-    {
-        return Booking::where('to_account_id', $this->id)->orWhere('from_account_id', $this->id)->orderBy('created_at', 'DESC')->first()->created_at;
+        return $this->belongsTo(Account::class, 'to_account_id');
     }
 }

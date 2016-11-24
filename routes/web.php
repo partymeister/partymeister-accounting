@@ -12,4 +12,5 @@ Route::group([
 ], function () {
     Route::resource('account_types', 'AccountTypesController');
     Route::resource('accounts', 'AccountsController');
+    Route::resource('bookings', 'BookingsController');
 });

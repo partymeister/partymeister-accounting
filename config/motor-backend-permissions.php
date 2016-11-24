@@ -17,4 +17,12 @@ return [
             'delete'
         ]
     ],
+    'bookings'      => [
+        'name'   => 'partymeister-accounting::backend/bookings.bookings',
+        'values' => [
+            'read',
+            'write',
+            'delete'
+        ]
+    ],
 ];

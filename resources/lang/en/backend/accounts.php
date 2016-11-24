@@ -11,5 +11,8 @@ return [
     'deleted'  => 'Account deleted',
 
     'currency_iso_4217' => 'Currency',
-    'has_pos'           => 'POS'
+    'has_pos'           => 'POS',
+    'last_booking'      => 'Last booking',
+    'balance'           => 'Balance',
+    'total_balance'     => 'Total balance',
 ];

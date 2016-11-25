@@ -34,6 +34,14 @@ return [
                     'roles'       => [ 'SuperAdmin' ],
                     'permissions' => [ 'bookings.read' ],
                 ],
+                40 => [ // <-- !!! replace 435 with your own sort position !!!
+                    'slug'        => 'item_types',
+                    'name'        => 'partymeister-accounting::backend/item_types.item_types',
+                    'icon'        => 'fa fa-plus',
+                    'route'       => 'backend.item_types.index',
+                    'roles'       => [ 'SuperAdmin' ],
+                    'permissions' => [ 'item_types.read' ],
+                ],
             ]
         ],
     ]

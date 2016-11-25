@@ -106,6 +106,10 @@ class PartymeisterServiceProvider extends ServiceProvider
         Route::bind('booking', function($id){
             return \Partymeister\Accounting\Models\Booking::findOrFail($id);
         });
+
+        Route::bind('item_type', function($id){
+            return \Partymeister\Accounting\Models\ItemType::findOrFail($id);
+        });
     }
 
 

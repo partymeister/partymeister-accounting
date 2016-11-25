@@ -19,6 +19,6 @@ class BookingForm extends Form
             ->add('price_without_vat', 'text', ['label' => trans('partymeister-accounting::backend/bookings.price_without_vat')])
             ->add('currency_iso_4217', 'select2', ['label' => trans('partymeister-accounting::backend/accounts.currency_iso_4217'), 'choices' => $currencies = Intl::getCurrencyBundle()->getCurrencyNames(), 'default_value' => 'EUR'])
             ->add('is_manual_booking', 'checkbox', ['label' => trans('partymeister-accounting::backend/bookings.is_manual_booking'), 'default_value' => true])
-            ->add('submit', 'submit', ['attr' => ['class' => 'btn btn-primary'], 'label' => trans('partymeister-accounting::backend/accounts.save')]);
+            ->add('submit', 'submit', ['attr' => ['class' => 'btn btn-primary'], 'label' => trans('partymeister-accounting::backend/bookings.save')]);
     }
 }

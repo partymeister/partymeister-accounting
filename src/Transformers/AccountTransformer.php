@@ -44,7 +44,7 @@ class AccountTransformer extends Fractal\TransformerAbstract
      */
     public function includeAccountType(Account $record)
     {
-        if ( ! is_null($record->accoun_type)) {
+        if ( ! is_null($record->account_type)) {
             return $this->item($record->account_type, new AccountTypeTransformer());
         }
     }

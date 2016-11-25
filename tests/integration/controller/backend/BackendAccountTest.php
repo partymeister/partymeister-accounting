@@ -182,7 +182,7 @@ class BackendAccountTest extends TestCase
     /** @test */
     public function can_search_results()
     {
-        $records = create_test_account(100);
+        $records = create_test_account(10);
         $this->visit('/backend/accounts')
             ->type(substr($records[6]->name, 0, 3), 'search')
             ->press('grid-search-button')

@@ -19,6 +19,8 @@ class ApiBookingTest extends TestCase
 
     protected $tables = [
         'bookings',
+        'accounts',
+        'account_types',
         'users',
         'languages',
         'clients',
@@ -74,7 +76,7 @@ class ApiBookingTest extends TestCase
     {
         $this->user->givePermissionTo($this->writePermission);
         $this->json('POST', '/api/bookings?api_token=' . $this->user->api_token)->seeStatusCode(422)->seeJson([
-            'name' => [ "The name field is required." ]
+            'description' => [ "The description field is required." ]
         ]);
     }
 
@@ -93,9 +95,9 @@ class ApiBookingTest extends TestCase
     {
         $this->user->givePermissionTo($this->writePermission);
         $this->json('POST', '/api/bookings?api_token=' . $this->user->api_token, [
-            'name' => 'Test Booking'
+            'description' => 'Test Booking'
         ])->seeStatusCode(200)->seeJson([
-            'name' => 'Test Booking'
+            'description' => 'Test Booking'
         ]);
     }
 
@@ -107,7 +109,7 @@ class ApiBookingTest extends TestCase
         $record = create_test_booking();
         $this->json('GET',
             '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(200)->seeJson([
-            'name' => $record->name
+            'description' => $record->description
         ]);
     }
 
@@ -137,7 +139,7 @@ class ApiBookingTest extends TestCase
         $this->user->givePermissionTo($this->readPermission);
         $records = create_test_booking(10);
         $this->json('GET', '/api/bookings?api_token=' . $this->user->api_token)->seeStatusCode(200)->seeJson([
-            'name' => $records[0]->name
+            'description' => $records[0]->description
         ]);
     }
 
@@ -149,7 +151,7 @@ class ApiBookingTest extends TestCase
         $records = create_test_booking(10);
         $this->json('GET',
             '/api/bookings?api_token=' . $this->user->api_token . '&search=' . $records[2]->name)->seeStatusCode(200)->seeJson([
-            'name' => $records[2]->name
+            'description' => $records[2]->description
         ]);
     }
 
@@ -183,7 +185,7 @@ class ApiBookingTest extends TestCase
         $record = create_test_booking();
         $this->json('PATCH',
             '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(422)->seeJson([
-            'name' => [ 'The name field is required.' ]
+            'description' => [ 'The description field is required.' ]
         ]);
     }
 
@@ -204,9 +206,9 @@ class ApiBookingTest extends TestCase
         $this->user->givePermissionTo($this->writePermission);
         $record = create_test_booking();
         $this->json('PATCH', '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token, [
-            'name' => 'Modified Booking'
+            'description' => 'Modified Booking'
         ])->seeStatusCode(200)->seeJson([
-            'name' => 'Modified Booking'
+            'description' => 'Modified Booking'
         ]);
     }
 

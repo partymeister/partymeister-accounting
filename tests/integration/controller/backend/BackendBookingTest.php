@@ -20,6 +20,8 @@ class BackendBookingTest extends TestCase
 
     protected $tables = [
         'bookings',
+        'accounts',
+        'account_types',
         'users',
         'languages',
         'clients',
@@ -68,7 +70,7 @@ class BackendBookingTest extends TestCase
         $record = create_test_booking();
         $this->visit('/backend/bookings')
             ->see('Bookings')
-            ->see($record->name);
+            ->see($record->description);
     }
 
     /** @test */
@@ -91,7 +93,7 @@ class BackendBookingTest extends TestCase
 
         $this->visit('/backend/bookings/'.$record->id.'/edit')
             ->see($record->name)
-            ->type('Updated Booking', 'name')
+            ->type('Updated Booking', 'description')
             ->within('.box-footer', function(){
                 $this->press('Save booking');
             })
@@ -100,7 +102,7 @@ class BackendBookingTest extends TestCase
             ->seePageIs('/backend/bookings');
 
         $record = Booking::find($record->id);
-        $this->assertEquals('Updated Booking', $record->name);
+        $this->assertEquals('Updated Booking', $record->description);
     }
 
     /** @test */
@@ -114,9 +116,12 @@ class BackendBookingTest extends TestCase
     /** @test */
     public function can_create_a_new_booking()
     {
+        $account = create_test_account();
         $this->visit('/backend/bookings/create')
             ->see('Create booking')
-            ->type('Create Booking Name', 'name')
+            ->select($account->id, 'from_account_id')
+            ->type('Create Booking Name', 'description')
+            ->type($account->currency_iso_4217, 'currency_iso_4217')
             ->within('.box-footer', function(){
                 $this->press('Save booking');
             })
@@ -143,7 +148,7 @@ class BackendBookingTest extends TestCase
         $record = create_test_booking();
         $this->visit('/backend/bookings/'.$record->id.'/edit')
             ->see('Edit booking')
-            ->type('Modified Booking Name', 'name')
+            ->type('Modified Booking Name', 'description')
             ->within('.box-footer', function(){
                 $this->press('Save booking');
             })
@@ -182,11 +187,11 @@ class BackendBookingTest extends TestCase
     /** @test */
     public function can_search_results()
     {
-        $records = create_test_booking(100);
+        $records = create_test_booking(10);
         $this->visit('/backend/bookings')
             ->type(substr($records[6]->name, 0, 3), 'search')
             ->press('grid-search-button')
             ->seeInField('search', substr($records[6]->name, 0, 3))
-            ->see($records[6]->name);
+            ->see($records[6]->description);
     }
 }

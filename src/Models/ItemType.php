@@ -42,13 +42,21 @@ class ItemType extends Model
         'is_visible'
     ];
 
-    //public function getItemCountAttribute()
-    //{
-    //    return $this->items->count();
-    //}
-    //
-    //public function items()
-    //{
-    //    return $this->belongsTo(Item::class);
-    //}
+
+    /**
+     * @return mixed
+     */
+    public function getItemCountAttribute()
+    {
+        return $this->items()->count();
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }

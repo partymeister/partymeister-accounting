@@ -32,9 +32,9 @@ class BookingTransformer extends Fractal\TransformerAbstract
             'description'       => $record->description,
             'to_account_id'     => $record->to_account_id,
             'from_account_id'   => $record->from_account_id,
-            'vat_percentage'    => $record->vat_percentage,
-            'price_with_vat'    => $record->price_with_vat,
-            'price_without_vat' => $record->price_without_vat,
+            'vat_percentage'    => (float) $record->vat_percentage,
+            'price_with_vat'    => (float) $record->price_with_vat,
+            'price_without_vat' => (float) $record->price_without_vat,
             'currency_iso_4217' => $record->currency_iso_4217
         ];
     }

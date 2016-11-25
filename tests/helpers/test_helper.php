@@ -19,3 +19,8 @@ function create_test_item_type($count = 1)
 {
     return factory(Partymeister\Accounting\Models\ItemType::class, $count)->create();
 }
+
+function create_test_item($count = 1)
+{
+    return factory(Partymeister\Accounting\Models\Item::class, $count)->create();
+}

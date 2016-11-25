@@ -13,9 +13,9 @@ class AccountTransformer extends Fractal\TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [ 'accountType' ];
+    protected $availableIncludes = [ 'account_type' ];
 
-    protected $defaultIncludes = [ 'accountType' ];
+    protected $defaultIncludes = [ 'account_type' ];
 
 
     /**

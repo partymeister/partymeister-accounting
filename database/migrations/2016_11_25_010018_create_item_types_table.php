@@ -17,7 +17,7 @@ class CreateItemTypesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->boolean('is_visible');
-            $table->integer('sort_position')->nullable();
+            $table->integer('sort_position')->unsigned()->nullable();
             
             $table->createdBy();
             $table->updatedBy();

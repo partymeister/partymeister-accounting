@@ -25,8 +25,16 @@ return [
             'delete'
         ]
     ],
-    'item_types'         => [
+    'item_types'    => [
         'name'   => 'partymeister-accounting::backend/item_types.item_types',
+        'values' => [
+            'read',
+            'write',
+            'delete'
+        ]
+    ],
+    'items'         => [
+        'name'   => 'partymeister-accounting::backend/items.items',
         'values' => [
             'read',
             'write',

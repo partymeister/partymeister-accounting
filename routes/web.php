@@ -14,4 +14,5 @@ Route::group([
     Route::resource('accounts', 'AccountsController');
     Route::resource('bookings', 'BookingsController');
     Route::resource('item_types', 'ItemTypesController');
+    Route::resource('items', 'ItemsController');
 });

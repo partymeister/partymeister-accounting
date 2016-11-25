@@ -66,4 +66,54 @@ class Booking extends Model
     {
         return $this->belongsTo(Account::class, 'to_account_id');
     }
+
+    public static function createSales($items)
+    {
+        $record = new static;
+
+        $description = [];
+        $price_without_vat = 0;
+        $price_with_vat = 0;
+
+        foreach ($items as $itemId => $quantity) {
+            $item = Item::find($itemId);
+            if (is_null($item)) {
+                continue;
+            }
+
+            $description[] = $quantity . 'x ' . $item->name;
+            $price_with_vat += $quantity * $item->price_with_vat;
+            $price_without_vat += $quantity * $item->price_without_vat;
+
+            // TODO: separate bookings per vat percentage (and currency theoretically)
+            $record->vat_percentage = $item->vat_percentage;
+            $record->currency_iso_4217 = $item->currency_iso_4217;
+        }
+
+        $record->description = implode('\r\n', $description);
+        $record->price_with_vat = $price_with_vat;
+        $record->price_without_vat = $price_without_vat;
+        $record->save();
+
+        // Add sales to items
+        foreach ($items as $itemId => $quantity) {
+            $item = Item::find($itemId);
+            if (is_null($item)) {
+                continue;
+            }
+
+            $item->sell($quantity, $record);
+        }
+
+        return $record;
+    }
+
+
+    public static function createSale($item, $quantity = 1)
+    {
+        if ( ! $item instanceof Item) {
+            return self::createSales([$item => $quantity]);
+        }
+        return self::createSales([$item->id => $quantity]);
+    }
 }

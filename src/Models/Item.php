@@ -118,6 +118,7 @@ class Item extends Model
             $costBooking->save();
 
             $sale->cost_booking_id = $costBooking->id;
+            $sale->save();
         }
 
         return $sale;

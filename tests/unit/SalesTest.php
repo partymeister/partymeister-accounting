@@ -23,6 +23,9 @@ class SalesTest extends TestCase
 
     protected $tables = [
         'accounts',
+        'bookings',
+        'sales',
+        'items',
         'users',
         'languages',
         'clients',
@@ -73,7 +76,7 @@ class SalesTest extends TestCase
     public function it_can_be_sold()
     {
         $booking = create_test_booking();
-        $item = create_test_item();
+        $item    = create_test_item();
 
         $sale = $item->sell(4, $booking);
 
@@ -87,10 +90,11 @@ class SalesTest extends TestCase
     public function it_has_a_cost_booking()
     {
         $booking = create_test_booking();
-        $item = create_test_item();
+        $item    = create_test_item();
 
         $sale = $item->sell(4, $booking);
 
+        $this->assertNotNull($sale->cost_booking);
         $this->assertEquals($item->cost_account_id, $sale->cost_booking->account_id);
         $this->assertEquals(4 * $item->cost_price_with_vat, $sale->cost_booking->price_with_vat);
     }
@@ -100,7 +104,7 @@ class SalesTest extends TestCase
     public function it_can_have_a_negative_quantity()
     {
         $booking = create_test_booking();
-        $item = create_test_item();
+        $item    = create_test_item();
 
         $sale = $item->sell(-4, $booking);
 
@@ -113,7 +117,7 @@ class SalesTest extends TestCase
     public function if_the_booking_is_deleted_the_sale_is_also_deleted()
     {
         $booking = create_test_booking();
-        $item = create_test_item();
+        $item    = create_test_item();
 
         $sale = $item->sell(-4, $booking);
 
@@ -129,7 +133,7 @@ class SalesTest extends TestCase
     public function if_the_item_is_deleted_the_sale_is_also_deleted()
     {
         $booking = create_test_booking();
-        $item = create_test_item();
+        $item    = create_test_item();
 
         $sale = $item->sell(-4, $booking);
 
@@ -145,7 +149,7 @@ class SalesTest extends TestCase
     public function if_the_sale_is_deleted_the_booking_is_not()
     {
         $booking = create_test_booking();
-        $item = create_test_item();
+        $item    = create_test_item();
 
         $sale = $item->sell(-4, $booking);
 
@@ -162,7 +166,7 @@ class SalesTest extends TestCase
     public function if_the_sale_is_deleted_the_item_is_not()
     {
         $booking = create_test_booking();
-        $item = create_test_item();
+        $item    = create_test_item();
 
         $sale = $item->sell(-4, $booking);
 
@@ -179,7 +183,7 @@ class SalesTest extends TestCase
     public function if_the_cost_booking_is_deleted_the_sale_is_not()
     {
         $booking = create_test_booking();
-        $item = create_test_item();
+        $item    = create_test_item();
 
         $sale = $item->sell(-4, $booking);
 
@@ -196,7 +200,7 @@ class SalesTest extends TestCase
     public function if_the_sale_is_deleted_the_cost_booking_is_deleted_as_well()
     {
         $booking = create_test_booking();
-        $item = create_test_item();
+        $item    = create_test_item();
 
         $sale = $item->sell(-4, $booking);
 
@@ -208,11 +212,12 @@ class SalesTest extends TestCase
         $this->assertEquals(null, $costBooking->fresh());
     }
 
+
     /** @test */
     public function if_the_booking_is_deleted_a_sale_and_the_associated_cost_booking_is_deleted_as_well()
     {
         $booking = create_test_booking();
-        $item = create_test_item();
+        $item    = create_test_item();
 
         $sale = $item->sell(4, $booking);
 

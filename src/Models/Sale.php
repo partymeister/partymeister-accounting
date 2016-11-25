@@ -5,18 +5,16 @@ namespace Partymeister\Accounting\Models;
 use Illuminate\Database\Eloquent\Model;
 use Sofa\Eloquence\Eloquence;
 use Motor\Core\Traits\Filterable;
-
 use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
 
-class Booking extends Model
+class Sale extends Model
 {
 
     use Eloquence;
     use Filterable;
-
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
 
     /**
@@ -31,7 +29,7 @@ class Booking extends Model
      *
      * @var array
      */
-    protected $searchableColumns = [ 'description', 'quantity', 'price_with_vat', 'price_without_vat', 'item.name' ];
+    protected $searchableColumns = [ 'quantity', 'item.name', 'cost_price_with_vat', 'cost_price_without_vat' ];
 
     /**
      * The attributes that are mass assignable.
@@ -39,31 +37,46 @@ class Booking extends Model
      * @var array
      */
     protected $fillable = [
-        'from_account_id',
-        'to_account_id',
-        'description',
+        'item_id',
+        'earnings_booking_id',
+        'cost_booking_id',
+        'quantity',
         'vat_percentage',
         'price_with_vat',
         'price_without_vat',
-        'currency_iso_4217',
-        'is_manual_booking'
+        'currency_iso_4217'
     ];
 
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function from_account()
+    public function item()
     {
-        return $this->belongsTo(Account::class, 'from_account_id');
+        return $this->belongsTo(Item::class);
     }
 
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function to_account()
+    public function earnings_booking()
     {
-        return $this->belongsTo(Account::class, 'to_account_id');
+        return $this->belongsTo(Booking::class);
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function cost_booking()
+    {
+        return $this->belongsTo(Booking::class);
+    }
+
+
+    public function getItemAndQuantityAttribute()
+    {
+        return $this->quantity . 'x ' . $this->item->name;
     }
 }

@@ -69,3 +69,17 @@ $factory->define(Partymeister\Accounting\Models\Item::class, function (Faker\Gen
         'updated_by'                       => factory(Motor\Backend\Models\User::class)->create()->id,
     ];
 });
+$factory->define(Partymeister\Accounting\Models\Sale::class, function (Faker\Generator $faker) {
+    return [
+        'item_id'             => factory(Partymeister\Accounting\Models\Item::class)->create()->id,
+        'earnings_booking_id' => factory(Partymeister\Accounting\Models\Booking::class)->create()->id,
+        'cost_booking_id'     => factory(Partymeister\Accounting\Models\Booking::class)->create()->id,
+        'quantity'            => rand(1, 10),
+        'vat_percentage'      => rand(0, 19),
+        'price_with_vat'      => rand(0, 10000) / 100,
+        'price_without_vat'   => rand(0, 10000) / 100,
+        'currency_iso_4217'   => 'EUR',
+        'created_by'          => factory(Motor\Backend\Models\User::class)->create()->id,
+        'updated_by'          => factory(Motor\Backend\Models\User::class)->create()->id,
+    ];
+});

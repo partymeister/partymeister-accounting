@@ -24,3 +24,8 @@ function create_test_item($count = 1)
 {
     return factory(Partymeister\Accounting\Models\Item::class, $count)->create();
 }
+
+function create_test_sale($count = 1)
+{
+    return factory(Partymeister\Accounting\Models\Sale::class, $count)->create();
+}

@@ -41,4 +41,10 @@ return [
             'delete'
         ]
     ],
+    'sales'         => [
+        'name'   => 'partymeister-accounting::backend/sales.sales',
+        'values' => [
+            'read'
+        ]
+    ],
 ];

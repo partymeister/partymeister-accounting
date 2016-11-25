@@ -10,7 +10,7 @@ return [
     'updated'  => 'Booking updated',
     'deleted'  => 'Booking deleted',
 
-    'time'              => 'Time of booking',
+    'time'              => 'Booked at',
     'description'       => 'Description',
     'from_account'      => 'From account',
     'to_account'        => 'To account',

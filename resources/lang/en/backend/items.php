@@ -13,7 +13,7 @@ return [
     'name'                             => 'Name',
     'description'                      => 'Description',
     'internal_description'             => 'Internal description',
-    'pos_earnings_account'             => 'Book earnings to',
+    'pos_earnings_account'             => 'Shows up in this POS account',
     'pos_cost_account'                 => 'Book cost price to',
     'cost_price_with_vat'              => 'Cost price (with vat)',
     'cost_price_without_vat'           => 'Cost price (without vat)',

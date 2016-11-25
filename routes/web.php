@@ -15,4 +15,5 @@ Route::group([
     Route::resource('bookings', 'BookingsController');
     Route::resource('item_types', 'ItemTypesController');
     Route::resource('items', 'ItemsController');
+    Route::resource('sales', 'SalesController');
 });

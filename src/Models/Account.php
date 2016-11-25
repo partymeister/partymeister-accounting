@@ -30,7 +30,7 @@ class Account extends Model
      *
      * @var array
      */
-    protected $searchableColumns = [];
+    protected $searchableColumns = [ 'name', 'account_type.name' ];
 
     /**
      * The attributes that are mass assignable.
@@ -63,8 +63,10 @@ class Account extends Model
         return $total = $incoming - $outgoing;
     }
 
+
     public function getLastBookingAttribute()
     {
-        return Booking::where('to_account_id', $this->id)->orWhere('from_account_id', $this->id)->orderBy('created_at', 'DESC')->first()->created_at;
+        return Booking::where('to_account_id', $this->id)->orWhere('from_account_id', $this->id)->orderBy('created_at',
+            'DESC')->first()->created_at;
     }
 }

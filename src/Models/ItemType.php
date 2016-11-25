@@ -12,8 +12,9 @@ use Culpa\Traits\UpdatedBy;
 
 class ItemType extends Model
 {
+
     use Eloquence;
-	use Filterable;
+    use Filterable;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
 
     /**
@@ -21,7 +22,7 @@ class ItemType extends Model
      *
      * @var array
      */
-    protected $blameable = array('created', 'updated', 'deleted');
+    protected $blameable = [ 'created', 'updated', 'deleted' ];
 
     /**
      * Searchable columns for the Eloquence trait
@@ -29,6 +30,7 @@ class ItemType extends Model
      * @var array
      */
     protected $searchableColumns = [
+        'name'
     ];
 
     /**

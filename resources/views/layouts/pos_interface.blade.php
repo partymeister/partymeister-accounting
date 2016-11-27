@@ -257,7 +257,7 @@ desired effect
                 url: '{{ route('backend.pos.create', ['account' => $record->id]) }}',
                 data: {items: data},
                 success: function (response) {
-                    updateLastBooking(response.booking);
+                    updateLastBooking(response.data);
                     clearItems();
                 }
             });

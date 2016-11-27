@@ -1,13 +1,15 @@
 <?php
 
-namespace Partymeister\Accounting\Http\Controllers\Backend;
+namespace Partymeister\Accounting\Http\Controllers\Api;
 
 use Motor\Backend\Http\Controllers\Controller;
 use Partymeister\Accounting\Http\Requests\Backend\PosInterfaceRequest;
 use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Models\Item;
+use Partymeister\Accounting\Transformers\AccountTransformer;
 use Partymeister\Accounting\Transformers\BookingTransformer;
+use Partymeister\Accounting\Transformers\ItemTransformer;
 
 class PosInterfacesController extends Controller
 {
@@ -22,14 +24,22 @@ class PosInterfacesController extends Controller
     public function show(Account $record)
     {
         $items        = Item::where('pos_earnings_account_id', $record->id)->orderBy('pos_sort_position', 'ASC')->get();
-        $last_booking = Booking::where('to_account_id', $record->id)->orderBy('created_at', 'DESC')->first();
-        if ($last_booking instanceof Booking) {
-            $last_booking = $last_booking->toJson();
+        $lastBooking = Booking::where('to_account_id', $record->id)->orderBy('created_at', 'DESC')->first();
+
+        $itemsResource = $this->transformCollection($items, ItemTransformer::class);
+        $itemsData = $this->fractal->createData($itemsResource)->toArray();
+
+        $accountResource = $this->transformItem($record, AccountTransformer::class);
+        $accountData = $this->fractal->createData($accountResource)->toArray();
+
+        if (!is_null($lastBooking)) {
+            $bookingResource = $this->transformItem($lastBooking, BookingTransformer::class);
+            $bookingData = $this->fractal->createData($bookingResource)->toArray();
         } else {
-            $last_booking = json_encode(null);
+            $bookingData = ['data' => []];
         }
 
-        return view('partymeister-accounting::layouts.pos_interface', compact('record', 'items', 'last_booking'));
+        return $this->respondWithJson('POS data for Account', ['account' => $accountData, 'items' => $itemsData, 'last_booking' => $bookingData]);
     }
 
 

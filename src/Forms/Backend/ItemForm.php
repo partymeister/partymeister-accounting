@@ -4,6 +4,7 @@ namespace Partymeister\Accounting\Forms\Backend;
 
 use Kris\LaravelFormBuilder\Form;
 use Partymeister\Accounting\Models\Account;
+use Partymeister\Accounting\Models\Item;
 use Partymeister\Accounting\Models\ItemType;
 use Symfony\Component\Intl\Intl;
 
@@ -31,7 +32,7 @@ class ItemForm extends Form
             ->add('is_visible_in_pos', 'checkbox', ['label' => trans('partymeister-accounting::backend/items.is_visible_in_pos')])
             ->add('pos_earnings_account_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_earnings_account'), 'choices' => Account::lists('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
             ->add('pos_cost_account_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_cost_account'), 'choices' => Account::lists('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
-            ->add('pos_create_booking_for_item_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_create_booking_for_item'), 'choices' => Account::lists('name', 'id')->toArray(), 'empty_value' => trans('partymeister-accounting::backend/bookings.book_out')])
+            ->add('pos_create_booking_for_item_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_create_booking_for_item'), 'choices' => Item::lists('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
             ->add('pos_sort_position', 'text', ['label' => trans('partymeister-accounting::backend/items.pos_sort_position')])
             ->add('pos_do_break', 'checkbox', ['label' => trans('partymeister-accounting::backend/items.pos_do_break')])
 

@@ -63,9 +63,7 @@ desired effect
         </div>
         <div class="col-md-3">
             <div class="sales well">
-                <a href="#" class="clear pull-right">
-                    <button class="btn btn-danger">{{trans('partymeister-accounting::backend/pos.clear')}}</button>
-                </a>
+                <button class="btn btn-danger clear pull-right">{{trans('partymeister-accounting::backend/pos.clear')}}</button>
                 <h2 class="pull-left">{{trans('partymeister-accounting::backend/items.items')}}</h2>
 
                 <form id="submit" method="POST">
@@ -219,7 +217,7 @@ desired effect
     $(document).ready(function () {
 
         $('.clear').click(function () {
-            document.location.href = window.location.href;
+            clearItems();
         });
 
         $('.delete').click(function () {

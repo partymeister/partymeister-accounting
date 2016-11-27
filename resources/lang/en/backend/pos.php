@@ -4,7 +4,7 @@ return [
     'clear'        => 'Clear',
     'price'        => 'Price',
     'total'        => 'Total',
-    'book'         => 'Book',
+    'book'         => 'BOOK',
     'last_booking' => 'Last booking',
     'sum'          => 'Sum',
     'back'         => 'Back to account overview'

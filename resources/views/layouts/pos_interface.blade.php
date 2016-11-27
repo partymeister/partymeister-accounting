@@ -45,14 +45,19 @@ desired effect
                                value="{{$item->pos_create_booking_for_item_id}}">
                         <br/>
                         @if ($item->pos_can_book_negative_quantities)
-                            <button data-quantity="-1" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-1</button>
-                            <button data-quantity="-2" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-2</button>
+                            <button data-quantity="-1" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-1
+                            </button>
+                            <button data-quantity="-2" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-2
+                            </button>
                         @else
-                            <button data-quantity="1" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+1</button>
-                            <button data-quantity="2" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+2</button>
+                            <button data-quantity="1" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+1
+                            </button>
+                            <button data-quantity="2" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+2
+                            </button>
                         @endif
                     </div>
-                    @if ($item->pos_do_break)<div style="clear: both;"></div>@endif
+                    @if ($item->pos_do_break)
+                        <div style="clear: both;"></div>@endif
                 @endforeach
             </div>
         </div>
@@ -64,6 +69,7 @@ desired effect
                 <h2 class="pull-left">{{trans('partymeister-accounting::backend/items.items')}}</h2>
 
                 <form id="submit" method="POST">
+                    {{ csrf_field() }}
                     <table class="table beverage">
                         <thead>
                         <tr>
@@ -108,7 +114,7 @@ desired effect
                         </thead>
                         <tbody>
                         <tr>
-                            <td>{{ nl2br($last_booking->description) }}</td>
+                            <td>{!! nl2br($last_booking->description) !!}</td>
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
@@ -139,10 +145,10 @@ desired effect
 <script type="text/javascript">
     var accountId = {{ $record->id }};
 
-    var addItem = function(quantity, itemId, deleteItem) {
+    var addItem = function (quantity, itemId, deleteItem) {
 
         // Let the button blink
-        $('.add-item[data-item="'+itemId+'"][data-quantity="'+quantity+'"').effect('highlight');
+        $('.add-item[data-item="' + itemId + '"][data-quantity="' + quantity + '"').effect('highlight');
 
         // Get current item quantity
         var itemQuantity = parseInt($('#sales_' + itemId + ' td.sales_item span').html());
@@ -183,7 +189,7 @@ desired effect
 
     };
 
-    var recalculateDeposit = function(depositId, quantity, itemQuantity, checkQuantity) {
+    var recalculateDeposit = function (depositId, quantity, itemQuantity, checkQuantity) {
 
         if (depositId == '') {
             return;
@@ -238,12 +244,13 @@ desired effect
                 if (itemId != undefined) {
                     var quantity = parseInt($('#sales_' + itemId + ' td.sales_item span').html());
 
-                    if (quantity != 0) {
-                        data[index] = {
-                            'account_id': accountId,
-                            'item_id': itemId,
-                            'quantity': quantity
-                        }
+                    if (quantity != 0 && itemId != undefined) {
+                        data[itemId] = quantity;
+//                        data.push({
+//                            'account_id': accountId,
+//                            'item_id': itemId,
+//                            'quantity': quantity
+//                        });
                     }
                 }
             });
@@ -253,10 +260,13 @@ desired effect
         });
     });
 
-    var calculateCurrency = function(price, quantity) {
-        return Number((parseFloat(quantity) * parseFloat(price)).toFixed(2)).toLocaleString('de-DE', {style: 'currency', currency: '{{$record->currency_iso_4217}}', currencyDisplay: 'symbol'});
+    var calculateCurrency = function (price, quantity) {
+        return Number((parseFloat(quantity) * parseFloat(price)).toFixed(2)).toLocaleString('de-DE', {
+            style: 'currency',
+            currency: '{{$record->currency_iso_4217}}',
+            currencyDisplay: 'symbol'
+        });
     };
-
 
 
     $('.add-item').click(function () {

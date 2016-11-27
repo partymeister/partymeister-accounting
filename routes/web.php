@@ -17,4 +17,5 @@ Route::group([
     Route::resource('items', 'ItemsController');
     Route::resource('sales', 'SalesController');
     Route::get('pos/{account}', 'PosInterfacesController@show');
+    Route::post('pos/{account}', 'PosInterfacesController@create');
 });

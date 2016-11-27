@@ -101,30 +101,28 @@ desired effect
                     <input type="hidden" id="booking" name="booking"/>
                 </form>
             </div>
-            @if (!is_null($last_booking))
-                <div class="well">
-                    <h2>{{trans('partymeister-accounting::backend/pos.last_booking')}}</h2>
-                    <small>{{$last_booking->created_at}}</small>
-                    <table class="table beverage">
-                        <thead>
-                        <tr>
-                            <td>{{trans('partymeister-accounting::backend/items.item')}}</td>
-                            <td style="text-align: right;">{{trans('partymeister-accounting::backend/pos.sum')}}</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{!! nl2br($last_booking->description) !!}</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td style="font-weight: bold; color: red;">{{trans('partymeister-accounting::backend/pos.total')}}</td>
-                            <td style="font-weight: bold; color: red; text-align: right;">{{$last_booking->price_with_vat}} {{$last_booking->currency_iso_4217}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            @endif
+            <div class="well last-booking hide">
+                <h2>{{trans('partymeister-accounting::backend/pos.last_booking')}}</h2>
+                <small class="last-booking-created-at"></small>
+                <table class="table beverage">
+                    <thead>
+                    <tr>
+                        <td>{{trans('partymeister-accounting::backend/items.item')}}</td>
+                        <td style="text-align: right;">{{trans('partymeister-accounting::backend/pos.sum')}}</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="last-booking-description"></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; color: red;">{{trans('partymeister-accounting::backend/pos.total')}}</td>
+                        <td style="font-weight: bold; color: red; text-align: right;" class="last-booking-total"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <a href="{{route('backend.accounts.index')}}" class="clear">
                 <button class="btn btn-primary"
                         style="float: right;">{{trans('partymeister-accounting::backend/pos.back')}}</button>
@@ -233,7 +231,9 @@ desired effect
             return false;
         });
 
-        $('#submit').submit(function () {
+        $('#submit').submit(function (e) {
+
+            e.preventDefault();
 
             // Let the button blink
             $('#book').effect('highlight');
@@ -246,17 +246,25 @@ desired effect
 
                     if (quantity != 0 && itemId != undefined) {
                         data[itemId] = quantity;
-//                        data.push({
-//                            'account_id': accountId,
-//                            'item_id': itemId,
-//                            'quantity': quantity
-//                        });
                     }
                 }
             });
 
-            $('#booking').val(JSON.stringify(data));
+            $.ajaxSetup({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            });
 
+            $.ajax({
+                type: "POST",
+                url: '{{ route('backend.pos.create', ['account' => $record->id]) }}',
+                data: {items: data},
+                success: function (response) {
+                    updateLastBooking(response.booking);
+                    clearItems();
+                }
+            });
+
+            return false;
         });
     });
 
@@ -268,10 +276,41 @@ desired effect
         });
     };
 
+    var clearItems = function() {
+        $('.beverage tbody tr').each(function (index) {
+
+            var itemId = $(this).data('item-id');
+
+            $('#sales_' + itemId + ' td.sales_item span').html(0);
+            $('#sales_' + itemId + ' td.sales_price span').html(0);
+            $('#sales_' + itemId + ' td.sales_price').data('total', 0);
+            $('#sales_' + itemId).css('display', 'none');
+        });
+
+        $('.grand_total').text(calculateCurrency(0, 0));
+    };
+
+    var updateLastBooking = function(booking) {
+        if (booking == null || booking == undefined) {
+            return;
+        }
+
+        $('.last-booking-created-at').html(booking.created_at);
+        $('.last-booking-description').html(booking.description.replace(/\n/g,"<br>"));
+        $('.last-booking-total').html(calculateCurrency(booking.price_with_vat, 1));
+        $('.last-booking').removeClass('hide');
+
+        $('.last-booking').effect('highlight');
+    };
+
 
     $('.add-item').click(function () {
         addItem(parseInt($(this).data('quantity')), $(this).data('item'));
     });
+
+    var lastBooking = {!! $last_booking !!};
+
+    updateLastBooking(lastBooking);
 </script>
 
 </body>

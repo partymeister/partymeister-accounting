@@ -96,7 +96,7 @@ class SalesTest extends TestCase
 
         $this->assertNotNull($sale->cost_booking);
         $this->assertEquals($item->cost_account_id, $sale->cost_booking->account_id);
-        $this->assertEquals(4 * $item->cost_price_with_vat, $sale->cost_booking->price_with_vat);
+        $this->assertEquals(round((4 * $item->cost_price_with_vat), 4)*-1, $sale->cost_booking->price_with_vat);
     }
 
 
@@ -109,7 +109,7 @@ class SalesTest extends TestCase
         $sale = $item->sell(-4, $booking);
 
         $this->assertEquals($item->cost_account_id, $sale->cost_booking->account_id);
-        $this->assertEquals(-4 * $item->cost_price_with_vat, $sale->cost_booking->price_with_vat);
+        $this->assertEquals(round((4 * $item->cost_price_with_vat), 4), $sale->cost_booking->price_with_vat);
     }
 
 

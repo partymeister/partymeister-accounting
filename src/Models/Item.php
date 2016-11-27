@@ -111,8 +111,8 @@ class Item extends Model
             $costBooking->sale_id           = $sale->id;
             $costBooking->description       = $sale->item_and_quantity;
             $costBooking->vat_percentage    = $this->vat_percentage;
-            $costBooking->price_with_vat    = $quantity * $this->cost_price_with_vat;
-            $costBooking->price_without_vat = $quantity * $this->cost_price_without_vat;
+            $costBooking->price_with_vat    = ( $quantity * $this->cost_price_with_vat ) * -1;
+            $costBooking->price_without_vat = ( $quantity * $this->cost_price_without_vat ) * -1;
             $costBooking->currency_iso_4217 = $this->currency_iso_4217;
             $costBooking->to_account_id     = $this->pos_cost_account_id;
             $costBooking->save();

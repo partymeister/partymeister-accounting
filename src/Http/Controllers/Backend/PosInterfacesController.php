@@ -12,16 +12,6 @@ class PosInterfacesController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-    }
-
-
-    /**
      * Display the specified resource.
      *
      * @param  int $id
@@ -30,18 +20,28 @@ class PosInterfacesController extends Controller
      */
     public function show(Account $record)
     {
-        $items = Item::where('pos_earnings_account_id', $record->id)->orderBy('pos_sort_position', 'ASC')->get();
+        $items        = Item::where('pos_earnings_account_id', $record->id)->orderBy('pos_sort_position', 'ASC')->get();
         $last_booking = Booking::where('to_account_id', $record->id)->orderBy('created_at', 'DESC')->first();
+        if ($last_booking instanceof Booking) {
+            $last_booking = $last_booking->toJson();
+        } else {
+            $last_booking = json_encode(null);
+        }
 
         return view('partymeister-accounting::layouts.pos_interface', compact('record', 'items', 'last_booking'));
     }
 
+
     public function create(PosInterfaceRequest $request, Account $record)
     {
-        $items = json_decode($request->get('booking'), true);
+        $items = $request->get('items');
         if (is_array($items)) {
-            Booking::createSales($record, $items);
+            $booking = Booking::createSales($record, $items);
+
+            return response()->json([ 'booking' => $booking->toArray() ]);
         }
-        return redirect('backend/pos/'.$record->id);
+
+        return response()->json([ 'message' => 'No items received' ], 404);
+
     }
 }

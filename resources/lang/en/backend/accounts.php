@@ -15,4 +15,6 @@ return [
     'last_booking'      => 'Last booking',
     'balance'           => 'Balance',
     'total_balance'     => 'Total balance',
+
+    'show_pos' => 'Show POS',
 ];

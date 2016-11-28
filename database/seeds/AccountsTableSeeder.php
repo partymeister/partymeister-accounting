@@ -34,14 +34,6 @@ class AccountsTableSeeder extends Seeder
 
         DB::table('accounts')->insert([
             'account_type_id'   => AccountType::get()->first()->id,
-            'name'              => 'Earnings account',
-            'currency_iso_4217' => 'EUR',
-            'has_pos'           => false,
-            'created_by'        => User::get()->first()->id,
-            'updated_by'        => User::get()->first()->id,
-        ]);
-        DB::table('accounts')->insert([
-            'account_type_id'   => AccountType::get()->first()->id,
             'name'              => 'Cost account',
             'currency_iso_4217' => 'EUR',
             'has_pos'           => false,

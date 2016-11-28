@@ -49,11 +49,11 @@ class CreateSalesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('sales');
-
         Schema::table('bookings', function (Blueprint $table) {
             $table->dropForeign(['sale_id']);
             $table->dropColumn('sale_id');
         });
+
+        Schema::drop('sales');
     }
 }

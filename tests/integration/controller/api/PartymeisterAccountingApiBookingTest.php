@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ApiBookingTest extends TestCase
+class PartymeisterAccountingApiBookingTest extends TestCase
 {
 
     use DatabaseTransactions;

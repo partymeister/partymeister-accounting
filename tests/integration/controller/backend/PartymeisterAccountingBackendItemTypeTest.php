@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Partymeister\Accounting\Models\ItemType;
 
-class BackendItemTypeTest extends TestCase
+class PartymeisterAccountingBackendItemTypeTest extends TestCase
 {
 
     use DatabaseTransactions;

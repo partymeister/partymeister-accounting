@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Partymeister\Accounting\Models\Account;
 
-class BackendAccountTest extends TestCase
+class PartymeisterAccountingBackendAccountTest extends TestCase
 {
 
     use DatabaseTransactions;

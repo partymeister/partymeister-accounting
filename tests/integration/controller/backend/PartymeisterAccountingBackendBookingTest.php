@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Partymeister\Accounting\Models\Booking;
 
-class BackendBookingTest extends TestCase
+class PartymeisterAccountingBackendBookingTest extends TestCase
 {
 
     use DatabaseTransactions;

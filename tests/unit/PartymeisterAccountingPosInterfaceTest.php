@@ -8,7 +8,7 @@ use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Models\Item;
 use Partymeister\Accounting\Models\Sale;
 
-class PosInterfaceTest extends TestCase
+class PartymeisterAccountingPosInterfaceTest extends TestCase
 {
 
     use DatabaseTransactions;

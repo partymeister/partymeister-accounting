@@ -3,7 +3,7 @@
 namespace Partymeister\Accounting\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Sofa\Eloquence\Eloquence;
+use Motor\Core\Traits\Searchable;
 use Motor\Core\Traits\Filterable;
 use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
@@ -13,7 +13,7 @@ use Culpa\Traits\UpdatedBy;
 class Sale extends Model
 {
 
-    use Eloquence;
+    use Searchable;
     use Filterable;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
 
@@ -25,7 +25,7 @@ class Sale extends Model
     protected $blameable = [ 'created', 'updated', 'deleted' ];
 
     /**
-     * Searchable columns for the Eloquence trait
+     * Searchable columns for the searchable trait
      *
      * @var array
      */

@@ -13,7 +13,7 @@ class ItemForm extends Form
     public function buildForm()
     {
         $this
-            ->add('item_type_id', 'select2', ['label' => trans('partymeister-accounting::backend/item_types.item_type'), 'choices' => ItemType::lists('name', 'id')->toArray()])
+            ->add('item_type_id', 'select2', ['label' => trans('partymeister-accounting::backend/item_types.item_type'), 'choices' => ItemType::pluck('name', 'id')->toArray()])
             ->add('name', 'text', ['label' => trans('partymeister-accounting::backend/items.name'), 'rules' => 'required'])
             ->add('description', 'textarea', ['label' => trans('partymeister-accounting::backend/items.description'), 'rules' => 'required'])
             ->add('internal_description', 'textarea', ['label' => trans('partymeister-accounting::backend/items.internal_description')])
@@ -30,9 +30,9 @@ class ItemForm extends Form
 
             ->add('pos_can_book_negative_quantities', 'checkbox', ['label' => trans('partymeister-accounting::backend/items.pos_can_book_negative_quantities')])
             ->add('is_visible_in_pos', 'checkbox', ['label' => trans('partymeister-accounting::backend/items.is_visible_in_pos')])
-            ->add('pos_earnings_account_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_earnings_account'), 'choices' => Account::lists('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
-            ->add('pos_cost_account_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_cost_account'), 'choices' => Account::lists('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
-            ->add('pos_create_booking_for_item_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_create_booking_for_item'), 'choices' => Item::lists('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
+            ->add('pos_earnings_account_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_earnings_account'), 'choices' => Account::pluck('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
+            ->add('pos_cost_account_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_cost_account'), 'choices' => Account::pluck('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
+            ->add('pos_create_booking_for_item_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_create_booking_for_item'), 'choices' => Item::pluck('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
             ->add('pos_sort_position', 'text', ['label' => trans('partymeister-accounting::backend/items.pos_sort_position')])
             ->add('pos_do_break', 'checkbox', ['label' => trans('partymeister-accounting::backend/items.pos_do_break')])
 

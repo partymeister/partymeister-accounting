@@ -34,36 +34,77 @@ desired effect
 
     <div class="row">
         <div class="col-md-9">
-            <div>
-                @foreach ($items as $item)
-                    <div class="item well">
-                        <h2>{{$item->name}}</h2>
-                        <input type="hidden" id="price_{{$item->id}}" name="price_[{{$item->id}}]"
-                               value="{{$item->price_with_vat}}">
-                        <input type="hidden" id="link_{{$item->id}}"
-                               data-negative="{{$item->pos_can_book_negative_quantities}}" name="link_{{$item->id}}"
-                               value="{{$item->pos_create_booking_for_item_id}}">
-                        <br/>
-                        @if ($item->pos_can_book_negative_quantities)
-                            <button data-quantity="-1" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-1
-                            </button>
-                            <button data-quantity="-2" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-2
-                            </button>
+                @for ($i=1; $i<=5; $i++)
+                    <div id="droppable-{{$i}}" class="droppable"
+                         style="height: 165px; margin-bottom: 20px;">
+                @if (isset($record->pos_configuration[$i]))
+                    @foreach ($record->pos_configuration[$i] as $id)
+                        @php
+                            $item = \Partymeister\Accounting\Models\Item::find($id);
+                            if (!is_null($item)) {
+                                $items[] = $item;
+                            }
+                        @endphp
+                        @if ($id == 'separator')
+                            <div class="item well separator"></div>
                         @else
-                            <button data-quantity="1" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+1
-                            </button>
-                            <button data-quantity="2" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+2
-                            </button>
+                                    <div class="item well" data-item-id="{{$item->id}}">
+                                        <h2>{{$item->name}}</h2>
+                                        <br>
+                                        <input type="hidden" id="price_{{$item->id}}" name="price_[{{$item->id}}]"
+                                        value="{{$item->price_with_vat}}">
+                                        <input type="hidden" id="link_{{$item->id}}"
+                                        data-negative="{{$item->pos_can_book_negative_quantities}}" name="link_{{$item->id}}"
+                                        value="{{$item->pos_create_booking_for_item_id}}">
+                                        <div class="buttons">
+                                            @if ($item->pos_can_book_negative_quantities)
+                                                <button data-quantity="-1" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-1</button>
+                                                <button data-quantity="-2" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-2</button>
+                                            @else
+                                                <button data-quantity="1" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+1</button>
+                                                <button data-quantity="2" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+2</button>
+                                            @endif
+                                        </div>
+                                    </div>
                         @endif
+                    @endforeach
+                @endif
                     </div>
-                    @if ($item->pos_do_break)
-                        <div style="clear: both;"></div>@endif
-                @endforeach
-            </div>
+            @endfor
+
+
+
+
+
+                {{--@foreach ($items as $item)--}}
+                    {{--<div class="item well">--}}
+                        {{--<h2>{{$item->name}}</h2>--}}
+                        {{--<input type="hidden" id="price_{{$item->id}}" name="price_[{{$item->id}}]"--}}
+                               {{--value="{{$item->price_with_vat}}">--}}
+                        {{--<input type="hidden" id="link_{{$item->id}}"--}}
+                               {{--data-negative="{{$item->pos_can_book_negative_quantities}}" name="link_{{$item->id}}"--}}
+                               {{--value="{{$item->pos_create_booking_for_item_id}}">--}}
+                        {{--<br/>--}}
+                        {{--@if ($item->pos_can_book_negative_quantities)--}}
+                            {{--<button data-quantity="-1" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-1--}}
+                            {{--</button>--}}
+                            {{--<button data-quantity="-2" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-2--}}
+                            {{--</button>--}}
+                        {{--@else--}}
+                            {{--<button data-quantity="1" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+1--}}
+                            {{--</button>--}}
+                            {{--<button data-quantity="2" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+2--}}
+                            {{--</button>--}}
+                        {{--@endif--}}
+                    {{--</div>--}}
+                    {{--@if ($item->pos_do_break)--}}
+                        {{--<div style="clear: both;"></div>@endif--}}
+                {{--@endforeach--}}
+            {{--</div>--}}
         </div>
         <div class="col-md-3">
             <div class="sales well">
-                <button class="btn btn-danger clear pull-right">{{trans('partymeister-accounting::backend/pos.clear')}}</button>
+                <button class="btn btn-danger btn-lg clear pull-right">{{trans('partymeister-accounting::backend/pos.clear')}}</button>
                 <h2 class="pull-left">{{trans('partymeister-accounting::backend/items.items')}}</h2>
 
                 <form id="submit" method="POST">
@@ -122,7 +163,7 @@ desired effect
                 </table>
             </div>
             <a href="{{route('backend.accounts.index')}}" class="clear">
-                <button class="btn btn-primary"
+                <button class="btn btn-lg btn-primary"
                         style="float: right;">{{trans('partymeister-accounting::backend/pos.back')}}</button>
             </a>
         </div>

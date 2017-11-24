@@ -9,8 +9,8 @@
 @endsection
 
 @section('main-content')
-    <div class="box">
-        <div class="box-header">
+    <div class="@boxWrapper">
+        <div class="@boxHeader">
             @include('motor-backend::layouts.partials.search')
         </div>
         <!-- /.box-header -->

@@ -42,7 +42,17 @@ class Account extends Model
         'account_type_id',
         'is_cashbox',
         'currency_iso_4217',
-        'has_pos'
+        'has_pos',
+        'pos_configuration'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'pos_configuration' => 'array',
     ];
 
 

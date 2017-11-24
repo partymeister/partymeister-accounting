@@ -6,7 +6,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="{{ asset('/css/pos.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('/css/all-pos.css') }}" rel="stylesheet" type="text/css" />
     <style type="text/css">
         body {
             padding: 20px;
@@ -19,9 +19,10 @@
         }
         div.item {
             text-align: center;
-            width: 230px;
+            width: 250px;
             float: left;
             margin-right: 5px;
+            min-height: 160px;
         }
         div.item button.btn-lg {
             font-weight: bold;
@@ -41,11 +42,32 @@
             vertical-align: middle;
         }
         h2 {
-            font-size: 24px;
+            font-size: 22px;
             margin: 0;
         }
         tr.items td {
             border-top: 1px solid #888 !important;
+        }
+        #draggable div.item {
+            float: none;
+            width: 100%;
+            min-height: 0;
+        }
+        #draggable .buttons {
+            display: none;
+        }
+        button.delete-config-item {
+            float: left;
+            position: relative;
+            top: -45px;
+            left: 210px;
+            font-size: 10px;
+        }
+        #draggable button.delete-config-item {
+            display: none;
+        }
+        .separator {
+            background: none;
         }
     </style>
 

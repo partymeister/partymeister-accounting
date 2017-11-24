@@ -18,7 +18,7 @@ class ItemForm extends Form
             ->add('description', 'textarea', ['label' => trans('partymeister-accounting::backend/items.description'), 'rules' => 'required'])
             ->add('internal_description', 'textarea', ['label' => trans('partymeister-accounting::backend/items.internal_description')])
             ->add('sort_position', 'text', ['label' => trans('motor-backend::backend/global.sort_position')])
-            ->add('can_be_ordered', 'checkbox', ['label' => trans('partymeister-accounting::backend/items.can_be_ordered')])
+            //->add('can_be_ordered', 'checkbox', ['label' => trans('partymeister-accounting::backend/items.can_be_ordered')])
             ->add('is_visible', 'checkbox', ['label' => trans('motor-backend::backend/global.is_visible')])
 
             ->add('vat_percentage', 'text', ['label' => trans('partymeister-accounting::backend/bookings.vat_percentage')])
@@ -29,12 +29,8 @@ class ItemForm extends Form
             ->add('currency_iso_4217', 'select2', ['label' => trans('partymeister-accounting::backend/accounts.currency_iso_4217'), 'choices' => $currencies = Intl::getCurrencyBundle()->getCurrencyNames(), 'default_value' => 'EUR'])
 
             ->add('pos_can_book_negative_quantities', 'checkbox', ['label' => trans('partymeister-accounting::backend/items.pos_can_book_negative_quantities')])
-            ->add('is_visible_in_pos', 'checkbox', ['label' => trans('partymeister-accounting::backend/items.is_visible_in_pos')])
-            ->add('pos_earnings_account_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_earnings_account'), 'choices' => Account::pluck('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
             ->add('pos_cost_account_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_cost_account'), 'choices' => Account::pluck('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
             ->add('pos_create_booking_for_item_id', 'select2', ['label' => trans('partymeister-accounting::backend/items.pos_create_booking_for_item'), 'choices' => Item::pluck('name', 'id')->toArray(), 'empty_value' => trans('motor-backend::backend/global.please_choose')])
-            ->add('pos_sort_position', 'text', ['label' => trans('partymeister-accounting::backend/items.pos_sort_position')])
-            ->add('pos_do_break', 'checkbox', ['label' => trans('partymeister-accounting::backend/items.pos_do_break')])
 
             ->add('submit', 'submit', ['attr' => ['class' => 'btn btn-primary'], 'label' => trans('partymeister-accounting::backend/items.save')]);
     }

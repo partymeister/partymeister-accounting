@@ -7,6 +7,7 @@ use Partymeister\Accounting\Http\Requests\Backend\PosInterfaceRequest;
 use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Models\Item;
+use Partymeister\Accounting\Models\ItemType;
 use Partymeister\Accounting\Transformers\BookingTransformer;
 
 class PosInterfacesController extends Controller
@@ -21,7 +22,6 @@ class PosInterfacesController extends Controller
      */
     public function show(Account $record)
     {
-        $items        = Item::where('pos_earnings_account_id', $record->id)->orderBy('pos_sort_position', 'ASC')->get();
         $last_booking = Booking::where('to_account_id', $record->id)->orderBy('created_at', 'DESC')->first();
         if ($last_booking instanceof Booking) {
             $last_booking = $last_booking->toJson();
@@ -29,7 +29,21 @@ class PosInterfacesController extends Controller
             $last_booking = json_encode(null);
         }
 
-        return view('partymeister-accounting::layouts.pos_interface', compact('record', 'items', 'last_booking'));
+        return view('partymeister-accounting::layouts.pos_interface', compact('record', 'last_booking'));
+    }
+
+    public function edit(Account $record)
+    {
+        $itemTypes = ItemType::orderBy('sort_position', 'ASC')->get();
+
+        return view('partymeister-accounting::layouts.pos_interface_editor', compact('record', 'itemTypes'));
+    }
+
+    public function update(Account $record, PosInterfaceRequest $request)
+    {
+        $record->pos_configuration = $request->get('pos_configuration');
+        $record->save();
+        return response()->json([ 'message' => 'POS configuration saved' ], 200);
     }
 
 

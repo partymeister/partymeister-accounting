@@ -46,7 +46,6 @@ class Item extends Model
     protected $fillable = [
         'name',
         'description',
-        'pos_earnings_account_id',
         'pos_cost_account_id',
         'item_type_id',
         'internal_description',
@@ -59,11 +58,8 @@ class Item extends Model
         'can_be_ordered',
         'is_visible',
         'sort_position',
-        'is_visible_in_pos',
         'pos_create_booking_for_item_id',
-        'pos_can_book_negative_quantities',
-        'pos_sort_position',
-        'pos_do_break'
+        'pos_can_book_negative_quantities'
     ];
 
 

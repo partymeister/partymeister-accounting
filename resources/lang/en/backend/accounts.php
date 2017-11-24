@@ -17,4 +17,5 @@ return [
     'total_balance'     => 'Total balance',
 
     'show_pos' => 'Show POS',
+    'edit_pos' => 'Edit POS',
 ];

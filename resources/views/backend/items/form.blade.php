@@ -1,14 +1,14 @@
 {!! form_start($form) !!}
-<div class="box box-primary">
-    <div class="box-header with-border">
+<div class="@boxWrapper">
+    <div class="@boxHeader">
         <h3 class="box-title">{{ trans('motor-backend::backend/global.base_info') }}</h3>
     </div>
-    <div class="box-body">
-        {!! form_until($form, 'pos_do_break') !!}
+    <div class="@boxBody">
+        {!! form_until($form, 'pos_create_booking_for_item_id') !!}
     </div>
     <!-- /.box-body -->
 
-    <div class="box-footer">
+    <div class="@boxFooter">
         {!! form_row($form->submit) !!}
     </div>
 </div>

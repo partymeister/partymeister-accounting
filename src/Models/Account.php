@@ -76,7 +76,14 @@ class Account extends Model
 
     public function getLastBookingAttribute()
     {
-        return Booking::where('to_account_id', $this->id)->orWhere('from_account_id', $this->id)->orderBy('created_at',
-            'DESC')->first()->created_at;
+        $booking = Booking::where('to_account_id', $this->id)
+                          ->orWhere('from_account_id', $this->id)
+                          ->orderBy('created_at', 'DESC')
+                          ->first();
+        if ( ! is_null($booking)) {
+            return $booking->created_at;
+        }
+
+        return null;
     }
 }

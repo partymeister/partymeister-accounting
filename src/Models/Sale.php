@@ -29,7 +29,12 @@ class Sale extends Model
      *
      * @var array
      */
-    protected $searchableColumns = [ 'quantity', 'item.name', 'cost_price_with_vat', 'cost_price_without_vat' ];
+    protected $searchableColumns = [
+        'sales.quantity',
+        'item.name',
+        'sales.cost_price_with_vat',
+        'sales.cost_price_without_vat'
+    ];
 
     /**
      * The attributes that are mass assignable.

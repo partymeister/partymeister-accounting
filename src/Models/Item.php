@@ -30,12 +30,12 @@ class Item extends Model
      * @var array
      */
     protected $searchableColumns = [
-        'name',
-        'description',
+        'items.name',
+        'items.description',
         'item_type.name',
         'internal_description',
-        'price_with_vat',
-        'price_without_vat'
+        'items.price_with_vat',
+        'items.price_without_vat'
     ];
 
     /**

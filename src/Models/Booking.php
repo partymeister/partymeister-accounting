@@ -31,7 +31,13 @@ class Booking extends Model
      *
      * @var array
      */
-    protected $searchableColumns = [ 'description', 'quantity', 'price_with_vat', 'price_without_vat', 'item.name' ];
+    protected $searchableColumns = [
+        'bookings.description',
+        'bookings.quantity',
+        'bookings.price_with_vat',
+        'bookings.price_without_vat',
+        'item.name'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -82,8 +88,8 @@ class Booking extends Model
                 continue;
             }
 
-            $description[] = $quantity . 'x ' . $item->name;
-            $price_with_vat += $quantity * $item->price_with_vat;
+            $description[]     = $quantity . 'x ' . $item->name;
+            $price_with_vat    += $quantity * $item->price_with_vat;
             $price_without_vat += $quantity * $item->price_without_vat;
 
             // TODO: separate bookings per vat percentage (and currency theoretically)

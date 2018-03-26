@@ -7,6 +7,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 @section('htmlheader')
     @include('partymeister-accounting::layouts.partials.htmlheader')
+    <style type="text/css">
+        .buttons button {
+            max-width: 40%;
+        }
+        button.delete-config-item {
+            top: -25px;
+        }
+    </style>
 @show
 
 <!--

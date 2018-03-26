@@ -1,0 +1,30 @@
+{
+  "name": "partymeister/accounting",
+  "description": "Partymeister accounting package",
+  "license": "MIT",
+  "keywords": [
+    "motor"
+  ],
+  "authors": [
+    {
+      "name": "Reza Esmaili",
+      "email": "me@dfox.info"
+    }
+  ],
+  "require": {
+    "partymeister/core": "0.1.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Partymeister\\Accounting\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Partymeister\\Accounting\\Providers\\PartymeisterServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev"
+}

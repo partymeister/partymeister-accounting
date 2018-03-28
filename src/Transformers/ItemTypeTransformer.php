@@ -13,8 +13,7 @@ class ItemTypeTransformer extends Fractal\TransformerAbstract
      *
      * @var array
      */
-    protected $availableIncludes = [];
-
+    protected $availableIncludes = [ 'items' ];
 
     /**
      * Transform record to array
@@ -31,5 +30,13 @@ class ItemTypeTransformer extends Fractal\TransformerAbstract
             'sort_position' => $record->sort_position,
             'is_visible'    => (bool) $record->is_visible
         ];
+    }
+
+
+    public function includeItems(ItemType $record)
+    {
+        if ($record->items->count() > 0) {
+            return $this->collection($record->items()->orderBy('sort_position', 'ASC')->get(), new ItemTransformer());
+        }
     }
 }

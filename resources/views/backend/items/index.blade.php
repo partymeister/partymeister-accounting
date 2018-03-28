@@ -7,7 +7,7 @@
 @section('contentheader_title')
     {{ trans('partymeister-accounting::backend/items.items') }}
     @if (has_permission('items.write'))
-	    {!! link_to_route('backend.items.create', trans('partymeister-accounting::backend/items.new'), [], ['class' => 'pull-right btn btn-sm btn-success']) !!}
+	    {!! link_to_route('backend.items.create', trans('partymeister-accounting::backend/items.new'), [], ['class' => 'pull-right float-right btn btn-sm btn-success']) !!}
     @endif
 @endsection
 

@@ -7,7 +7,7 @@
 @section('contentheader_title')
     {{ trans('partymeister-accounting::backend/account_types.account_types') }}
     @if (has_permission('account_types.write'))
-	    {!! link_to_route('backend.account_types.create', trans('partymeister-accounting::backend/account_types.new'), [], ['class' => 'pull-right btn btn-sm btn-success']) !!}
+	    {!! link_to_route('backend.account_types.create', trans('partymeister-accounting::backend/account_types.new'), [], ['class' => 'pull-right float-right btn btn-sm btn-success']) !!}
     @endif
 @endsection
 

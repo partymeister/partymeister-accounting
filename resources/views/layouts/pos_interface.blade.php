@@ -104,7 +104,7 @@ desired effect
         </div>
         <div class="col-md-3">
             <div class="sales well">
-                <button class="btn btn-danger btn-lg clear pull-right">{{trans('partymeister-accounting::backend/pos.clear')}}</button>
+                <button class="btn btn-danger btn-lg clear pull-right float-right">{{trans('partymeister-accounting::backend/pos.clear')}}</button>
                 <h2 class="pull-left">{{trans('partymeister-accounting::backend/items.items')}}</h2>
 
                 <form id="submit" method="POST">

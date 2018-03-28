@@ -5,7 +5,7 @@ return [
         110 => [
             'slug'        => 'partymeister-accounting',
             'name'        => 'partymeister-accounting::backend/global.accounting',
-            'icon'        => 'fa fa-money',
+            'icon'        => 'fas fa-euro-sign',
             'route'       => null,
             'roles'       => [ 'SuperAdmin' ],
             'permissions' => [ 'partymeister.read' ],

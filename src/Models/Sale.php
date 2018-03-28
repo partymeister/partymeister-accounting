@@ -32,8 +32,8 @@ class Sale extends Model
     protected $searchableColumns = [
         'sales.quantity',
         'item.name',
-        'sales.cost_price_with_vat',
-        'sales.cost_price_without_vat'
+        'sales.price_with_vat',
+        'sales.price_without_vat'
     ];
 
     /**

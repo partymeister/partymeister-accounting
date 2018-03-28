@@ -7,7 +7,7 @@
 @section('contentheader_title')
     {{ trans('partymeister-accounting::backend/bookings.bookings') }}
     @if (has_permission('bookings.write'))
-	    {!! link_to_route('backend.bookings.create', trans('partymeister-accounting::backend/bookings.new'), [], ['class' => 'pull-right btn btn-sm btn-success']) !!}
+	    {!! link_to_route('backend.bookings.create', trans('partymeister-accounting::backend/bookings.new'), [], ['class' => 'pull-right float-right btn btn-sm btn-success']) !!}
     @endif
 @endsection
 

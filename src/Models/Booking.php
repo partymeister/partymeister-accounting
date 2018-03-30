@@ -33,10 +33,10 @@ class Booking extends Model
      */
     protected $searchableColumns = [
         'bookings.description',
-        'bookings.quantity',
+        //'bookings.quantity',
         'bookings.price_with_vat',
         'bookings.price_without_vat',
-        'item.name'
+        //'item.name'
     ];
 
     /**

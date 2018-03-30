@@ -30,7 +30,7 @@ class Account extends Model
      *
      * @var array
      */
-    protected $searchableColumns = [ 'name', 'account_type.name' ];
+    protected $searchableColumns = [ 'accounts.name', 'account_type.name' ];
 
     /**
      * The attributes that are mass assignable.

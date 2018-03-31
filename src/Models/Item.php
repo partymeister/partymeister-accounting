@@ -120,4 +120,22 @@ class Item extends Model
         return $sale;
     }
 
+    public function getSalesAttribute()
+    {
+        $result = DB::table('sales')->select(DB::raw('SUM(quantity) as quantity'))->where('item_id', $this->id)->get();
+        if (!is_null($result)) {
+            return (!is_null($result[0]->quantity) ? $result[0]->quantity : 0);
+        }
+        return 0;
+    }
+
+    public function getRevenueAttribute()
+    {
+        $revenue = 0;
+        $result = DB::table('sales')->select(DB::raw('SUM(quantity*price_with_vat) as quantity'))->where('item_id', $this->id)->get();
+        if (!is_null($result)) {
+            $revenue = (!is_null($result[0]->quantity) ? $result[0]->quantity : 0);
+        }
+        return number_format($revenue, 2, ',', '.').' €';
+    }
 }

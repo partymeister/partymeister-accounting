@@ -3,6 +3,7 @@
 namespace Partymeister\Accounting\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Motor\Core\Traits\Searchable;
 use Motor\Core\Traits\Filterable;
 use Culpa\Traits\Blameable;

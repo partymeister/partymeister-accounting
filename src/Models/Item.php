@@ -133,7 +133,8 @@ class Item extends Model
     public function getRevenueAttribute()
     {
         $revenue = 0;
-        $result = DB::table('sales')->select(DB::raw('SUM(quantity*price_with_vat) as quantity'))->where('item_id', $this->id)->get();
+        $result = DB::table('sales')->select(DB::raw('SUM(quantity*price_with_vat) as quantity'))->where('item_id', $this->id)->toSql();
+        //dd($result);
         if (!is_null($result)) {
             $revenue = (!is_null($result[0]->quantity) ? $result[0]->quantity : 0);
         }

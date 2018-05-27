@@ -26,7 +26,19 @@ class PartymeisterServiceProvider extends ServiceProvider
         $this->registerCommands();
         $this->migrations();
         $this->validators();
+        $this->publishResourceAssets();
 
+    }
+
+    public function publishResourceAssets()
+    {
+        $assets = [
+            __DIR__ . '/../../resources/assets/sass'   => resource_path('assets/sass'),
+            __DIR__ . '/../../resources/assets/js'     => resource_path('assets/js'),
+            __DIR__ . '/../../resources/assets/npm'    => resource_path('assets/npm'),
+        ];
+
+        $this->publishes($assets, 'partymeister-accounting-install-resources');
     }
 
     public function validators()

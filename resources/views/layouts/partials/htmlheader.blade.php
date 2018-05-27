@@ -6,7 +6,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="{{ asset('/css/all-pos.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ mix('/css/partymeister-pos.css') }}" rel="stylesheet" type="text/css" />
     <style type="text/css">
         body {
             padding: 20px;
@@ -70,19 +70,6 @@
             background: none;
         }
     </style>
-
-    <!-- select2 -->
-{{--<link href="{{ asset('/plugins/select2/select2.min.css') }}" rel="stylesheet" />--}}
-<!-- datetimepicker -->
-{{--    <link href="{{ asset('/plugins/datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />--}}
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
     <script>
         window.Laravel = <?php echo json_encode([
                 'csrfToken' => csrf_token(),

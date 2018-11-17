@@ -1,4 +1,4 @@
 devDependencies:
 ----------------
 
-"bootswatch": "^4.1.1",
+"bootswatch": "^4.1.3",

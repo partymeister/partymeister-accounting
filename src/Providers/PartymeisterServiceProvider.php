@@ -27,7 +27,14 @@ class PartymeisterServiceProvider extends ServiceProvider
         $this->migrations();
         $this->validators();
         $this->publishResourceAssets();
+        $this->components();
+    }
 
+    public function components()
+    {
+        $config = $this->app['config']->get('motor-cms-page-components', []);
+        $this->app['config']->set('motor-cms-page-components',
+            array_replace_recursive(require __DIR__ . '/../../config/motor-cms-page-components.php', $config));
     }
 
     public function publishResourceAssets()

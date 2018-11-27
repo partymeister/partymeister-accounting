@@ -6,7 +6,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="{{ mix('/css/partymeister-pos.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ mix('/css/partymeister-accounting-pos.css') }}" rel="stylesheet" type="text/css" />
     <style type="text/css">
         body {
             padding: 20px;

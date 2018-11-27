@@ -1,1 +1,1 @@
-<script src="{{ mix('/js/partymeister-pos.js') }}" type="text/javascript"></script>
+<script src="{{ mix('/js/partymeister-accounting-pos.js') }}" type="text/javascript"></script>

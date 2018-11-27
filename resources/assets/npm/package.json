@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "devDependencies": {
+    "bootswatch": "^4.1.3"
+  }
+}

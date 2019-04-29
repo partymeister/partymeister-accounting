@@ -11,6 +11,52 @@ use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
 
+/**
+ * Partymeister\Accounting\Models\Booking
+ *
+ * @property int $id
+ * @property int|null $sale_id
+ * @property int|null $from_account_id
+ * @property int|null $to_account_id
+ * @property string $description
+ * @property float $vat_percentage
+ * @property float $price_with_vat
+ * @property float $price_without_vat
+ * @property string $currency_iso_4217
+ * @property int $is_manual_booking
+ * @property int $created_by
+ * @property int $updated_by
+ * @property int|null $deleted_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Motor\Backend\Models\User $creator
+ * @property-read \Motor\Backend\Models\User|null $eraser
+ * @property-read \Partymeister\Accounting\Models\Account|null $from_account
+ * @property-read \Partymeister\Accounting\Models\Account|null $to_account
+ * @property-read \Motor\Backend\Models\User $updater
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking filteredBy(\Motor\Core\Filter\Filter $filter, $column)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking filteredByMultiple(\Motor\Core\Filter\Filter $filter)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking search($q, $full_text = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereCreatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereCurrencyIso4217($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereDeletedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereFromAccountId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereIsManualBooking($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking wherePriceWithVat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking wherePriceWithoutVat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereSaleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereToAccountId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereUpdatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereVatPercentage($value)
+ * @mixin \Eloquent
+ */
 class Booking extends Model
 {
 

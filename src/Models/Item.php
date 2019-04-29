@@ -11,6 +11,69 @@ use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
 
+/**
+ * Partymeister\Accounting\Models\Item
+ *
+ * @property int $id
+ * @property int|null $pos_cost_account_id
+ * @property int|null $item_type_id
+ * @property string $name
+ * @property string $description
+ * @property string $internal_description
+ * @property float $vat_percentage
+ * @property float $price_with_vat
+ * @property float $price_without_vat
+ * @property float $cost_price_with_vat
+ * @property float $cost_price_without_vat
+ * @property string $currency_iso_4217
+ * @property int $can_be_ordered
+ * @property int $is_visible
+ * @property int|null $sort_position
+ * @property int|null $pos_create_booking_for_item_id
+ * @property int $pos_can_book_negative_quantities
+ * @property int $created_by
+ * @property int $updated_by
+ * @property int|null $deleted_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Motor\Backend\Models\User $creator
+ * @property-read \Motor\Backend\Models\User|null $eraser
+ * @property-read mixed $revenue
+ * @property-read mixed $sales
+ * @property-read \Partymeister\Accounting\Models\ItemType|null $item_type
+ * @property-read \Partymeister\Accounting\Models\Account|null $pos_cost_account
+ * @property-read \Partymeister\Accounting\Models\Account $pos_earnings_account
+ * @property-read \Motor\Backend\Models\User $updater
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item filteredBy(\Motor\Core\Filter\Filter $filter, $column)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item filteredByMultiple(\Motor\Core\Filter\Filter $filter)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item search($q, $full_text = false)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCanBeOrdered($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCostPriceWithVat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCostPriceWithoutVat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCreatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCurrencyIso4217($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereDeletedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereInternalDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereIsVisible($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereItemTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item wherePosCanBookNegativeQuantities($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item wherePosCostAccountId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item wherePosCreateBookingForItemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item wherePriceWithVat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item wherePriceWithoutVat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereSortPosition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereUpdatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereVatPercentage($value)
+ * @mixin \Eloquent
+ */
 class Item extends Model
 {
 

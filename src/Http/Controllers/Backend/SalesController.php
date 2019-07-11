@@ -27,9 +27,9 @@ class SalesController extends Controller
     {
         $grid = new SaleGrid(Sale::class);
 
-        $service      = SaleService::collection($grid);
-        $grid->filter = $service->getFilter();
-        $paginator    = $service->getPaginator();
+        $service = SaleService::collection($grid);
+        $grid->setFilter($service->getFilter());
+        $paginator = $service->getPaginator();
 
         return view('partymeister-accounting::backend.sales.index', compact('paginator', 'grid'));
     }
@@ -38,7 +38,7 @@ class SalesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */

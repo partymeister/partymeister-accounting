@@ -109,7 +109,7 @@ class Account extends Model
         $incoming = DB::table('bookings')->where('to_account_id', $this->id)->sum('price_with_vat');
         $outgoing = DB::table('bookings')->where('from_account_id', $this->id)->sum('price_with_vat');
 
-        return $total = $incoming - $outgoing;
+        return $incoming - $outgoing;
     }
 
 

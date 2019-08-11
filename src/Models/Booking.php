@@ -2,60 +2,65 @@
 
 namespace Partymeister\Accounting\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Motor\Core\Traits\Searchable;
-use Motor\Core\Traits\Filterable;
-
 use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
+use Motor\Backend\Models\User;
+use Motor\Core\Filter\Filter;
+use Motor\Core\Traits\Filterable;
+use Motor\Core\Traits\Searchable;
 
 /**
  * Partymeister\Accounting\Models\Booking
  *
- * @property int $id
- * @property int|null $sale_id
- * @property int|null $from_account_id
- * @property int|null $to_account_id
- * @property string $description
- * @property float $vat_percentage
- * @property float $price_with_vat
- * @property float $price_without_vat
- * @property string $currency_iso_4217
- * @property int $is_manual_booking
- * @property int $created_by
- * @property int $updated_by
- * @property int|null $deleted_by
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Motor\Backend\Models\User $creator
- * @property-read \Motor\Backend\Models\User|null $eraser
- * @property-read \Partymeister\Accounting\Models\Account|null $from_account
- * @property-read \Partymeister\Accounting\Models\Account|null $to_account
- * @property-read \Motor\Backend\Models\User $updater
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking filteredBy(\Motor\Core\Filter\Filter $filter, $column)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking filteredByMultiple(\Motor\Core\Filter\Filter $filter)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking query()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking search($q, $full_text = false)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereCreatedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereCurrencyIso4217($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereDeletedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereFromAccountId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereIsManualBooking($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking wherePriceWithVat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking wherePriceWithoutVat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereSaleId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereToAccountId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereUpdatedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Booking whereVatPercentage($value)
- * @mixin \Eloquent
+ * @property int                                               $id
+ * @property int|null                                          $sale_id
+ * @property int|null                                          $from_account_id
+ * @property int|null                                          $to_account_id
+ * @property string                                            $description
+ * @property float                                             $vat_percentage
+ * @property float                                             $price_with_vat
+ * @property float                                             $price_without_vat
+ * @property string                                            $currency_iso_4217
+ * @property int                             $is_manual_booking
+ * @property int                             $created_by
+ * @property int                             $updated_by
+ * @property int|null                        $deleted_by
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User                       $creator
+ * @property-read User|null                  $eraser
+ * @property-read Account|null               $from_account
+ * @property-read Account|null               $to_account
+ * @property-read User                       $updater
+ * @method static Builder|Booking filteredBy( Filter $filter, $column )
+ * @method static Builder|Booking filteredByMultiple( Filter $filter )
+ * @method static Builder|Booking newModelQuery()
+ * @method static Builder|Booking newQuery()
+ * @method static Builder|Booking query()
+ * @method static Builder|Booking search( $q, $full_text = false )
+ * @method static Builder|Booking whereCreatedAt( $value )
+ * @method static Builder|Booking whereCreatedBy( $value )
+ * @method static Builder|Booking whereCurrencyIso4217( $value )
+ * @method static Builder|Booking whereDeletedBy( $value )
+ * @method static Builder|Booking whereDescription( $value )
+ * @method static Builder|Booking whereFromAccountId( $value )
+ * @method static Builder|Booking whereId( $value )
+ * @method static Builder|Booking whereIsManualBooking( $value )
+ * @method static Builder|Booking wherePriceWithVat( $value )
+ * @method static Builder|Booking wherePriceWithoutVat( $value )
+ * @method static Builder|Booking whereSaleId( $value )
+ * @method static Builder|Booking whereToAccountId( $value )
+ * @method static Builder|Booking whereUpdatedAt( $value )
+ * @method static Builder|Booking whereUpdatedBy( $value )
+ * @method static Builder|Booking whereVatPercentage( $value )
+ * @mixin Eloquent
  */
 class Booking extends Model
 {
@@ -103,23 +108,26 @@ class Booking extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @param Account $account
+     * @param         $item
+     * @param int     $quantity
+     * @return Booking
      */
-    public function from_account()
+    public static function createSale(Account $account, $item, $quantity = 1)
     {
-        return $this->belongsTo(Account::class, 'from_account_id');
+        if ( ! $item instanceof Item) {
+            return self::createSales($account, [ $item => $quantity ]);
+        }
+
+        return self::createSales($account, [ $item->id => $quantity ]);
     }
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @param Account $account
+     * @param         $items
+     * @return Booking
      */
-    public function to_account()
-    {
-        return $this->belongsTo(Account::class, 'to_account_id');
-    }
-
-
     public static function createSales(Account $account, $items)
     {
         $record = new static;
@@ -163,12 +171,20 @@ class Booking extends Model
     }
 
 
-    public static function createSale(Account $account, $item, $quantity = 1)
+    /**
+     * @return BelongsTo
+     */
+    public function from_account()
     {
-        if ( ! $item instanceof Item) {
-            return self::createSales($account, [ $item => $quantity ]);
-        }
+        return $this->belongsTo(Account::class, 'from_account_id');
+    }
 
-        return self::createSales($account, [ $item->id => $quantity ]);
+
+    /**
+     * @return BelongsTo
+     */
+    public function to_account()
+    {
+        return $this->belongsTo(Account::class, 'to_account_id');
     }
 }

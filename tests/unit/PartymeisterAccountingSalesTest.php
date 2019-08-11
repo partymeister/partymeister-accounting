@@ -1,26 +1,39 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Partymeister\Accounting\Models\Account;
-use Partymeister\Accounting\Models\Booking;
-use Partymeister\Accounting\Models\Item;
 use Partymeister\Accounting\Models\Sale;
 
+/**
+ * Class PartymeisterAccountingSalesTest
+ */
 class PartymeisterAccountingSalesTest extends TestCase
 {
 
     use DatabaseTransactions;
 
+    /**
+     * @var
+     */
     protected $user;
 
+    /**
+     * @var
+     */
     protected $sale;
 
+    /**
+     * @var
+     */
     protected $booking;
 
+    /**
+     * @var
+     */
     protected $item;
 
+    /**
+     * @var array
+     */
     protected $tables = [
         'accounts',
         'bookings',
@@ -48,6 +61,14 @@ class PartymeisterAccountingSalesTest extends TestCase
     }
 
 
+    protected function addDefaults()
+    {
+        $this->user = create_test_superadmin();
+
+        $this->actingAs($this->user);
+    }
+
+
     public function create_basic_sale()
     {
         $booking                   = create_test_booking();
@@ -61,14 +82,6 @@ class PartymeisterAccountingSalesTest extends TestCase
         $this->sale    = $sale;
         $this->booking = $booking;
         $this->item    = $item;
-    }
-
-
-    protected function addDefaults()
-    {
-        $this->user = create_test_superadmin();
-
-        $this->actingAs($this->user);
     }
 
 
@@ -96,7 +109,7 @@ class PartymeisterAccountingSalesTest extends TestCase
 
         $this->assertNotNull($sale->cost_booking);
         $this->assertEquals($item->cost_account_id, $sale->cost_booking->account_id);
-        $this->assertEquals(round((4 * $item->cost_price_with_vat), 4)*-1, $sale->cost_booking->price_with_vat);
+        $this->assertEquals(round(( 4 * $item->cost_price_with_vat ), 4) * -1, $sale->cost_booking->price_with_vat);
     }
 
 
@@ -109,7 +122,7 @@ class PartymeisterAccountingSalesTest extends TestCase
         $sale = $item->sell(-4, $booking);
 
         $this->assertEquals($item->cost_account_id, $sale->cost_booking->account_id);
-        $this->assertEquals(round((4 * $item->cost_price_with_vat), 4), $sale->cost_booking->price_with_vat);
+        $this->assertEquals(round(( 4 * $item->cost_price_with_vat ), 4), $sale->cost_booking->price_with_vat);
     }
 
 

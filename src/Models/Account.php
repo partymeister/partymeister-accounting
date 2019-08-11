@@ -2,53 +2,59 @@
 
 namespace Partymeister\Accounting\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Motor\Core\Traits\Searchable;
-use Motor\Core\Traits\Filterable;
 use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Motor\Backend\Models\User;
+use Motor\Core\Filter\Filter;
+use Motor\Core\Traits\Filterable;
+use Motor\Core\Traits\Searchable;
 
 /**
  * Partymeister\Accounting\Models\Account
  *
- * @property int $id
- * @property int|null $account_type_id
- * @property string $name
- * @property string $currency_iso_4217
- * @property int $has_pos
- * @property array $pos_configuration
- * @property int $created_by
- * @property int $updated_by
- * @property int|null $deleted_by
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Partymeister\Accounting\Models\AccountType|null $account_type
- * @property-read \Motor\Backend\Models\User $creator
- * @property-read \Motor\Backend\Models\User|null $eraser
- * @property-read mixed $balance
- * @property-read mixed $last_booking
- * @property-read \Motor\Backend\Models\User $updater
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account filteredBy(\Motor\Core\Filter\Filter $filter, $column)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account filteredByMultiple(\Motor\Core\Filter\Filter $filter)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account query()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account search($q, $full_text = false)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account whereAccountTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account whereCreatedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account whereCurrencyIso4217($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account whereDeletedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account whereHasPos($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account wherePosConfiguration($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Account whereUpdatedBy($value)
- * @mixin \Eloquent
+ * @property int                                                   $id
+ * @property int|null                                              $account_type_id
+ * @property string                                                $name
+ * @property string                                                $currency_iso_4217
+ * @property int                             $has_pos
+ * @property array                           $pos_configuration
+ * @property int                             $created_by
+ * @property int                             $updated_by
+ * @property int|null                        $deleted_by
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read AccountType|null           $account_type
+ * @property-read User                       $creator
+ * @property-read User|null                  $eraser
+ * @property-read mixed                      $balance
+ * @property-read mixed                      $last_booking
+ * @property-read User                       $updater
+ * @method static Builder|Account filteredBy( Filter $filter, $column )
+ * @method static Builder|Account filteredByMultiple( Filter $filter )
+ * @method static Builder|Account newModelQuery()
+ * @method static Builder|Account newQuery()
+ * @method static Builder|Account query()
+ * @method static Builder|Account search( $q, $full_text = false )
+ * @method static Builder|Account whereAccountTypeId( $value )
+ * @method static Builder|Account whereCreatedAt( $value )
+ * @method static Builder|Account whereCreatedBy( $value )
+ * @method static Builder|Account whereCurrencyIso4217( $value )
+ * @method static Builder|Account whereDeletedBy( $value )
+ * @method static Builder|Account whereHasPos( $value )
+ * @method static Builder|Account whereId( $value )
+ * @method static Builder|Account whereName( $value )
+ * @method static Builder|Account wherePosConfiguration( $value )
+ * @method static Builder|Account whereUpdatedAt( $value )
+ * @method static Builder|Account whereUpdatedBy( $value )
+ * @mixin Eloquent
  */
 class Account extends Model
 {
@@ -96,7 +102,7 @@ class Account extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function account_type()
     {
@@ -104,6 +110,9 @@ class Account extends Model
     }
 
 
+    /**
+     * @return mixed
+     */
     public function getBalanceAttribute()
     {
         $incoming = DB::table('bookings')->where('to_account_id', $this->id)->sum('price_with_vat');
@@ -113,6 +122,9 @@ class Account extends Model
     }
 
 
+    /**
+     * @return mixed|null
+     */
     public function getLastBookingAttribute()
     {
         $booking = Booking::where('to_account_id', $this->id)

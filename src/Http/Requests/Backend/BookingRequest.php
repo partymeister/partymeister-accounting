@@ -4,6 +4,10 @@ namespace Partymeister\Accounting\Http\Requests\Backend;
 
 use Motor\Backend\Http\Requests\Request;
 
+/**
+ * Class BookingRequest
+ * @package Partymeister\Accounting\Http\Requests\Backend
+ */
 class BookingRequest extends Request
 {
 
@@ -26,12 +30,16 @@ class BookingRequest extends Request
     public function rules()
     {
         return [
-            'description' => 'required',
+            'description'       => 'required',
             'currency_iso_4217' => 'currency_compatibility'
 
         ];
     }
 
+
+    /**
+     * @return array
+     */
     public function messages()
     {
         return [

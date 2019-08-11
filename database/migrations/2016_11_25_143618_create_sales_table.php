@@ -3,6 +3,9 @@
 use Culpa\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateSalesTable
+ */
 class CreateSalesTable extends Migration
 {
 
@@ -50,7 +53,7 @@ class CreateSalesTable extends Migration
     public function down()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->dropForeign(['sale_id']);
+            $table->dropForeign([ 'sale_id' ]);
             $table->dropColumn('sale_id');
         });
 

@@ -5,6 +5,10 @@ namespace Partymeister\Accounting\Transformers;
 use League\Fractal;
 use Partymeister\Accounting\Models\Booking;
 
+/**
+ * Class BookingTransformer
+ * @package Partymeister\Accounting\Transformers
+ */
 class BookingTransformer extends Fractal\TransformerAbstract
 {
 
@@ -15,6 +19,9 @@ class BookingTransformer extends Fractal\TransformerAbstract
      */
     protected $availableIncludes = [];
 
+    /**
+     * @var array
+     */
     protected $defaultIncludes = [ 'from_account', 'to_account' ];
 
 

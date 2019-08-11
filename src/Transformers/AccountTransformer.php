@@ -5,6 +5,10 @@ namespace Partymeister\Accounting\Transformers;
 use League\Fractal;
 use Partymeister\Accounting\Models\Account;
 
+/**
+ * Class AccountTransformer
+ * @package Partymeister\Accounting\Transformers
+ */
 class AccountTransformer extends Fractal\TransformerAbstract
 {
 
@@ -15,6 +19,9 @@ class AccountTransformer extends Fractal\TransformerAbstract
      */
     protected $availableIncludes = [ 'account_type' ];
 
+    /**
+     * @var array
+     */
     protected $defaultIncludes = [ 'account_type' ];
 
 

@@ -3,8 +3,12 @@
 use Culpa\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateAccountTypesTable
+ */
 class CreateAccountTypesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -23,6 +27,7 @@ class CreateAccountTypesTable extends Migration
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

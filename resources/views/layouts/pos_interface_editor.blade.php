@@ -11,6 +11,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         .buttons button {
             max-width: 40%;
         }
+
         button.delete-config-item {
             top: -25px;
         }
@@ -126,16 +127,16 @@ desired effect
 <script src="//cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
 <script type="text/javascript">
 
-    $(document).ready(function(){
-        $('button.delete-config-item').click(function(e) {
+    $(document).ready(function () {
+        $('button.delete-config-item').click(function (e) {
             $(this).parent().remove();
         });
 
-        $('button.save').click(function(e) {
-            var data = {};
-            for (i=1; i<=5; i++) {
-                var row = [];
-                $('#droppable-'+i+' div.item').each(function(index, element) {
+        $('button.save').click(function (e) {
+            let data = {};
+            for (i = 1; i <= 5; i++) {
+                let row = [];
+                $('#droppable-' + i + ' div.item').each(function (index, element) {
                     row.push($(element).data('item-id'));
                 });
                 data[i] = row;
@@ -151,10 +152,12 @@ desired effect
                 url: '{{route('backend.pos.update', ['account' => $record->id])}}',
                 data: {pos_configuration: data},
                 type: 'PATCH',
-                success: function(response) {
+                success: function (response) {
                     $('button.save').html('Saved!');
                     $('button.save').effect('highlight').delay(500);
-                    setTimeout(function(){ $('button.save').html('Save'); }, 2000);
+                    setTimeout(function () {
+                        $('button.save').html('Save');
+                    }, 2000);
                 }
             });
         });

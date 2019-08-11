@@ -15,7 +15,7 @@
 {!! form_end($form) !!}
 @section ('view_scripts')
     <script type="text/javascript">
-        var convertToPoint = function (value) {
+        let convertToPoint = function (value) {
             value = parseFloat(value.toString().replace(',', '.'));
             if (isNaN(value)) {
                 value = parseFloat(0);
@@ -23,15 +23,15 @@
             return value;
         };
         $('#price_with_vat').change(function () {
-            var newValue = parseFloat(convertToPoint($(this).val()) / ((convertToPoint($('#vat_percentage').val()) / 100) + 1)).toFixed(2);
+            let newValue = parseFloat(convertToPoint($(this).val()) / ((convertToPoint($('#vat_percentage').val()) / 100) + 1)).toFixed(2);
             $('#price_without_vat').val(newValue);
         });
         $('#price_without_vat').change(function () {
-            var newValue = parseFloat(convertToPoint($(this).val()) * ((convertToPoint($('#vat_percentage').val()) / 100) + 1)).toFixed(2);
+            let newValue = parseFloat(convertToPoint($(this).val()) * ((convertToPoint($('#vat_percentage').val()) / 100) + 1)).toFixed(2);
             $('#price_with_vat').val(newValue);
         });
         $('#vat_percentage').change(function () {
-            var newValue = parseFloat(convertToPoint($('#price_without_vat').val()) * ((convertToPoint($(this).val()) / 100) + 1)).toFixed(2);
+            let newValue = parseFloat(convertToPoint($('#price_without_vat').val()) * ((convertToPoint($(this).val()) / 100) + 1)).toFixed(2);
             $('#price_with_vat').val(newValue);
         });
     </script>

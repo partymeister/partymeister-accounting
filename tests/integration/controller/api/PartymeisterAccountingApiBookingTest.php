@@ -1,22 +1,38 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+/**
+ * Class PartymeisterAccountingApiBookingTest
+ */
 class PartymeisterAccountingApiBookingTest extends TestCase
 {
 
     use DatabaseTransactions;
 
+    /**
+     * @var
+     */
     protected $user;
 
+    /**
+     * @var
+     */
     protected $readPermission;
 
+    /**
+     * @var
+     */
     protected $writePermission;
 
+    /**
+     * @var
+     */
     protected $deletePermission;
 
+    /**
+     * @var array
+     */
     protected $tables = [
         'bookings',
         'accounts',
@@ -37,7 +53,7 @@ class PartymeisterAccountingApiBookingTest extends TestCase
     {
         parent::setUp();
 
-        $this->withFactories(__DIR__.'/../../../../database/factories');
+        $this->withFactories(__DIR__ . '/../../../../database/factories');
 
         $this->addDefaults();
     }
@@ -45,7 +61,7 @@ class PartymeisterAccountingApiBookingTest extends TestCase
 
     protected function addDefaults()
     {
-        $this->user = create_test_user();
+        $this->user             = create_test_user();
         $this->readPermission   = create_test_permission_with_name('bookings.read');
         $this->writePermission  = create_test_permission_with_name('bookings.write');
         $this->deletePermission = create_test_permission_with_name('bookings.delete');
@@ -107,21 +123,25 @@ class PartymeisterAccountingApiBookingTest extends TestCase
     {
         $this->user->givePermissionTo($this->readPermission);
         $record = create_test_booking();
-        $this->json('GET',
-            '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(200)->seeJson([
-            'description' => $record->description
-        ]);
+        $this->json('GET', '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(200)
+             ->seeJson([
+                 'description' => $record->description
+             ]);
     }
+
 
     /** @test */
     public function fails_to_show_a_single_booking_without_permission()
     {
         $record = create_test_booking();
-        $this->json('GET',
-            '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(403)->seeJson([
-            'error' => 'Access denied.'
-        ]);
+        $this->json('GET', '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(403)
+             ->seeJson([
+                 'error' => 'Access denied.'
+             ]);
     }
+
 
     /** @test */
     public function can_get_empty_result_when_trying_to_show_multiple_booking()
@@ -149,10 +169,11 @@ class PartymeisterAccountingApiBookingTest extends TestCase
     {
         $this->user->givePermissionTo($this->readPermission);
         $records = create_test_booking(10);
-        $this->json('GET',
-            '/api/bookings?api_token=' . $this->user->api_token . '&search=' . $records[2]->name)->seeStatusCode(200)->seeJson([
-            'description' => $records[2]->description
-        ]);
+        $this->json('GET', '/api/bookings?api_token=' . $this->user->api_token . '&search=' . $records[2]->name)
+             ->seeStatusCode(200)
+             ->seeJson([
+                 'description' => $records[2]->description
+             ]);
     }
 
 
@@ -161,10 +182,11 @@ class PartymeisterAccountingApiBookingTest extends TestCase
     {
         $this->user->givePermissionTo($this->readPermission);
         create_test_booking(50);
-        $this->json('GET',
-            '/api/bookings?api_token=' . $this->user->api_token . '&page=2')->seeStatusCode(200)->seeJson([
-            'current_page' => 2
-        ]);
+        $this->json('GET', '/api/bookings?api_token=' . $this->user->api_token . '&page=2')
+             ->seeStatusCode(200)
+             ->seeJson([
+                 'current_page' => 2
+             ]);
     }
 
 
@@ -183,10 +205,11 @@ class PartymeisterAccountingApiBookingTest extends TestCase
     {
         $this->user->givePermissionTo($this->writePermission);
         $record = create_test_booking();
-        $this->json('PATCH',
-            '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(422)->seeJson([
-            'description' => [ 'The description field is required.' ]
-        ]);
+        $this->json('PATCH', '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(422)
+             ->seeJson([
+                 'description' => [ 'The description field is required.' ]
+             ]);
     }
 
 
@@ -194,11 +217,13 @@ class PartymeisterAccountingApiBookingTest extends TestCase
     public function fails_if_trying_to_modify_a_booking_without_permission()
     {
         $record = create_test_booking();
-        $this->json('PATCH',
-            '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(403)->seeJson([
-            'error' => 'Access denied.'
-        ]);
+        $this->json('PATCH', '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(403)
+             ->seeJson([
+                 'error' => 'Access denied.'
+             ]);
     }
+
 
     /** @test */
     public function can_modify_a_booking()
@@ -227,20 +252,23 @@ class PartymeisterAccountingApiBookingTest extends TestCase
     public function fails_to_delete_a_booking_without_permission()
     {
         $record = create_test_booking();
-        $this->json('DELETE',
-            '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(403)->seeJson([
-            'error' => 'Access denied.'
-        ]);
+        $this->json('DELETE', '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(403)
+             ->seeJson([
+                 'error' => 'Access denied.'
+             ]);
     }
+
 
     /** @test */
     public function can_delete_a_booking()
     {
         $this->user->givePermissionTo($this->deletePermission);
         $record = create_test_booking();
-        $this->json('DELETE',
-            '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(200)->seeJson([
-            'success' => true
-        ]);
+        $this->json('DELETE', '/api/bookings/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(200)
+             ->seeJson([
+                 'success' => true
+             ]);
     }
 }

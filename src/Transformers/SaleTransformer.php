@@ -5,6 +5,10 @@ namespace Partymeister\Accounting\Transformers;
 use League\Fractal;
 use Partymeister\Accounting\Models\Sale;
 
+/**
+ * Class SaleTransformer
+ * @package Partymeister\Accounting\Transformers
+ */
 class SaleTransformer extends Fractal\TransformerAbstract
 {
 
@@ -15,6 +19,9 @@ class SaleTransformer extends Fractal\TransformerAbstract
      */
     protected $availableIncludes = [ 'item', 'earnings_booking', 'cost_booking' ];
 
+    /**
+     * @var array
+     */
     protected $defaultIncludes = [ 'item', 'earnings_booking', 'cost_booking' ];
 
 

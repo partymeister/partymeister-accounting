@@ -1,22 +1,38 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+/**
+ * Class PartymeisterAccountingApiItemTest
+ */
 class PartymeisterAccountingApiItemTest extends TestCase
 {
 
     use DatabaseTransactions;
 
+    /**
+     * @var
+     */
     protected $user;
 
+    /**
+     * @var
+     */
     protected $readPermission;
 
+    /**
+     * @var
+     */
     protected $writePermission;
 
+    /**
+     * @var
+     */
     protected $deletePermission;
 
+    /**
+     * @var array
+     */
     protected $tables = [
         'items',
         'item_types',
@@ -110,10 +126,11 @@ class PartymeisterAccountingApiItemTest extends TestCase
     {
         $this->user->givePermissionTo($this->readPermission);
         $record = create_test_item();
-        $this->json('GET',
-            '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(200)->seeJson([
-            'name' => $record->name
-        ]);
+        $this->json('GET', '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(200)
+             ->seeJson([
+                 'name' => $record->name
+             ]);
     }
 
 
@@ -121,10 +138,11 @@ class PartymeisterAccountingApiItemTest extends TestCase
     public function fails_to_show_a_single_item_without_permission()
     {
         $record = create_test_item();
-        $this->json('GET',
-            '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(403)->seeJson([
-            'error' => 'Access denied.'
-        ]);
+        $this->json('GET', '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(403)
+             ->seeJson([
+                 'error' => 'Access denied.'
+             ]);
     }
 
 
@@ -154,10 +172,11 @@ class PartymeisterAccountingApiItemTest extends TestCase
     {
         $this->user->givePermissionTo($this->readPermission);
         $records = create_test_item(10);
-        $this->json('GET',
-            '/api/items?api_token=' . $this->user->api_token . '&search=' . $records[2]->name)->seeStatusCode(200)->seeJson([
-            'name' => $records[2]->name
-        ]);
+        $this->json('GET', '/api/items?api_token=' . $this->user->api_token . '&search=' . $records[2]->name)
+             ->seeStatusCode(200)
+             ->seeJson([
+                 'name' => $records[2]->name
+             ]);
     }
 
 
@@ -187,10 +206,11 @@ class PartymeisterAccountingApiItemTest extends TestCase
     {
         $this->user->givePermissionTo($this->writePermission);
         $record = create_test_item();
-        $this->json('PATCH',
-            '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(422)->seeJson([
-            'name' => [ 'The name field is required.' ]
-        ]);
+        $this->json('PATCH', '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(422)
+             ->seeJson([
+                 'name' => [ 'The name field is required.' ]
+             ]);
     }
 
 
@@ -198,10 +218,11 @@ class PartymeisterAccountingApiItemTest extends TestCase
     public function fails_if_trying_to_modify_a_item_without_permission()
     {
         $record = create_test_item();
-        $this->json('PATCH',
-            '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(403)->seeJson([
-            'error' => 'Access denied.'
-        ]);
+        $this->json('PATCH', '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(403)
+             ->seeJson([
+                 'error' => 'Access denied.'
+             ]);
     }
 
 
@@ -234,10 +255,11 @@ class PartymeisterAccountingApiItemTest extends TestCase
     public function fails_to_delete_a_item_without_permission()
     {
         $record = create_test_item();
-        $this->json('DELETE',
-            '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(403)->seeJson([
-            'error' => 'Access denied.'
-        ]);
+        $this->json('DELETE', '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(403)
+             ->seeJson([
+                 'error' => 'Access denied.'
+             ]);
     }
 
 
@@ -246,9 +268,10 @@ class PartymeisterAccountingApiItemTest extends TestCase
     {
         $this->user->givePermissionTo($this->deletePermission);
         $record = create_test_item();
-        $this->json('DELETE',
-            '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(200)->seeJson([
-            'success' => true
-        ]);
+        $this->json('DELETE', '/api/items/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(200)
+             ->seeJson([
+                 'success' => true
+             ]);
     }
 }

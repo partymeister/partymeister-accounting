@@ -2,16 +2,19 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Backend;
 
-use Motor\Backend\Http\Controllers\Controller;
-
-use Partymeister\Accounting\Models\Sale;
-use Partymeister\Accounting\Http\Requests\Backend\SaleRequest;
-use Partymeister\Accounting\Services\SaleService;
-use Partymeister\Accounting\Grids\SaleGrid;
-use Partymeister\Accounting\Forms\Backend\SaleForm;
-
+use Illuminate\Http\Response;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
+use Motor\Backend\Http\Controllers\Controller;
+use Partymeister\Accounting\Forms\Backend\SaleForm;
+use Partymeister\Accounting\Grids\SaleGrid;
+use Partymeister\Accounting\Http\Requests\Backend\SaleRequest;
+use Partymeister\Accounting\Models\Sale;
+use Partymeister\Accounting\Services\SaleService;
 
+/**
+ * Class SalesController
+ * @package Partymeister\Accounting\Http\Controllers\Backend
+ */
 class SalesController extends Controller
 {
 
@@ -21,7 +24,8 @@ class SalesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \ReflectionException
      */
     public function index()
     {
@@ -38,9 +42,7 @@ class SalesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param $id
      */
     public function show($id)
     {

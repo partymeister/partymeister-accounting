@@ -2,77 +2,83 @@
 
 namespace Partymeister\Accounting\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-use Motor\Core\Traits\Searchable;
-use Motor\Core\Traits\Filterable;
 use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Motor\Backend\Models\User;
+use Motor\Core\Filter\Filter;
+use Motor\Core\Traits\Filterable;
+use Motor\Core\Traits\Searchable;
 
 /**
  * Partymeister\Accounting\Models\Item
  *
- * @property int $id
- * @property int|null $pos_cost_account_id
- * @property int|null $item_type_id
- * @property string $name
- * @property string $description
- * @property string $internal_description
- * @property float $vat_percentage
- * @property float $price_with_vat
- * @property float $price_without_vat
- * @property float $cost_price_with_vat
- * @property float $cost_price_without_vat
- * @property string $currency_iso_4217
- * @property int $can_be_ordered
- * @property int $is_visible
- * @property int|null $sort_position
- * @property int|null $pos_create_booking_for_item_id
- * @property int $pos_can_book_negative_quantities
- * @property int $created_by
- * @property int $updated_by
- * @property int|null $deleted_by
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Motor\Backend\Models\User $creator
- * @property-read \Motor\Backend\Models\User|null $eraser
- * @property-read mixed $revenue
- * @property-read mixed $sales
- * @property-read \Partymeister\Accounting\Models\ItemType|null $item_type
- * @property-read \Partymeister\Accounting\Models\Account|null $pos_cost_account
- * @property-read \Partymeister\Accounting\Models\Account $pos_earnings_account
- * @property-read \Motor\Backend\Models\User $updater
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item filteredBy(\Motor\Core\Filter\Filter $filter, $column)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item filteredByMultiple(\Motor\Core\Filter\Filter $filter)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item query()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item search($q, $full_text = false)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCanBeOrdered($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCostPriceWithVat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCostPriceWithoutVat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCreatedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereCurrencyIso4217($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereDeletedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereInternalDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereIsVisible($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereItemTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item wherePosCanBookNegativeQuantities($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item wherePosCostAccountId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item wherePosCreateBookingForItemId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item wherePriceWithVat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item wherePriceWithoutVat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereSortPosition($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereUpdatedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\Item whereVatPercentage($value)
- * @mixin \Eloquent
+ * @property int                                                $id
+ * @property int|null                                           $pos_cost_account_id
+ * @property int|null                                           $item_type_id
+ * @property string                                             $name
+ * @property string                                             $description
+ * @property string                                             $internal_description
+ * @property float                                              $vat_percentage
+ * @property float                                              $price_with_vat
+ * @property float                                              $price_without_vat
+ * @property float                                              $cost_price_with_vat
+ * @property float                                              $cost_price_without_vat
+ * @property string                                             $currency_iso_4217
+ * @property int                                                $can_be_ordered
+ * @property int                                                $is_visible
+ * @property int|null                                           $sort_position
+ * @property int|null                                           $pos_create_booking_for_item_id
+ * @property int                                                $pos_can_book_negative_quantities
+ * @property int                                                $created_by
+ * @property int                                                $updated_by
+ * @property int|null                        $deleted_by
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User                       $creator
+ * @property-read User|null                  $eraser
+ * @property-read mixed                      $revenue
+ * @property-read mixed                      $sales
+ * @property-read ItemType|null              $item_type
+ * @property-read Account|null               $pos_cost_account
+ * @property-read Account                    $pos_earnings_account
+ * @property-read User                       $updater
+ * @method static Builder|Item filteredBy( Filter $filter, $column )
+ * @method static Builder|Item filteredByMultiple( Filter $filter )
+ * @method static Builder|Item newModelQuery()
+ * @method static Builder|Item newQuery()
+ * @method static Builder|Item query()
+ * @method static Builder|Item search( $q, $full_text = false )
+ * @method static Builder|Item whereCanBeOrdered( $value )
+ * @method static Builder|Item whereCostPriceWithVat( $value )
+ * @method static Builder|Item whereCostPriceWithoutVat( $value )
+ * @method static Builder|Item whereCreatedAt( $value )
+ * @method static Builder|Item whereCreatedBy( $value )
+ * @method static Builder|Item whereCurrencyIso4217( $value )
+ * @method static Builder|Item whereDeletedBy( $value )
+ * @method static Builder|Item whereDescription( $value )
+ * @method static Builder|Item whereId( $value )
+ * @method static Builder|Item whereInternalDescription( $value )
+ * @method static Builder|Item whereIsVisible( $value )
+ * @method static Builder|Item whereItemTypeId( $value )
+ * @method static Builder|Item whereName( $value )
+ * @method static Builder|Item wherePosCanBookNegativeQuantities( $value )
+ * @method static Builder|Item wherePosCostAccountId( $value )
+ * @method static Builder|Item wherePosCreateBookingForItemId( $value )
+ * @method static Builder|Item wherePriceWithVat( $value )
+ * @method static Builder|Item wherePriceWithoutVat( $value )
+ * @method static Builder|Item whereSortPosition( $value )
+ * @method static Builder|Item whereUpdatedAt( $value )
+ * @method static Builder|Item whereUpdatedBy( $value )
+ * @method static Builder|Item whereVatPercentage( $value )
+ * @mixin Eloquent
  */
 class Item extends Model
 {
@@ -128,7 +134,7 @@ class Item extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function pos_earnings_account()
     {
@@ -137,7 +143,7 @@ class Item extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function pos_cost_account()
     {
@@ -146,7 +152,7 @@ class Item extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function item_type()
     {
@@ -154,6 +160,11 @@ class Item extends Model
     }
 
 
+    /**
+     * @param         $quantity
+     * @param Booking $booking
+     * @return Sale
+     */
     public function sell($quantity, Booking $booking)
     {
         $sale                      = new Sale;
@@ -184,22 +195,36 @@ class Item extends Model
         return $sale;
     }
 
+
+    /**
+     * @return int
+     */
     public function getSalesAttribute()
     {
         $result = DB::table('sales')->select(DB::raw('SUM(quantity) as quantity'))->where('item_id', $this->id)->get();
-        if (!is_null($result)) {
-            return (!is_null($result[0]->quantity) ? $result[0]->quantity : 0);
+        if ( ! is_null($result)) {
+            return ( ! is_null($result[0]->quantity) ? $result[0]->quantity : 0 );
         }
+
         return 0;
     }
 
+
+    /**
+     * @return string
+     */
     public function getRevenueAttribute()
     {
         $revenue = 0;
-        $result = DB::table('sales')->select(DB::raw('SUM(quantity*items.price_with_vat) as quantity'))->join('items', 'item_id', '=', 'items.id')->where('item_id', $this->id)->get();
-        if (!is_null($result)) {
-            $revenue = (!is_null($result[0]->quantity) ? $result[0]->quantity : 0);
+        $result  = DB::table('sales')
+                     ->select(DB::raw('SUM(quantity*items.price_with_vat) as quantity'))
+                     ->join('items', 'item_id', '=', 'items.id')
+                     ->where('item_id', $this->id)
+                     ->get();
+        if ( ! is_null($result)) {
+            $revenue = ( ! is_null($result[0]->quantity) ? $result[0]->quantity : 0 );
         }
-        return number_format($revenue, 2, ',', '.').' €';
+
+        return number_format($revenue, 2, ',', '.') . ' €';
     }
 }

@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\DB;
 use Motor\Backend\Models\User;
 use Partymeister\Accounting\Models\AccountType;
 
+/**
+ * Class AccountsTableSeeder
+ * @package Partymeister\Accounting\Database\Seeds
+ */
 class AccountsTableSeeder extends Seeder
 {
 

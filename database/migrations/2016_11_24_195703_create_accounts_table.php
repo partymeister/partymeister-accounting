@@ -3,8 +3,12 @@
 use Culpa\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateAccountsTable
+ */
 class CreateAccountsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -28,6 +32,7 @@ class CreateAccountsTable extends Migration
             $table->foreign('account_type_id')->references('id')->on('account_types')->onDelete('set null');
         });
     }
+
 
     /**
      * Reverse the migrations.

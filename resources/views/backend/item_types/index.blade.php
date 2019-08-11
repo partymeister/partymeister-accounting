@@ -7,7 +7,7 @@
 @section('contentheader_title')
     {{ trans('partymeister-accounting::backend/item_types.item_types') }}
     @if (has_permission('item_types.write'))
-	    {!! link_to_route('backend.item_types.create', trans('partymeister-accounting::backend/item_types.new'), [], ['class' => 'pull-right float-right btn btn-sm btn-success']) !!}
+        {!! link_to_route('backend.item_types.create', trans('partymeister-accounting::backend/item_types.new'), [], ['class' => 'pull-right float-right btn btn-sm btn-success']) !!}
     @endif
 @endsection
 

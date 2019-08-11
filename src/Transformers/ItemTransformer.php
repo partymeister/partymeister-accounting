@@ -5,6 +5,10 @@ namespace Partymeister\Accounting\Transformers;
 use League\Fractal;
 use Partymeister\Accounting\Models\Item;
 
+/**
+ * Class ItemTransformer
+ * @package Partymeister\Accounting\Transformers
+ */
 class ItemTransformer extends Fractal\TransformerAbstract
 {
 
@@ -15,6 +19,9 @@ class ItemTransformer extends Fractal\TransformerAbstract
      */
     protected $availableIncludes = [ 'pos_earnings_account', 'pos_cost_account', 'pos_book_item' ];
 
+    /**
+     * @var array
+     */
     protected $defaultIncludes = [ 'item_type' ];
 
 
@@ -43,7 +50,7 @@ class ItemTransformer extends Fractal\TransformerAbstract
             'sort_position'                    => (int) $record->sort_position,
             'pos_sort_position'                => (int) $record->pos_sort_position,
             'is_visible_in_pos'                => (bool) $record->is_visible_in_pos,
-            'pos_create_booking_for_item_id'   => (is_null($record->pos_create_booking_for_item_id) ? null : (int) $record->pos_create_booking_for_item_id),
+            'pos_create_booking_for_item_id'   => ( is_null($record->pos_create_booking_for_item_id) ? null : (int) $record->pos_create_booking_for_item_id ),
             'pos_can_book_negative_quantities' => (bool) $record->pos_can_book_negative_quantities,
             'pos_do_break'                     => (bool) $record->pos_do_break,
             'pos_earnings_account_id'          => (int) $record->pos_earnings_account_id,

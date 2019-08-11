@@ -1,22 +1,38 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+/**
+ * Class PartymeisterAccountingApiSaleTest
+ */
 class PartymeisterAccountingApiSaleTest extends TestCase
 {
 
     use DatabaseTransactions;
 
+    /**
+     * @var
+     */
     protected $user;
 
+    /**
+     * @var
+     */
     protected $readPermission;
 
+    /**
+     * @var
+     */
     protected $writePermission;
 
+    /**
+     * @var
+     */
     protected $deletePermission;
 
+    /**
+     * @var array
+     */
     protected $tables = [
         'sales',
         'users',
@@ -72,10 +88,11 @@ class PartymeisterAccountingApiSaleTest extends TestCase
     {
         $this->user->givePermissionTo($this->readPermission);
         $record = create_test_sale();
-        $this->json('GET',
-            '/api/sales/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(200)->seeJson([
-            'quantity' => $record->quantity
-        ]);
+        $this->json('GET', '/api/sales/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(200)
+             ->seeJson([
+                 'quantity' => $record->quantity
+             ]);
     }
 
 
@@ -83,10 +100,11 @@ class PartymeisterAccountingApiSaleTest extends TestCase
     public function fails_to_show_a_single_sale_without_permission()
     {
         $record = create_test_sale();
-        $this->json('GET',
-            '/api/sales/' . $record->id . '?api_token=' . $this->user->api_token)->seeStatusCode(403)->seeJson([
-            'error' => 'Access denied.'
-        ]);
+        $this->json('GET', '/api/sales/' . $record->id . '?api_token=' . $this->user->api_token)
+             ->seeStatusCode(403)
+             ->seeJson([
+                 'error' => 'Access denied.'
+             ]);
     }
 
 
@@ -116,11 +134,12 @@ class PartymeisterAccountingApiSaleTest extends TestCase
     {
         $this->user->givePermissionTo($this->readPermission);
         $records = create_test_sale(10);
-        $this->json('GET',
-            '/api/sales?api_token=' . $this->user->api_token . '&search=' . $records[2]->name)->seeStatusCode(200)->seeJson([
-            'quantity'    => $records[2]->quantity,
-            'description' => $records[2]->earnings_booking->description
-        ]);
+        $this->json('GET', '/api/sales?api_token=' . $this->user->api_token . '&search=' . $records[2]->name)
+             ->seeStatusCode(200)
+             ->seeJson([
+                 'quantity'    => $records[2]->quantity,
+                 'description' => $records[2]->earnings_booking->description
+             ]);
     }
 
 

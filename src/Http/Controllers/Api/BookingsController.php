@@ -2,38 +2,44 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Motor\Backend\Http\Controllers\Controller;
-
-use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Http\Requests\Backend\BookingRequest;
+use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Services\BookingService;
 use Partymeister\Accounting\Transformers\BookingTransformer;
 
+/**
+ * Class BookingsController
+ * @package Partymeister\Accounting\Http\Controllers\Api
+ */
 class BookingsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $paginator = BookingService::collection()->getPaginator();
-        $resource = $this->transformPaginator($paginator, BookingTransformer::class);
+        $resource  = $this->transformPaginator($paginator, BookingTransformer::class);
 
         return $this->respondWithJson('Booking collection read', $resource);
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
+     * @param BookingRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(BookingRequest $request)
     {
-        $result = BookingService::create($request)->getResult();
+        $result   = BookingService::create($request)->getResult();
         $resource = $this->transformItem($result, BookingTransformer::class);
 
         return $this->respondWithJson('Booking created', $resource);
@@ -43,13 +49,12 @@ class BookingsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param Booking $record
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Booking $record)
     {
-        $result = BookingService::show($record)->getResult();
+        $result   = BookingService::show($record)->getResult();
         $resource = $this->transformItem($result, BookingTransformer::class);
 
         return $this->respondWithJson('Booking read', $resource);
@@ -59,14 +64,13 @@ class BookingsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param BookingRequest $request
+     * @param Booking        $record
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(BookingRequest $request, Booking $record)
     {
-        $result = BookingService::update($record, $request)->getResult();
+        $result   = BookingService::update($record, $request)->getResult();
         $resource = $this->transformItem($result, BookingTransformer::class);
 
         return $this->respondWithJson('Booking updated', $resource);
@@ -76,17 +80,17 @@ class BookingsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param Booking $record
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Booking $record)
     {
         $result = BookingService::delete($record)->getResult();
 
         if ($result) {
-            return $this->respondWithJson('Booking deleted', ['success' => true]);
+            return $this->respondWithJson('Booking deleted', [ 'success' => true ]);
         }
-        return $this->respondWithJson('Booking NOT deleted', ['success' => false]);
+
+        return $this->respondWithJson('Booking NOT deleted', [ 'success' => false ]);
     }
 }

@@ -10,6 +10,6 @@
 @endsection
 
 @section('main-content')
-	@include('motor-backend::errors.list')
-	@include('partymeister-accounting::backend.bookings.form')
+    @include('motor-backend::errors.list')
+    @include('partymeister-accounting::backend.bookings.form')
 @endsection

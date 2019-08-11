@@ -4,6 +4,10 @@ namespace Partymeister\Accounting\Http\Requests\Backend;
 
 use Motor\Backend\Http\Requests\Request;
 
+/**
+ * Class ItemRequest
+ * @package Partymeister\Accounting\Http\Requests\Backend
+ */
 class ItemRequest extends Request
 {
 

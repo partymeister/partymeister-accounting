@@ -2,47 +2,53 @@
 
 namespace Partymeister\Accounting\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Motor\Core\Traits\Searchable;
-use Motor\Core\Traits\Filterable;
 use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
+use Motor\Backend\Models\User;
+use Motor\Core\Filter\Filter;
+use Motor\Core\Traits\Filterable;
+use Motor\Core\Traits\Searchable;
 
 /**
  * Partymeister\Accounting\Models\ItemType
  *
- * @property int $id
- * @property string $name
- * @property int $is_visible
- * @property int|null $sort_position
- * @property int $created_by
- * @property int $updated_by
- * @property int|null $deleted_by
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Motor\Backend\Models\User $creator
- * @property-read \Motor\Backend\Models\User|null $eraser
- * @property-read mixed $item_count
- * @property-read \Partymeister\Accounting\Models\Item $items
- * @property-read \Motor\Backend\Models\User $updater
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType filteredBy(\Motor\Core\Filter\Filter $filter, $column)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType filteredByMultiple(\Motor\Core\Filter\Filter $filter)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType query()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType search($q, $full_text = false)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType whereCreatedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType whereDeletedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType whereIsVisible($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType whereSortPosition($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\ItemType whereUpdatedBy($value)
- * @mixin \Eloquent
+ * @property int                                       $id
+ * @property string                                    $name
+ * @property int                                       $is_visible
+ * @property int|null                                  $sort_position
+ * @property int                             $created_by
+ * @property int                             $updated_by
+ * @property int|null                        $deleted_by
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User                       $creator
+ * @property-read User|null                  $eraser
+ * @property-read mixed                      $item_count
+ * @property-read Item                       $items
+ * @property-read User                       $updater
+ * @method static Builder|ItemType filteredBy( Filter $filter, $column )
+ * @method static Builder|ItemType filteredByMultiple( Filter $filter )
+ * @method static Builder|ItemType newModelQuery()
+ * @method static Builder|ItemType newQuery()
+ * @method static Builder|ItemType query()
+ * @method static Builder|ItemType search( $q, $full_text = false )
+ * @method static Builder|ItemType whereCreatedAt( $value )
+ * @method static Builder|ItemType whereCreatedBy( $value )
+ * @method static Builder|ItemType whereDeletedBy( $value )
+ * @method static Builder|ItemType whereId( $value )
+ * @method static Builder|ItemType whereIsVisible( $value )
+ * @method static Builder|ItemType whereName( $value )
+ * @method static Builder|ItemType whereSortPosition( $value )
+ * @method static Builder|ItemType whereUpdatedAt( $value )
+ * @method static Builder|ItemType whereUpdatedBy( $value )
+ * @mixin Eloquent
  */
 class ItemType extends Model
 {
@@ -89,7 +95,7 @@ class ItemType extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function items()
     {

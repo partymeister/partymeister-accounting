@@ -3,12 +3,24 @@
 namespace Partymeister\Accounting\Validators;
 
 use Illuminate\Support\Arr;
+use Illuminate\Validation\Validator;
 use Partymeister\Accounting\Models\Account;
 
+/**
+ * Class CurrencyCompatibilityValidator
+ * @package Partymeister\Accounting\Validators
+ */
 class CurrencyCompatibilityValidator
 {
 
-    public function validate($attribute, $value, $parameters, \Illuminate\Validation\Validator $validator)
+    /**
+     * @param                                  $attribute
+     * @param                                  $value
+     * @param                                  $parameters
+     * @param Validator $validator
+     * @return bool
+     */
+    public function validate($attribute, $value, $parameters, Validator $validator)
     {
         $data = $validator->getData();
 
@@ -20,8 +32,7 @@ class CurrencyCompatibilityValidator
 
         if (( ! is_null($from_account) && $from_account->currency_iso_4217 != Arr::get($data,
                     $attribute) ) || ( ! is_null($to_account) && $to_account->currency_iso_4217 != Arr::get($data,
-                    $attribute) )
-        ) {
+                    $attribute) )) {
             return false;
         }
 

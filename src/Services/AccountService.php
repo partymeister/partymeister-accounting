@@ -2,11 +2,18 @@
 
 namespace Partymeister\Accounting\Services;
 
-use Partymeister\Accounting\Models\Account;
 use Motor\Backend\Services\BaseService;
+use Partymeister\Accounting\Models\Account;
 
+/**
+ * Class AccountService
+ * @package Partymeister\Accounting\Services
+ */
 class AccountService extends BaseService
 {
 
+    /**
+     * @var string
+     */
     protected $model = Account::class;
 }

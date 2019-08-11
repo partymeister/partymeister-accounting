@@ -2,38 +2,44 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Motor\Backend\Http\Controllers\Controller;
-
-use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Http\Requests\Backend\AccountRequest;
+use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Services\AccountService;
 use Partymeister\Accounting\Transformers\AccountTransformer;
 
+/**
+ * Class AccountsController
+ * @package Partymeister\Accounting\Http\Controllers\Api
+ */
 class AccountsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
         $paginator = AccountService::collection()->getPaginator();
-        $resource = $this->transformPaginator($paginator, AccountTransformer::class);
+        $resource  = $this->transformPaginator($paginator, AccountTransformer::class);
 
         return $this->respondWithJson('Account collection read', $resource);
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
+     * @param AccountRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(AccountRequest $request)
     {
-        $result = AccountService::create($request)->getResult();
+        $result   = AccountService::create($request)->getResult();
         $resource = $this->transformItem($result, AccountTransformer::class);
 
         return $this->respondWithJson('Account created', $resource);
@@ -43,13 +49,12 @@ class AccountsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param Account $record
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show(Account $record)
     {
-        $result = AccountService::show($record)->getResult();
+        $result   = AccountService::show($record)->getResult();
         $resource = $this->transformItem($result, AccountTransformer::class);
 
         return $this->respondWithJson('Account read', $resource);
@@ -59,14 +64,13 @@ class AccountsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param AccountRequest $request
+     * @param Account        $record
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(AccountRequest $request, Account $record)
     {
-        $result = AccountService::update($record, $request)->getResult();
+        $result   = AccountService::update($record, $request)->getResult();
         $resource = $this->transformItem($result, AccountTransformer::class);
 
         return $this->respondWithJson('Account updated', $resource);
@@ -76,17 +80,17 @@ class AccountsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param Account $record
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Account $record)
     {
         $result = AccountService::delete($record)->getResult();
 
         if ($result) {
-            return $this->respondWithJson('Account deleted', ['success' => true]);
+            return $this->respondWithJson('Account deleted', [ 'success' => true ]);
         }
-        return $this->respondWithJson('Account NOT deleted', ['success' => false]);
+
+        return $this->respondWithJson('Account NOT deleted', [ 'success' => false ]);
     }
 }

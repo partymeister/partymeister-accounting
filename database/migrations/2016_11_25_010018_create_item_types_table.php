@@ -3,6 +3,9 @@
 use Culpa\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateItemTypesTable
+ */
 class CreateItemTypesTable extends Migration
 {
 
@@ -18,7 +21,7 @@ class CreateItemTypesTable extends Migration
             $table->string('name');
             $table->boolean('is_visible');
             $table->integer('sort_position')->unsigned()->nullable();
-            
+
             $table->createdBy();
             $table->updatedBy();
             $table->deletedBy(true);

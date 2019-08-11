@@ -1,23 +1,38 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Partymeister\Accounting\Models\Sale;
 
+/**
+ * Class PartymeisterAccountingBackendPosInterfaceTest
+ */
 class PartymeisterAccountingBackendPosInterfaceTest extends TestCase
 {
 
     use DatabaseTransactions;
 
+    /**
+     * @var
+     */
     protected $user;
 
+    /**
+     * @var
+     */
     protected $readPermission;
 
+    /**
+     * @var
+     */
     protected $writePermission;
 
+    /**
+     * @var
+     */
     protected $deletePermission;
 
+    /**
+     * @var array
+     */
     protected $tables = [
         'account_types',
         'accounts',
@@ -62,8 +77,7 @@ class PartymeisterAccountingBackendPosInterfaceTest extends TestCase
     public function can_see_pos_interface_for_valid_account()
     {
         $account = create_test_account();
-        $this->visit('/backend/pos/' . $account->id)
-            ->see('BOOK');
+        $this->visit('/backend/pos/' . $account->id)->see('BOOK');
     }
 
 
@@ -73,44 +87,36 @@ class PartymeisterAccountingBackendPosInterfaceTest extends TestCase
         $this->get('/backend/pos')->seeStatusCode(404);
     }
 
+
     /** @test */
     public function can_make_a_booking_without_items()
     {
         $account = create_test_account();
-        $this->get('/backend/pos/'.$account->id)
-            ->seeStatusCode(200)
-            ->post('/backend/pos/'.$account->id)
-            ->seeJson(
-                [
+        $this->get('/backend/pos/' . $account->id)->seeStatusCode(200)->post('/backend/pos/' . $account->id)->seeJson([
                     'message' => 'No items received'
-                ]
-            )
-            ->seeStatusCode(404);
+                ])->seeStatusCode(404);
     }
+
 
     /** @test */
     public function can_make_a_booking_with_items()
     {
         $account = create_test_account();
-        $items = create_test_items_for_earnings_account($account->id, 5);
+        $items   = create_test_items_for_earnings_account($account->id, 5);
 
-        $itemData = [$items[0]->id => 1, $items[1]->id => 2];
+        $itemData = [ $items[0]->id => 1, $items[1]->id => 2 ];
 
-        $description = ['1x '.$items[0]->name, '2x '.$items[1]->name];
+        $description = [ '1x ' . $items[0]->name, '2x ' . $items[1]->name ];
 
-        $this->get('/backend/pos/'.$account->id)
-            ->seeStatusCode(200)
-            ->post('/backend/pos/'.$account->id, ['items' => $itemData])
-            ->seeJson(
-                [
-                    'message' => 'Booking created'
-                ]
-            )
-            ->seeJson(
-                [
-                    'description' => implode("\r\n", $description)
-                ]
-            )
-            ->seeStatusCode(200);
+        $this->get('/backend/pos/' . $account->id)
+             ->seeStatusCode(200)
+             ->post('/backend/pos/' . $account->id, [ 'items' => $itemData ])
+             ->seeJson([
+                     'message' => 'Booking created'
+                 ])
+             ->seeJson([
+                     'description' => implode("\r\n", $description)
+                 ])
+             ->seeStatusCode(200);
     }
 }

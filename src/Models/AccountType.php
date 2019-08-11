@@ -2,41 +2,46 @@
 
 namespace Partymeister\Accounting\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Motor\Core\Traits\Searchable;
-use Motor\Core\Traits\Filterable;
 use Culpa\Traits\Blameable;
 use Culpa\Traits\CreatedBy;
 use Culpa\Traits\DeletedBy;
 use Culpa\Traits\UpdatedBy;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use Motor\Backend\Models\User;
+use Motor\Core\Filter\Filter;
+use Motor\Core\Traits\Filterable;
+use Motor\Core\Traits\Searchable;
 
 /**
  * Partymeister\Accounting\Models\AccountType
  *
- * @property int $id
- * @property string $name
- * @property int $created_by
- * @property int $updated_by
- * @property int|null $deleted_by
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Motor\Backend\Models\User $creator
- * @property-read \Motor\Backend\Models\User|null $eraser
- * @property-read \Motor\Backend\Models\User $updater
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType filteredBy(\Motor\Core\Filter\Filter $filter, $column)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType filteredByMultiple(\Motor\Core\Filter\Filter $filter)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType query()
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType search($q, $full_text = false)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType whereCreatedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType whereDeletedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\Partymeister\Accounting\Models\AccountType whereUpdatedBy($value)
- * @mixin \Eloquent
+ * @property int                                  $id
+ * @property string                               $name
+ * @property int                                  $created_by
+ * @property int                                  $updated_by
+ * @property int|null                             $deleted_by
+ * @property Carbon|null      $created_at
+ * @property Carbon|null      $updated_at
+ * @property-read User      $creator
+ * @property-read User|null $eraser
+ * @property-read User      $updater
+ * @method static Builder|AccountType filteredBy( Filter $filter, $column )
+ * @method static Builder|AccountType filteredByMultiple( Filter $filter )
+ * @method static Builder|AccountType newModelQuery()
+ * @method static Builder|AccountType newQuery()
+ * @method static Builder|AccountType query()
+ * @method static Builder|AccountType search( $q, $full_text = false )
+ * @method static Builder|AccountType whereCreatedAt( $value )
+ * @method static Builder|AccountType whereCreatedBy( $value )
+ * @method static Builder|AccountType whereDeletedBy( $value )
+ * @method static Builder|AccountType whereId( $value )
+ * @method static Builder|AccountType whereName( $value )
+ * @method static Builder|AccountType whereUpdatedAt( $value )
+ * @method static Builder|AccountType whereUpdatedBy( $value )
+ * @mixin Eloquent
  */
 class AccountType extends Model
 {

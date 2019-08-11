@@ -3,8 +3,12 @@
 use Culpa\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateItemsTable
+ */
 class CreateItemsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -20,7 +24,7 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->text('internal_description');
-            $table->decimal('vat_percentage', 4,2);
+            $table->decimal('vat_percentage', 4, 2);
             $table->decimal('price_with_vat', 15, 4);
             $table->decimal('price_without_vat', 15, 4);
             $table->decimal('cost_price_with_vat', 15, 4);
@@ -47,6 +51,7 @@ class CreateItemsTable extends Migration
             $table->foreign('pos_cost_account_id')->references('id')->on('accounts')->onDelete('set null');
         });
     }
+
 
     /**
      * Reverse the migrations.

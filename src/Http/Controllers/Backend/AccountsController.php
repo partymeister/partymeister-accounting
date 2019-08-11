@@ -2,16 +2,20 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Backend;
 
-use Motor\Backend\Http\Controllers\Controller;
-
-use Partymeister\Accounting\Models\Account;
-use Partymeister\Accounting\Http\Requests\Backend\AccountRequest;
-use Partymeister\Accounting\Services\AccountService;
-use Partymeister\Accounting\Grids\AccountGrid;
-use Partymeister\Accounting\Forms\Backend\AccountForm;
-
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
+use Motor\Backend\Http\Controllers\Controller;
+use Partymeister\Accounting\Forms\Backend\AccountForm;
+use Partymeister\Accounting\Grids\AccountGrid;
+use Partymeister\Accounting\Http\Requests\Backend\AccountRequest;
+use Partymeister\Accounting\Models\Account;
+use Partymeister\Accounting\Services\AccountService;
 
+/**
+ * Class AccountsController
+ * @package Partymeister\Accounting\Http\Controllers\Backend
+ */
 class AccountsController extends Controller
 {
 
@@ -21,7 +25,8 @@ class AccountsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \ReflectionException
      */
     public function index()
     {
@@ -38,7 +43,7 @@ class AccountsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -55,9 +60,8 @@ class AccountsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
+     * @param AccountRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(AccountRequest $request)
     {
@@ -79,9 +83,7 @@ class AccountsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param $id
      */
     public function show($id)
     {
@@ -92,9 +94,8 @@ class AccountsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param Account $record
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Account $record)
     {
@@ -112,10 +113,9 @@ class AccountsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param AccountRequest $request
+     * @param Account        $record
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(AccountRequest $request, Account $record)
     {
@@ -137,9 +137,8 @@ class AccountsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param Account $record
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Account $record)
     {

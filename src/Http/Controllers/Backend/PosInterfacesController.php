@@ -2,23 +2,29 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Backend;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 use Motor\Backend\Http\Controllers\Controller;
 use Partymeister\Accounting\Http\Requests\Backend\PosInterfaceRequest;
 use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Models\Booking;
-use Partymeister\Accounting\Models\Item;
 use Partymeister\Accounting\Models\ItemType;
 use Partymeister\Accounting\Transformers\BookingTransformer;
 
+/**
+ * Class PosInterfacesController
+ * @package Partymeister\Accounting\Http\Controllers\Backend
+ */
 class PosInterfacesController extends Controller
 {
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
+     * @param Account $record
+     * @return Factory|View
      */
     public function show(Account $record)
     {
@@ -32,6 +38,11 @@ class PosInterfacesController extends Controller
         return view('partymeister-accounting::layouts.pos_interface', compact('record', 'last_booking'));
     }
 
+
+    /**
+     * @param Account $record
+     * @return Factory|View
+     */
     public function edit(Account $record)
     {
         $itemTypes = ItemType::orderBy('sort_position', 'ASC')->get();
@@ -39,14 +50,26 @@ class PosInterfacesController extends Controller
         return view('partymeister-accounting::layouts.pos_interface_editor', compact('record', 'itemTypes'));
     }
 
+
+    /**
+     * @param Account             $record
+     * @param PosInterfaceRequest $request
+     * @return JsonResponse
+     */
     public function update(Account $record, PosInterfaceRequest $request)
     {
         $record->pos_configuration = $request->get('pos_configuration');
         $record->save();
+
         return response()->json([ 'message' => 'POS configuration saved' ], 200);
     }
 
 
+    /**
+     * @param PosInterfaceRequest $request
+     * @param Account             $record
+     * @return JsonResponse
+     */
     public function create(PosInterfaceRequest $request, Account $record)
     {
         $items = $request->get('items');

@@ -5,8 +5,11 @@ namespace Partymeister\Accounting\Database\Seeds;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Motor\Backend\Models\User;
-use Partymeister\Accounting\Models\AccountType;
 
+/**
+ * Class ItemTypesTableSeeder
+ * @package Partymeister\Accounting\Database\Seeds
+ */
 class ItemTypesTableSeeder extends Seeder
 {
 

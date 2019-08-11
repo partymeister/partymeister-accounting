@@ -5,6 +5,10 @@ namespace Partymeister\Accounting\Transformers;
 use League\Fractal;
 use Partymeister\Accounting\Models\AccountType;
 
+/**
+ * Class AccountTypeTransformer
+ * @package Partymeister\Accounting\Transformers
+ */
 class AccountTypeTransformer extends Fractal\TransformerAbstract
 {
 

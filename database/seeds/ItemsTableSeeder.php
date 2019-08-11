@@ -7,10 +7,13 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Motor\Backend\Models\User;
 use Partymeister\Accounting\Models\Account;
-use Partymeister\Accounting\Models\AccountType;
 use Partymeister\Accounting\Models\Item;
 use Partymeister\Accounting\Models\ItemType;
 
+/**
+ * Class ItemsTableSeeder
+ * @package Partymeister\Accounting\Database\Seeds
+ */
 class ItemsTableSeeder extends Seeder
 {
 
@@ -169,6 +172,9 @@ class ItemsTableSeeder extends Seeder
     }
 
 
+    /**
+     * @param $item
+     */
     public function createItem($item)
     {
         DB::table('items')->insert([

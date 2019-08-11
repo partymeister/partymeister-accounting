@@ -5,6 +5,10 @@ namespace Partymeister\Accounting\Transformers;
 use League\Fractal;
 use Partymeister\Accounting\Models\ItemType;
 
+/**
+ * Class ItemTypeTransformer
+ * @package Partymeister\Accounting\Transformers
+ */
 class ItemTypeTransformer extends Fractal\TransformerAbstract
 {
 
@@ -14,6 +18,7 @@ class ItemTypeTransformer extends Fractal\TransformerAbstract
      * @var array
      */
     protected $availableIncludes = [ 'items' ];
+
 
     /**
      * Transform record to array
@@ -33,6 +38,10 @@ class ItemTypeTransformer extends Fractal\TransformerAbstract
     }
 
 
+    /**
+     * @param ItemType $record
+     * @return Fractal\Resource\Collection
+     */
     public function includeItems(ItemType $record)
     {
         if ($record->items->count() > 0) {

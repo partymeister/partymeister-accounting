@@ -4,6 +4,10 @@ namespace Partymeister\Accounting\Http\Requests\Backend;
 
 use Motor\Backend\Http\Requests\Request;
 
+/**
+ * Class AccountTypeRequest
+ * @package Partymeister\Accounting\Http\Requests\Backend
+ */
 class AccountTypeRequest extends Request
 {
 

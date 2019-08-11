@@ -1,43 +1,10 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 
 @section('htmlheader')
     @include('partymeister-accounting::layouts.partials.htmlheader')
-    <style type="text/css">
-        .buttons button {
-            max-width: 40%;
-        }
-
-        button.delete-config-item {
-            top: -25px;
-        }
-    </style>
 @show
 
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
 <body class="skin-blue sidebar-mini">
 <div id="app">
 
@@ -50,8 +17,10 @@ desired effect
                         @foreach ($record->pos_configuration[$i] as $item)
                             <div class="item well" data-item-id="{{$item}}" style="position: relative;">
                                 @if ($item == 'separator')
-                                    <h2>Separator</h2>
-                                    <button class="btn btn-xs btn-danger delete-config-item">X</button>
+                                    <h2>
+                                        {{trans('partymeister-accounting::backend/pos.separator')}}
+                                    </h2>
+                                    <button class="btn btn-xs btn-danger pull-right delete-config-item">X</button>
                                 @else
                                     <h2>{{\Partymeister\Accounting\Models\Item::find($item)->name}}</h2>
                                     <button class="btn btn-xs btn-danger delete-config-item">X</button>
@@ -74,23 +43,23 @@ desired effect
             @endfor
         </div>
         <div class="col-md-3">
-            <div class="sales well" style="border: 1px dotted #ccc;">
-                <h2 style="text-align: center; vertical-align: middle;">POS Editor</h2>
+            <div class="sales well-lg" style="border: 1px dotted #ccc;">
+                <h3 style="text-align: center; vertical-align: middle;">{{trans('partymeister-accounting::backend/pos.editor')}}</h3>
                 <br>
                 <p style="text-align: center;">
-                    Drag items from the list to the rows on the left side.
+                    {{trans('partymeister-accounting::backend/pos.editor_description')}}
                 </p>
                 <button class="btn btn-sm btn-success save">Save</button>
             </div>
 
             <div id="draggable" style="height: 80vh; overflow: scroll;">
-                <h3>Separator</h3>
+                <h3 class="mt-4">{{trans('partymeister-accounting::backend/pos.separator')}}</h3>
                 <div class="item well" data-item-id="separator" style="position: relative;">
-                    <h2>Separator</h2>
+                    <h2>{{trans('partymeister-accounting::backend/pos.separator')}}</h2>
                     <button class="btn btn-xs btn-danger delete-config-item">X</button>
                 </div>
                 @foreach ($itemTypes as $itemType)
-                    <h3>{{$itemType->name}}</h3>
+                    <h3 class="mt-4">{{$itemType->name}}</h3>
                     @foreach ($itemType->items()->orderBy('sort_position', 'ASC')->get() as $item)
                         <div class="item well" data-item-id="{{$item->id}}" style="position: relative;">
                             <h2>{{$item->name}}</h2>
@@ -109,22 +78,15 @@ desired effect
                     @endforeach
                 @endforeach
             </div>
-
-
         </div>
     </div>
-</div> <!-- /container -->
-
 </div>
 
 @section('scripts')
-
     @include('partymeister-accounting::layouts.partials.scripts')
-
 @show
 
 @yield('view_scripts')
-<script src="//cdn.jsdelivr.net/npm/sortablejs@1.6.1/Sortable.min.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -153,8 +115,9 @@ desired effect
                 data: {pos_configuration: data},
                 type: 'PATCH',
                 success: function (response) {
-                    $('button.save').html('Saved!');
-                    $('button.save').effect('highlight').delay(500);
+                    let buttonSaveSelector = $('button.save');
+                    buttonSaveSelector.html('Saved!');
+                    buttonSaveSelector.effect('highlight').delay(500);
                     setTimeout(function () {
                         $('button.save').html('Save');
                     }, 2000);

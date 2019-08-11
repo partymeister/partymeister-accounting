@@ -1,37 +1,12 @@
 <!DOCTYPE html>
-<!--
-This is a starter template page. Use this page to start your new project from
-scratch. This page gets rid of all links and provides the needed markup only.
--->
 <html lang="en">
 
 @section('htmlheader')
     @include('partymeister-accounting::layouts.partials.htmlheader')
 @show
 
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
 <body class="skin-blue sidebar-mini">
 <div id="app">
-
     <div class="row">
         <div class="col-md-9">
             @for ($i=1; $i<=5; $i++)
@@ -40,7 +15,7 @@ desired effect
                     @if (isset($record->pos_configuration[$i]))
                         @foreach ($record->pos_configuration[$i] as $id)
                             @php
-                                use Partymeister\Accounting\Models\Item;$item = Item::find($id);
+                                $item = Partymeister\Accounting\Models\Item::find($id);
                                 if (!is_null($item)) {
                                     $items[] = $item;
                                 }
@@ -80,41 +55,11 @@ desired effect
                     @endif
                 </div>
             @endfor
-
-
-
-
-
-            {{--@foreach ($items as $item)--}}
-            {{--<div class="item well">--}}
-            {{--<h2>{{$item->name}}</h2>--}}
-            {{--<input type="hidden" id="price_{{$item->id}}" name="price_[{{$item->id}}]"--}}
-            {{--value="{{$item->price_with_vat}}">--}}
-            {{--<input type="hidden" id="link_{{$item->id}}"--}}
-            {{--data-negative="{{$item->pos_can_book_negative_quantities}}" name="link_{{$item->id}}"--}}
-            {{--value="{{$item->pos_create_booking_for_item_id}}">--}}
-            {{--<br/>--}}
-            {{--@if ($item->pos_can_book_negative_quantities)--}}
-            {{--<button data-quantity="-1" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-1--}}
-            {{--</button>--}}
-            {{--<button data-quantity="-2" data-item="{{$item->id}}" class="add-item btn-lg btn-danger">-2--}}
-            {{--</button>--}}
-            {{--@else--}}
-            {{--<button data-quantity="1" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+1--}}
-            {{--</button>--}}
-            {{--<button data-quantity="2" data-item="{{$item->id}}" class="add-item btn-lg btn-success">+2--}}
-            {{--</button>--}}
-            {{--@endif--}}
-            {{--</div>--}}
-            {{--@if ($item->pos_do_break)--}}
-            {{--<div style="clear: both;"></div>@endif--}}
-            {{--@endforeach--}}
-            {{--</div>--}}
         </div>
         <div class="col-md-3">
-            <div class="sales well">
-                <button class="btn btn-danger btn-lg clear pull-right float-right">{{trans('partymeister-accounting::backend/pos.clear')}}</button>
-                <h2 class="pull-left">{{trans('partymeister-accounting::backend/items.items')}}</h2>
+            <div class="sales well-lg mb-3">
+                <button class="btn btn-danger btn-md clear pull-right float-right">{{trans('partymeister-accounting::backend/pos.clear')}}</button>
+                <h3 class="pull-left">{{trans('partymeister-accounting::backend/pos.current_order')}}</h3>
 
                 <form id="submit" method="POST">
                     {{ csrf_field() }}
@@ -122,8 +67,8 @@ desired effect
                         <thead>
                         <tr>
                             <td>{{trans('partymeister-accounting::backend/items.item')}}</td>
-                            <td style="text-align: right;">{{trans('partymeister-accounting::backend/pos.price')}}</td>
                             <td>&nbsp;</td>
+                            <td style="text-align: right;">{{trans('partymeister-accounting::backend/pos.price')}}</td>
                         </tr>
                         </thead>
                         <tbody>
@@ -149,8 +94,8 @@ desired effect
                     <input type="hidden" id="booking" name="booking"/>
                 </form>
             </div>
-            <div class="well last-booking hide">
-                <h2>{{trans('partymeister-accounting::backend/pos.last_booking')}}</h2>
+            <div class="well-lg last-booking hide mb-3">
+                <h3>{{trans('partymeister-accounting::backend/pos.last_booking')}}</h3>
                 <small class="last-booking-created-at"></small>
                 <table class="table beverage">
                     <thead>
@@ -177,14 +122,10 @@ desired effect
             </a>
         </div>
     </div>
-</div> <!-- /container -->
-
 </div>
 
 @section('scripts')
-
     @include('partymeister-accounting::layouts.partials.scripts')
-
 @show
 
 @yield('view_scripts')
@@ -203,11 +144,12 @@ desired effect
         let newQuantity = itemQuantity + quantity;
 
         // Get the linked item id (usually deposit)
-        let deposit = $('#link_' + itemId).val();
+        let depositSelector = $('#link_' + itemId);
+        let deposit = depositSelector.val();
 
         // TODO: link id must match the deposit it from the database
         // If we have a positive quantity or we can book negative, or an item is deleted
-        if (newQuantity > 0 || $('#link_' + itemId).data('negative') == 1 || deleteItem == true) {
+        if (newQuantity > 0 || depositSelector.data('negative') === 1 || deleteItem === true) {
             $('#sales_' + itemId).css('display', 'table-row');
             $('#sales_' + itemId + ' td.sales_item span').html(newQuantity);
             recalculateDeposit(deposit, quantity, itemQuantity, false);
@@ -216,7 +158,7 @@ desired effect
             newQuantity = 0;
         }
 
-        if (newQuantity == 0) {
+        if (newQuantity === 0) {
             $('#sales_' + itemId + ' div').data('total', 0);
             $('#sales_' + itemId + ' div span').html(0);
             $('#sales_' + itemId).css('display', 'none');
@@ -237,7 +179,7 @@ desired effect
 
     let recalculateDeposit = function (depositId, quantity, itemQuantity, checkQuantity) {
 
-        if (depositId == '') {
+        if (depositId === '') {
             return;
         }
 
@@ -245,21 +187,21 @@ desired effect
             quantity = itemQuantity * -1;
         }
 
-        let depositQuantity = parseInt($('#sales_' + depositId + ' td.sales_item span').html());
+        let depositQuantitySelector = $('#sales_' + depositId + ' td.sales_item span');
+
+        let depositQuantity = parseInt(depositQuantitySelector.html());
 
         let newDepositQuantity = depositQuantity + quantity;
-
-        console.log($(':input#price_' + depositId).val());
 
         let total = parseFloat($(':input#price_' + depositId).val()) * newDepositQuantity;
 
         let totalHuman = calculateCurrency(total, 1);
-        $('#sales_' + depositId + ' td.sales_item span').html(newDepositQuantity);
+        depositQuantitySelector.html(newDepositQuantity);
         $('#sales_' + depositId + ' td.sales_price span').html(totalHuman);
         $('#sales_' + depositId + ' td.sales_price').data('total', total);
 
         $('#sales_' + depositId).css('display', 'table-row');
-        if (total == 0) {
+        if (total === 0) {
             $('#sales_' + depositId).css('display', 'none');
         }
     };
@@ -289,10 +231,10 @@ desired effect
             let data = {};
             $('.beverage tbody tr').each(function (index) {
                 let itemId = $(this).data('item-id');
-                if (itemId != undefined) {
+                if (itemId !== undefined) {
                     let quantity = parseInt($('#sales_' + itemId + ' td.sales_item span').html());
 
-                    if (quantity != 0 && itemId != undefined) {
+                    if (quantity !== 0) {
                         data[itemId] = quantity;
                     }
                 }
@@ -339,16 +281,17 @@ desired effect
     };
 
     let updateLastBooking = function (booking) {
-        if (booking == null || booking == undefined) {
+        if (booking === null || booking === undefined) {
             return;
         }
+
+        let lastBooking = $('.last-booking');
 
         $('.last-booking-created-at').html(booking.created_at);
         $('.last-booking-description').html(booking.description.replace(/\n/g, "<br>"));
         $('.last-booking-total').html(calculateCurrency(booking.price_with_vat, 1));
-        $('.last-booking').removeClass('hide');
-
-        $('.last-booking').effect('highlight');
+        lastBooking.removeClass('hide');
+        lastBooking.effect('highlight');
     };
 
 

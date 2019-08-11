@@ -206,10 +206,10 @@ class PartymeisterAccountingApiAccountTest extends TestCase
         $this->user->givePermissionTo($this->writePermission);
         $record = create_test_account();
         $this->json('PATCH', '/api/accounts/' . $record->id . '?api_token=' . $this->user->api_token)
-             ->seeStatusCode(422)
-             ->seeJson([
-                 'name' => [ 'The name field is required.' ]
-             ]);
+            ->assertStatus(422)
+            ->assertJson([
+                'name' => [ 'The name field is required.' ]
+            ]);
     }
 
 

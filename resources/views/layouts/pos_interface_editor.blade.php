@@ -125,7 +125,6 @@
             });
         });
     });
-
     Sortable.create(document.getElementById('droppable-1'), {
         group: 'items',
         draggable: ".item",

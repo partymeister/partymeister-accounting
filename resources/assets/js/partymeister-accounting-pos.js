@@ -1,3 +1,5 @@
 // Require modules
 require('./../../../../motor-backend/resources/assets/js/motor-backend/main');
-window.Sortable = require('sortablejs');
+
+import Sortable from 'sortablejs/modular/sortable.complete.esm.js';
+window.Sortable = Sortable;

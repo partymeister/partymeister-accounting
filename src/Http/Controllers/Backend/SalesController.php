@@ -2,12 +2,9 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Backend;
 
-use Illuminate\Http\Response;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 use Motor\Backend\Http\Controllers\Controller;
-use Partymeister\Accounting\Forms\Backend\SaleForm;
 use Partymeister\Accounting\Grids\SaleGrid;
-use Partymeister\Accounting\Http\Requests\Backend\SaleRequest;
 use Partymeister\Accounting\Models\Sale;
 use Partymeister\Accounting\Services\SaleService;
 

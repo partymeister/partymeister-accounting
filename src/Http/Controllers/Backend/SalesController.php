@@ -14,7 +14,6 @@ use Partymeister\Accounting\Services\SaleService;
  */
 class SalesController extends Controller
 {
-
     use FormBuilderTrait;
 
 

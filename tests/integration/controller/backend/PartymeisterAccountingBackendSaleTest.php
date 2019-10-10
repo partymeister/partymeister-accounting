@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class PartymeisterAccountingBackendSaleTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     /**
@@ -89,8 +88,8 @@ class PartymeisterAccountingBackendSaleTest extends TestCase
     {
         $records = create_test_sale(100);
         $this->visit('/backend/sales')->within('.pagination', function () {
-                $this->click('3');
-            })->seePageIs('/backend/sales?page=3');
+            $this->click('3');
+        })->seePageIs('/backend/sales?page=3');
     }
 
 

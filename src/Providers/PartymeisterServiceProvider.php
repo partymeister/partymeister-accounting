@@ -43,13 +43,12 @@ class PartymeisterServiceProvider extends ServiceProvider
 
     public function config()
     {
-
     }
 
 
     public function routes()
     {
-        if ( ! $this->app->routesAreCached()) {
+        if (! $this->app->routesAreCached()) {
             require __DIR__ . '/../../routes/web.php';
             require __DIR__ . '/../../routes/api.php';
         }
@@ -107,16 +106,20 @@ class PartymeisterServiceProvider extends ServiceProvider
     public function navigationItems()
     {
         $config = $this->app['config']->get('motor-backend-navigation', []);
-        $this->app['config']->set('motor-backend-navigation',
-            array_replace_recursive(require __DIR__ . '/../../config/motor-backend-navigation.php', $config));
+        $this->app['config']->set(
+            'motor-backend-navigation',
+            array_replace_recursive(require __DIR__ . '/../../config/motor-backend-navigation.php', $config)
+        );
     }
 
 
     public function permissions()
     {
         $config = $this->app['config']->get('motor-backend-permissions', []);
-        $this->app['config']->set('motor-backend-permissions',
-            array_replace_recursive(require __DIR__ . '/../../config/motor-backend-permissions.php', $config));
+        $this->app['config']->set(
+            'motor-backend-permissions',
+            array_replace_recursive(require __DIR__ . '/../../config/motor-backend-permissions.php', $config)
+        );
     }
 
 
@@ -137,8 +140,10 @@ class PartymeisterServiceProvider extends ServiceProvider
 
     public function validators()
     {
-        Validator::extend('currency_compatibility',
-            'Partymeister\Accounting\Validators\CurrencyCompatibilityValidator@validate');
+        Validator::extend(
+            'currency_compatibility',
+            'Partymeister\Accounting\Validators\CurrencyCompatibilityValidator@validate'
+        );
     }
 
 
@@ -157,7 +162,9 @@ class PartymeisterServiceProvider extends ServiceProvider
     public function components()
     {
         $config = $this->app['config']->get('motor-cms-page-components', []);
-        $this->app['config']->set('motor-cms-page-components',
-            array_replace_recursive(require __DIR__ . '/../../config/motor-cms-page-components.php', $config));
+        $this->app['config']->set(
+            'motor-cms-page-components',
+            array_replace_recursive(require __DIR__ . '/../../config/motor-cms-page-components.php', $config)
+        );
     }
 }

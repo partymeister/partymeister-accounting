@@ -82,7 +82,6 @@ use Motor\Core\Traits\Searchable;
  */
 class Item extends Model
 {
-
     use Searchable;
     use Filterable;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
@@ -177,13 +176,13 @@ class Item extends Model
         $sale->currency_iso_4217   = $this->currency_iso_4217;
         $sale->save();
 
-        if ( ! is_null($this->pos_cost_account)) {
+        if (! is_null($this->pos_cost_account)) {
             $costBooking                    = new Booking();
             $costBooking->sale_id           = $sale->id;
             $costBooking->description       = $sale->item_and_quantity;
             $costBooking->vat_percentage    = $this->vat_percentage;
-            $costBooking->price_with_vat    = ( $quantity * $this->cost_price_with_vat ) * -1;
-            $costBooking->price_without_vat = ( $quantity * $this->cost_price_without_vat ) * -1;
+            $costBooking->price_with_vat    = ($quantity * $this->cost_price_with_vat) * -1;
+            $costBooking->price_without_vat = ($quantity * $this->cost_price_without_vat) * -1;
             $costBooking->currency_iso_4217 = $this->currency_iso_4217;
             $costBooking->to_account_id     = $this->pos_cost_account_id;
             $costBooking->save();
@@ -202,8 +201,8 @@ class Item extends Model
     public function getSalesAttribute()
     {
         $result = DB::table('sales')->select(DB::raw('SUM(quantity) as quantity'))->where('item_id', $this->id)->get();
-        if ( ! is_null($result)) {
-            return ( ! is_null($result[0]->quantity) ? $result[0]->quantity : 0 );
+        if (! is_null($result)) {
+            return (! is_null($result[0]->quantity) ? $result[0]->quantity : 0);
         }
 
         return 0;
@@ -221,8 +220,8 @@ class Item extends Model
                      ->join('items', 'item_id', '=', 'items.id')
                      ->where('item_id', $this->id)
                      ->get();
-        if ( ! is_null($result)) {
-            $revenue = ( ! is_null($result[0]->quantity) ? $result[0]->quantity : 0 );
+        if (! is_null($result)) {
+            $revenue = (! is_null($result[0]->quantity) ? $result[0]->quantity : 0);
         }
 
         return number_format($revenue, 2, ',', '.') . ' €';

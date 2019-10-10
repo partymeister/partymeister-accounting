@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class PartymeisterAccountingBackendPosInterfaceTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     /**

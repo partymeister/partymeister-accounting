@@ -37,15 +37,17 @@ class PosInterfacesController extends Controller
         $accountResource = $this->transformItem($record, AccountTransformer::class);
         $accountData     = $this->fractal->createData($accountResource)->toArray();
 
-        if ( ! is_null($lastBooking)) {
+        if (! is_null($lastBooking)) {
             $bookingResource = $this->transformItem($lastBooking, BookingTransformer::class);
             $bookingData     = $this->fractal->createData($bookingResource)->toArray();
         } else {
             $bookingData = [ 'data' => [] ];
         }
 
-        return $this->respondWithJson('POS data for Account',
-            [ 'account' => $accountData, 'items' => $itemsData, 'last_booking' => $bookingData ]);
+        return $this->respondWithJson(
+            'POS data for Account',
+            [ 'account' => $accountData, 'items' => $itemsData, 'last_booking' => $bookingData ]
+        );
     }
 
 
@@ -66,6 +68,5 @@ class PosInterfacesController extends Controller
         }
 
         return response()->json([ 'message' => 'No items received' ], 404);
-
     }
 }

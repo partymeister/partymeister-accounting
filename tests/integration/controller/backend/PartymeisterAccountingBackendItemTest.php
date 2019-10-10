@@ -8,7 +8,6 @@ use Partymeister\Accounting\Models\Item;
  */
 class PartymeisterAccountingBackendItemTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     /**
@@ -93,8 +92,8 @@ class PartymeisterAccountingBackendItemTest extends TestCase
     {
         $record = create_test_item();
         $this->visit('/backend/items')->within('table', function () {
-                $this->click('Edit');
-            })->seePageIs('/backend/items/' . $record->id . '/edit')->click('back')->seePageIs('/backend/items');
+            $this->click('Edit');
+        })->seePageIs('/backend/items/' . $record->id . '/edit')->click('back')->seePageIs('/backend/items');
     }
 
 
@@ -148,8 +147,8 @@ class PartymeisterAccountingBackendItemTest extends TestCase
     public function cannot_create_a_new_item_with_empty_fields()
     {
         $this->visit('/backend/items/create')->see('Create item')->within('.box-footer', function () {
-                $this->press('Save item');
-            })->see('Data missing!')->seePageIs('/backend/items/create');
+            $this->press('Save item');
+        })->see('Data missing!')->seePageIs('/backend/items/create');
     }
 
 
@@ -178,8 +177,8 @@ class PartymeisterAccountingBackendItemTest extends TestCase
         $this->assertCount(1, Item::all());
 
         $this->visit('/backend/items')->within('table', function () {
-                $this->press('Delete');
-            })->seePageIs('/backend/items');
+            $this->press('Delete');
+        })->seePageIs('/backend/items');
 
         $this->assertCount(0, Item::all());
     }
@@ -190,8 +189,8 @@ class PartymeisterAccountingBackendItemTest extends TestCase
     {
         $records = create_test_item(100);
         $this->visit('/backend/items')->within('.pagination', function () {
-                $this->click('3');
-            })->seePageIs('/backend/items?page=3');
+            $this->click('3');
+        })->seePageIs('/backend/items?page=3');
     }
 
 

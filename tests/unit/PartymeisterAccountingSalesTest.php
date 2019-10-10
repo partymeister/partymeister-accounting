@@ -8,7 +8,6 @@ use Partymeister\Accounting\Models\Sale;
  */
 class PartymeisterAccountingSalesTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     /**
@@ -109,7 +108,7 @@ class PartymeisterAccountingSalesTest extends TestCase
 
         $this->assertNotNull($sale->cost_booking);
         $this->assertEquals($item->cost_account_id, $sale->cost_booking->account_id);
-        $this->assertEquals(round(( 4 * $item->cost_price_with_vat ), 4) * -1, $sale->cost_booking->price_with_vat);
+        $this->assertEquals(round((4 * $item->cost_price_with_vat), 4) * -1, $sale->cost_booking->price_with_vat);
     }
 
 
@@ -122,7 +121,7 @@ class PartymeisterAccountingSalesTest extends TestCase
         $sale = $item->sell(-4, $booking);
 
         $this->assertEquals($item->cost_account_id, $sale->cost_booking->account_id);
-        $this->assertEquals(round(( 4 * $item->cost_price_with_vat ), 4), $sale->cost_booking->price_with_vat);
+        $this->assertEquals(round((4 * $item->cost_price_with_vat), 4), $sale->cost_booking->price_with_vat);
     }
 
 
@@ -241,5 +240,4 @@ class PartymeisterAccountingSalesTest extends TestCase
         $this->assertEquals(null, $sale->fresh());
         $this->assertEquals(null, $costBooking->fresh());
     }
-
 }

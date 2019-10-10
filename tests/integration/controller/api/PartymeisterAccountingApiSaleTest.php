@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class PartymeisterAccountingApiSaleTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     /**
@@ -152,5 +151,4 @@ class PartymeisterAccountingApiSaleTest extends TestCase
             'current_page' => 2
         ]);
     }
-
 }

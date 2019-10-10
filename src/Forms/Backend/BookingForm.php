@@ -29,14 +29,26 @@ class BookingForm extends Form
                  'choices'     => Account::pluck('name', 'id')->toArray(),
                  'empty_value' => trans('partymeister-accounting::backend/bookings.book_out')
              ])
-             ->add('description', 'textarea',
-                 [ 'label' => trans('partymeister-accounting::backend/bookings.description'), 'rules' => 'required' ])
-             ->add('vat_percentage', 'text',
-                 [ 'label' => trans('partymeister-accounting::backend/bookings.vat_percentage') ])
-             ->add('price_with_vat', 'text',
-                 [ 'label' => trans('partymeister-accounting::backend/bookings.price_with_vat') ])
-             ->add('price_without_vat', 'text',
-                 [ 'label' => trans('partymeister-accounting::backend/bookings.price_without_vat') ])
+             ->add(
+                 'description',
+                 'textarea',
+                 [ 'label' => trans('partymeister-accounting::backend/bookings.description'), 'rules' => 'required' ]
+             )
+             ->add(
+                 'vat_percentage',
+                 'text',
+                 [ 'label' => trans('partymeister-accounting::backend/bookings.vat_percentage') ]
+             )
+             ->add(
+                 'price_with_vat',
+                 'text',
+                 [ 'label' => trans('partymeister-accounting::backend/bookings.price_with_vat') ]
+             )
+             ->add(
+                 'price_without_vat',
+                 'text',
+                 [ 'label' => trans('partymeister-accounting::backend/bookings.price_without_vat') ]
+             )
              ->add('currency_iso_4217', 'select2', [
                  'label'         => trans('partymeister-accounting::backend/accounts.currency_iso_4217'),
                  'choices'       => $currencies = Currencies::getNames(),

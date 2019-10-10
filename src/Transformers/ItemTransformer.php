@@ -50,7 +50,7 @@ class ItemTransformer extends Fractal\TransformerAbstract
             'sort_position'                    => (int) $record->sort_position,
             'pos_sort_position'                => (int) $record->pos_sort_position,
             'is_visible_in_pos'                => (bool) $record->is_visible_in_pos,
-            'pos_create_booking_for_item_id'   => ( is_null($record->pos_create_booking_for_item_id) ? null : (int) $record->pos_create_booking_for_item_id ),
+            'pos_create_booking_for_item_id'   => (is_null($record->pos_create_booking_for_item_id) ? null : (int) $record->pos_create_booking_for_item_id),
             'pos_can_book_negative_quantities' => (bool) $record->pos_can_book_negative_quantities,
             'pos_do_break'                     => (bool) $record->pos_do_break,
             'pos_earnings_account_id'          => (int) $record->pos_earnings_account_id,
@@ -67,7 +67,7 @@ class ItemTransformer extends Fractal\TransformerAbstract
      */
     public function includeItemType(Item $record)
     {
-        if ( ! is_null($record->item_type)) {
+        if (! is_null($record->item_type)) {
             return $this->item($record->item_type, new ItemTypeTransformer());
         }
     }
@@ -80,7 +80,7 @@ class ItemTransformer extends Fractal\TransformerAbstract
      */
     public function includePosEarningsAccount(Item $record)
     {
-        if ( ! is_null($record->earnings_account)) {
+        if (! is_null($record->earnings_account)) {
             return $this->item($record->earnings_account, new AccountTransformer());
         }
     }
@@ -93,7 +93,7 @@ class ItemTransformer extends Fractal\TransformerAbstract
      */
     public function includePosCostAccount(Item $record)
     {
-        if ( ! is_null($record->cost_account)) {
+        if (! is_null($record->cost_account)) {
             return $this->item($record->cost_account, new AccountTransformer());
         }
     }
@@ -106,9 +106,8 @@ class ItemTransformer extends Fractal\TransformerAbstract
      */
     public function includePosBookItem(Item $record)
     {
-        if ( ! is_null($record->pos_create_booking_for_item_id)) {
+        if (! is_null($record->pos_create_booking_for_item_id)) {
             return $this->item($record->pos_create_booking_for_item_id, new ItemTransformer());
         }
     }
-
 }

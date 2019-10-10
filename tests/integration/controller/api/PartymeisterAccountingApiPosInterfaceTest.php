@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class PartymeisterAccountingApiPosInterfaceTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     /**
@@ -121,8 +120,11 @@ class PartymeisterAccountingApiPosInterfaceTest extends TestCase
 
         $description = [ '1x ' . $items[0]->name, '2x ' . $items[1]->name ];
 
-        $this->json('POST', '/api/pos/' . $account->id . '?api_token=' . $this->user->api_token,
-            [ 'items' => $itemData ])->seeStatusCode(200)->seeJson([
+        $this->json(
+            'POST',
+            '/api/pos/' . $account->id . '?api_token=' . $this->user->api_token,
+            [ 'items' => $itemData ]
+        )->seeStatusCode(200)->seeJson([
                     'message' => 'Booking created'
                 ])->seeJson([
                     'description' => implode("\r\n", $description)

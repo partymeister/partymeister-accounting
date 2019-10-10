@@ -53,8 +53,9 @@ class ComponentItemLists
      */
     public function render()
     {
-        return view(config('motor-cms-page-components.components.' . $this->pageVersionComponent->component_name . '.view'),
-            [ 'itemTypes' => $this->itemTypes ]);
+        return view(
+            config('motor-cms-page-components.components.' . $this->pageVersionComponent->component_name . '.view'),
+            [ 'itemTypes' => $this->itemTypes ]
+        );
     }
-
 }

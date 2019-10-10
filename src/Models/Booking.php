@@ -64,7 +64,6 @@ use Motor\Core\Traits\Searchable;
  */
 class Booking extends Model
 {
-
     use Searchable;
     use Filterable;
 
@@ -115,7 +114,7 @@ class Booking extends Model
      */
     public static function createSale(Account $account, $item, $quantity = 1)
     {
-        if ( ! $item instanceof Item) {
+        if (! $item instanceof Item) {
             return self::createSales($account, [ $item => $quantity ]);
         }
 

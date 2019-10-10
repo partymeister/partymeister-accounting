@@ -24,7 +24,6 @@ class ItemsTableSeeder extends Seeder
      */
     public function run()
     {
-
         $deposit = [
             'item_type_id'                     => ItemType::where('name', 'Beverages')->first()->id,
             'name'                             => 'Deposit',

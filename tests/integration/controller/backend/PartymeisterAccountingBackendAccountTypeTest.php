@@ -8,7 +8,6 @@ use Partymeister\Accounting\Models\AccountType;
  */
 class PartymeisterAccountingBackendAccountTypeTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     /**
@@ -147,8 +146,8 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
     public function cannot_create_a_new_account_type_with_empty_fields()
     {
         $this->visit('/backend/account_types/create')->see('Create account type')->within('.box-footer', function () {
-                $this->press('Save account type');
-            })->see('Data missing!')->seePageIs('/backend/account_types/create');
+            $this->press('Save account type');
+        })->see('Data missing!')->seePageIs('/backend/account_types/create');
     }
 
 
@@ -176,8 +175,8 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
         $this->assertCount(1, AccountType::all());
 
         $this->visit('/backend/account_types')->within('table', function () {
-                $this->press('Delete');
-            })->seePageIs('/backend/account_types');
+            $this->press('Delete');
+        })->seePageIs('/backend/account_types');
 
         $this->assertCount(0, AccountType::all());
     }
@@ -188,8 +187,8 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
     {
         $records = create_test_account_type(100);
         $this->visit('/backend/account_types')->within('.pagination', function () {
-                $this->click('3');
-            })->seePageIs('/backend/account_types?page=3');
+            $this->click('3');
+        })->seePageIs('/backend/account_types?page=3');
     }
 
 

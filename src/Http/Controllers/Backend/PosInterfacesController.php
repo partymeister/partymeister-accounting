@@ -82,6 +82,5 @@ class PosInterfacesController extends Controller
         }
 
         return response()->json([ 'message' => 'No items received' ], 404);
-
     }
 }

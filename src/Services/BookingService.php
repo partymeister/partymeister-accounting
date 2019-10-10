@@ -61,5 +61,4 @@ class BookingService extends BaseService
     {
         $this->convertNumbers();
     }
-
 }

@@ -9,7 +9,6 @@ use Partymeister\Accounting\Models\Sale;
  */
 class PartymeisterAccountingPosInterfaceTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     /**
@@ -155,7 +154,7 @@ class PartymeisterAccountingPosInterfaceTest extends TestCase
         // Get ids for the associate cost_bookings
         $costBookings = [];
         foreach ($sales as $sale) {
-            if ( ! is_null($sale->cost_booking)) {
+            if (! is_null($sale->cost_booking)) {
                 $costBookings[] = $sale->cost_booking;
             }
         }

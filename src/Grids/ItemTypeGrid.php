@@ -11,7 +11,6 @@ use Motor\Backend\Grid\Renderers\BooleanRenderer;
  */
 class ItemTypeGrid extends Grid
 {
-
     protected function setup()
     {
         $this->setDefaultSorting('sort_position', 'ASC');

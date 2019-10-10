@@ -8,7 +8,6 @@ use Partymeister\Accounting\Models\Booking;
  */
 class PartymeisterAccountingBackendBookingTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     /**
@@ -92,8 +91,8 @@ class PartymeisterAccountingBackendBookingTest extends TestCase
     {
         $record = create_test_booking();
         $this->visit('/backend/bookings')->within('table', function () {
-                $this->click('Edit');
-            })->seePageIs('/backend/bookings/' . $record->id . '/edit')->click('back')->seePageIs('/backend/bookings');
+            $this->click('Edit');
+        })->seePageIs('/backend/bookings/' . $record->id . '/edit')->click('back')->seePageIs('/backend/bookings');
     }
 
 
@@ -146,8 +145,8 @@ class PartymeisterAccountingBackendBookingTest extends TestCase
     public function cannot_create_a_new_booking_with_empty_fields()
     {
         $this->visit('/backend/bookings/create')->see('Create booking')->within('.box-footer', function () {
-                $this->press('Save booking');
-            })->see('Data missing!')->seePageIs('/backend/bookings/create');
+            $this->press('Save booking');
+        })->see('Data missing!')->seePageIs('/backend/bookings/create');
     }
 
 
@@ -175,8 +174,8 @@ class PartymeisterAccountingBackendBookingTest extends TestCase
         $this->assertCount(1, Booking::all());
 
         $this->visit('/backend/bookings')->within('table', function () {
-                $this->press('Delete');
-            })->seePageIs('/backend/bookings');
+            $this->press('Delete');
+        })->seePageIs('/backend/bookings');
 
         $this->assertCount(0, Booking::all());
     }
@@ -187,8 +186,8 @@ class PartymeisterAccountingBackendBookingTest extends TestCase
     {
         $records = create_test_booking(100);
         $this->visit('/backend/bookings')->within('.pagination', function () {
-                $this->click('3');
-            })->seePageIs('/backend/bookings?page=3');
+            $this->click('3');
+        })->seePageIs('/backend/bookings?page=3');
     }
 
 

@@ -64,7 +64,6 @@ use Motor\Core\Traits\Searchable;
  */
 class Sale extends Model
 {
-
     use Searchable;
     use Filterable;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;

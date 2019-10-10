@@ -8,7 +8,6 @@ use Partymeister\Accounting\Models\ItemType;
  */
 class PartymeisterAccountingBackendItemTypeTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     /**
@@ -145,8 +144,8 @@ class PartymeisterAccountingBackendItemTypeTest extends TestCase
     public function cannot_create_a_new_item_type_with_empty_fields()
     {
         $this->visit('/backend/item_types/create')->see('Create item type')->within('.box-footer', function () {
-                $this->press('Save item type');
-            })->see('Data missing!')->seePageIs('/backend/item_types/create');
+            $this->press('Save item type');
+        })->see('Data missing!')->seePageIs('/backend/item_types/create');
     }
 
 
@@ -174,8 +173,8 @@ class PartymeisterAccountingBackendItemTypeTest extends TestCase
         $this->assertCount(1, ItemType::all());
 
         $this->visit('/backend/item_types')->within('table', function () {
-                $this->press('Delete');
-            })->seePageIs('/backend/item_types');
+            $this->press('Delete');
+        })->seePageIs('/backend/item_types');
 
         $this->assertCount(0, ItemType::all());
     }
@@ -186,8 +185,8 @@ class PartymeisterAccountingBackendItemTypeTest extends TestCase
     {
         $records = create_test_item_type(100);
         $this->visit('/backend/item_types')->within('.pagination', function () {
-                $this->click('3');
-            })->seePageIs('/backend/item_types?page=3');
+            $this->click('3');
+        })->seePageIs('/backend/item_types?page=3');
     }
 
 

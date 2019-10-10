@@ -12,7 +12,6 @@ use Motor\Backend\Grid\Renderers\DateRenderer;
  */
 class BookingGrid extends Grid
 {
-
     protected function setup()
     {
         $this->setDefaultSorting('created_at', 'DESC');

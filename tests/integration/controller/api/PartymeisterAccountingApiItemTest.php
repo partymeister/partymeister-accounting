@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class PartymeisterAccountingApiItemTest extends TestCase
 {
-
     use DatabaseTransactions;
 
     /**

@@ -18,7 +18,6 @@ use Partymeister\Accounting\Services\ItemService;
  */
 class ItemsController extends Controller
 {
-
     use FormBuilderTrait;
 
 
@@ -68,7 +67,7 @@ class ItemsController extends Controller
         $form = $this->form(ItemForm::class);
 
         // It will automatically use current request, get the rules, and do the validation
-        if ( ! $form->isValid()) {
+        if (! $form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 
@@ -122,7 +121,7 @@ class ItemsController extends Controller
         $form = $this->form(ItemForm::class);
 
         // It will automatically use current request, get the rules, and do the validation
-        if ( ! $form->isValid()) {
+        if (! $form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 

@@ -54,7 +54,7 @@ class BookingTransformer extends Fractal\TransformerAbstract
      */
     public function includeFromAccount(Booking $record)
     {
-        if ( ! is_null($record->from_account)) {
+        if (! is_null($record->from_account)) {
             return $this->item($record->from_account, new AccountTransformer());
         }
     }
@@ -67,7 +67,7 @@ class BookingTransformer extends Fractal\TransformerAbstract
      */
     public function includeToAccount(Booking $record)
     {
-        if ( ! is_null($record->to_account)) {
+        if (! is_null($record->to_account)) {
             return $this->item($record->to_account, new AccountTransformer());
         }
     }

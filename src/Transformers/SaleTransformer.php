@@ -56,7 +56,7 @@ class SaleTransformer extends Fractal\TransformerAbstract
      */
     public function includeItem(Sale $record)
     {
-        if ( ! is_null($record->item)) {
+        if (! is_null($record->item)) {
             return $this->item($record->item, new ItemTransformer());
         }
     }
@@ -69,7 +69,7 @@ class SaleTransformer extends Fractal\TransformerAbstract
      */
     public function includeEarningsBooking(Sale $record)
     {
-        if ( ! is_null($record->earnings_booking)) {
+        if (! is_null($record->earnings_booking)) {
             return $this->item($record->earnings_booking, new BookingTransformer());
         }
     }
@@ -82,7 +82,7 @@ class SaleTransformer extends Fractal\TransformerAbstract
      */
     public function includeCostBooking(Sale $record)
     {
-        if ( ! is_null($record->cost_booking)) {
+        if (! is_null($record->cost_booking)) {
             return $this->item($record->cost_booking, new BookingTransformer());
         }
     }

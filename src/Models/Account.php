@@ -58,7 +58,6 @@ use Motor\Core\Traits\Searchable;
  */
 class Account extends Model
 {
-
     use Searchable;
     use Filterable;
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
@@ -131,7 +130,7 @@ class Account extends Model
                           ->orWhere('from_account_id', $this->id)
                           ->orderBy('created_at', 'DESC')
                           ->first();
-        if ( ! is_null($booking)) {
+        if (! is_null($booking)) {
             return $booking->created_at;
         }
 

@@ -15,8 +15,12 @@
     "partymeister/core": "0.5.*"
   },
   "autoload": {
+    "classmap": [
+      "database"
+    ],
     "psr-4": {
-      "Partymeister\\Accounting\\": "src"
+      "Partymeister\\Accounting\\": "src",
+      "Tests\\Partymeister\\Accounting\\": "tests"
     }
   },
   "extra": {

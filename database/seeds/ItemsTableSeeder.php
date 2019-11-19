@@ -1,12 +1,9 @@
 <?php
 
-namespace Partymeister\Accounting\Database\Seeds;
-
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Motor\Backend\Models\User;
-use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Models\Item;
 use Partymeister\Accounting\Models\ItemType;
 
@@ -34,13 +31,9 @@ class ItemsTableSeeder extends Seeder
             'cost_price_with_vat'              => 0,
             'cost_price_without_vat'           => 0,
             'sort_position'                    => 10,
-            'pos_sort_position'                => 10,
             'currency_iso_4217'                => 'EUR',
-            'is_visible_in_pos'                => true,
             'is_visible'                       => false,
-            'pos_earnings_account_id'          => Account::where('name', 'POS')->first()->id,
             'pos_can_book_negative_quantities' => true,
-            'pos_do_break'                     => false,
         ];
 
         $this->createItem($deposit);
@@ -56,14 +49,9 @@ class ItemsTableSeeder extends Seeder
                 'cost_price_with_vat'              => 1.00,
                 'cost_price_without_vat'           => 0.84,
                 'sort_position'                    => 20,
-                'pos_sort_position'                => 20,
                 'currency_iso_4217'                => 'EUR',
-                'is_visible_in_pos'                => true,
                 'is_visible'                       => true,
-                'pos_earnings_account_id'          => Account::where('name', 'POS')->first()->id,
-                'pos_cost_account_id'              => Account::where('name', 'Cost account')->first()->id,
                 'pos_can_book_negative_quantities' => false,
-                'pos_do_break'                     => false,
                 'pos_create_booking_for_item_id'   => Item::where('name', 'Deposit')->first()->id,
             ],
             [
@@ -76,14 +64,9 @@ class ItemsTableSeeder extends Seeder
                 'cost_price_with_vat'              => 1.50,
                 'cost_price_without_vat'           => 1.26,
                 'sort_position'                    => 30,
-                'pos_sort_position'                => 30,
                 'currency_iso_4217'                => 'EUR',
-                'is_visible_in_pos'                => true,
                 'is_visible'                       => true,
-                'pos_earnings_account_id'          => Account::where('name', 'POS')->first()->id,
-                'pos_cost_account_id'              => Account::where('name', 'Cost account')->first()->id,
                 'pos_can_book_negative_quantities' => false,
-                'pos_do_break'                     => false,
                 'pos_create_booking_for_item_id'   => Item::where('name', 'Deposit')->first()->id,
             ],
             [
@@ -96,15 +79,9 @@ class ItemsTableSeeder extends Seeder
                 'cost_price_with_vat'              => 1.00,
                 'cost_price_without_vat'           => 0.84,
                 'sort_position'                    => 40,
-                'pos_sort_position'                => 40,
                 'currency_iso_4217'                => 'EUR',
-                'is_visible_in_pos'                => true,
                 'is_visible'                       => true,
-                'pos_earnings_account_id'          => Account::where('name', 'POS')->first()->id,
-                'pos_cost_account_id'              => Account::where('name', 'Cost account')->first()->id,
                 'pos_can_book_negative_quantities' => false,
-                'pos_do_break'                     => false,
-                'pos_create_booking_for_item_id'   => Item::where('name', 'Deposit')->first()->id,
             ],
             [
                 'item_type_id'                     => ItemType::where('name', 'Beverages')->first()->id,
@@ -116,15 +93,9 @@ class ItemsTableSeeder extends Seeder
                 'cost_price_with_vat'              => 1.50,
                 'cost_price_without_vat'           => 1.26,
                 'sort_position'                    => 50,
-                'pos_sort_position'                => 50,
                 'currency_iso_4217'                => 'EUR',
-                'is_visible_in_pos'                => true,
                 'is_visible'                       => true,
-                'pos_earnings_account_id'          => Account::where('name', 'POS')->first()->id,
-                'pos_cost_account_id'              => Account::where('name', 'Cost account')->first()->id,
                 'pos_can_book_negative_quantities' => false,
-                'pos_do_break'                     => true,
-                'pos_create_booking_for_item_id'   => Item::where('name', 'Deposit')->first()->id,
             ],
             [
                 'item_type_id'                     => ItemType::where('name', 'Merchandise')->first()->id,
@@ -136,14 +107,9 @@ class ItemsTableSeeder extends Seeder
                 'cost_price_with_vat'              => 5.00,
                 'cost_price_without_vat'           => 4.20,
                 'sort_position'                    => 60,
-                'pos_sort_position'                => 60,
                 'currency_iso_4217'                => 'EUR',
-                'is_visible_in_pos'                => true,
                 'is_visible'                       => true,
-                'pos_earnings_account_id'          => Account::where('name', 'POS')->first()->id,
-                'pos_cost_account_id'              => Account::where('name', 'Cost account')->first()->id,
                 'pos_can_book_negative_quantities' => false,
-                'pos_do_break'                     => true,
             ],
             [
                 'item_type_id'                     => ItemType::where('name', 'Entrance')->first()->id,
@@ -155,13 +121,9 @@ class ItemsTableSeeder extends Seeder
                 'cost_price_with_vat'              => 0,
                 'cost_price_without_vat'           => 0,
                 'sort_position'                    => 70,
-                'pos_sort_position'                => 70,
                 'currency_iso_4217'                => 'EUR',
-                'is_visible_in_pos'                => true,
                 'is_visible'                       => true,
-                'pos_earnings_account_id'          => Account::where('name', 'POS')->first()->id,
                 'pos_can_book_negative_quantities' => false,
-                'pos_do_break'                     => true,
             ],
         ];
 
@@ -187,12 +149,8 @@ class ItemsTableSeeder extends Seeder
             'cost_price_without_vat'           => Arr::get($item, 'cost_price_without_vat'),
             'sort_position'                    => Arr::get($item, 'sort_position'),
             'currency_iso_4217'                => Arr::get($item, 'currency_iso_4217'),
-            'is_visible_in_pos'                => Arr::get($item, 'is_visible_in_pos'),
             'is_visible'                       => Arr::get($item, 'is_visible'),
-            'pos_earnings_account_id'          => Arr::get($item, 'pos_earnings_account_id'),
-            'pos_cost_account_id'              => Arr::get($item, 'pos_cost_account_id'),
             'pos_can_book_negative_quantities' => Arr::get($item, 'pos_can_book_negative_quantities'),
-            'pos_do_break'                     => Arr::get($item, 'pos_do_break'),
             'pos_create_booking_for_item_id'   => Arr::get($item, 'pos_create_booking_for_item_id'),
             'created_by'                       => User::get()->first()->id,
             'updated_by'                       => User::get()->first()->id,

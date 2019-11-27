@@ -38,6 +38,7 @@ class PartymeisterServiceProvider extends ServiceProvider
         $this->validators();
         $this->publishResourceAssets();
         $this->components();
+        merge_local_config_with_db_configuration_variables('partymeister-accounting');
     }
 
 

@@ -12,7 +12,7 @@
     }
   ],
   "require": {
-    "partymeister/core": "0.6.*"
+    "partymeister/core": "^1.0"
   },
   "autoload": {
     "psr-4": {

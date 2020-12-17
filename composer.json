@@ -15,12 +15,11 @@
     "partymeister/core": "0.6.*"
   },
   "autoload": {
-    "classmap": [
-      "database"
-    ],
     "psr-4": {
       "Partymeister\\Accounting\\": "src",
-      "Tests\\Partymeister\\Accounting\\": "tests"
+      "Tests\\Partymeister\\Accounting\\": "tests",
+      "Partymeister\\Accounting\\Database\\Factories\\": "database/factories/",
+      "Partymeister\\Accounting\\Database\\Seeders\\": "database/seeders/"
     }
   },
   "extra": {

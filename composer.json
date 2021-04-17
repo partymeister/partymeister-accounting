@@ -3,7 +3,8 @@
   "description": "Partymeister accounting package",
   "license": "MIT",
   "keywords": [
-    "motor"
+    "motor",
+    "partymeister
   ],
   "authors": [
     {
@@ -12,7 +13,7 @@
     }
   ],
   "require": {
-    "partymeister/core": "^1.0"
+    "partymeister/core": "^1.1"
   },
   "autoload": {
     "psr-4": {

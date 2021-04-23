@@ -10,6 +10,17 @@ use Motor\Backend\Http\Requests\Request;
  */
 class BookingRequest extends Request
 {
+    /**
+     * @OA\Schema(
+     *   schema="BookingRequest",
+     *   @OA\Property(
+     *     property="name",
+     *     type="string",
+     *     example="Example data"
+     *   ),
+     *   required={"name"},
+     * )
+     */
 
     /**
      * Determine if the user is authorized to make this request.
@@ -21,7 +32,6 @@ class BookingRequest extends Request
         return true;
     }
 
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -32,10 +42,8 @@ class BookingRequest extends Request
         return [
             'description'       => 'required',
             'currency_iso_4217' => 'currency_compatibility'
-
         ];
     }
-
 
     /**
      * @return array

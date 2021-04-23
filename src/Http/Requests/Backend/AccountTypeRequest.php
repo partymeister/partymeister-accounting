@@ -12,6 +12,18 @@ class AccountTypeRequest extends Request
 {
 
     /**
+     * @OA\Schema(
+     *   schema="AccountTypeRequest",
+     *   @OA\Property(
+     *     property="name",
+     *     type="string",
+     *     example="Cash account"
+     *   ),
+     *   required={"name"},
+     * )
+     */
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool

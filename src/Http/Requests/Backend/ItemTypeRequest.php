@@ -6,10 +6,22 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class ItemTypeRequest
+ *
  * @package Partymeister\Accounting\Http\Requests\Backend
  */
 class ItemTypeRequest extends Request
 {
+    /**
+     * @OA\Schema(
+     *   schema="ItemTypeRequest",
+     *   @OA\Property(
+     *     property="name",
+     *     type="string",
+     *     example="Example data"
+     *   ),
+     *   required={"name"},
+     * )
+     */
 
     /**
      * Determine if the user is authorized to make this request.
@@ -21,7 +33,6 @@ class ItemTypeRequest extends Request
         return true;
     }
 
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -30,7 +41,7 @@ class ItemTypeRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
         ];
     }
 }

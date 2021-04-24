@@ -6,6 +6,7 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class BookingRequest
+ *
  * @package Partymeister\Accounting\Http\Requests\Backend
  */
 class BookingRequest extends Request
@@ -14,11 +15,51 @@ class BookingRequest extends Request
      * @OA\Schema(
      *   schema="BookingRequest",
      *   @OA\Property(
-     *     property="name",
-     *     type="string",
-     *     example="Example data"
+     *     property="sale_id",
+     *     type="integer",
+     *     example="1"
      *   ),
-     *   required={"name"},
+     *   @OA\Property(
+     *     property="from_account_id",
+     *     type="integer",
+     *     example="1"
+     *   ),
+     *   @OA\Property(
+     *     property="to_account_id",
+     *     type="integer",
+     *     example="2"
+     *   ),
+     *   @OA\Property(
+     *     property="description",
+     *     type="text",
+     *     example="1x Karlsberg, 2x Orange Juice, 1x T-Shirt XL"
+     *   ),
+     *   @OA\Property(
+     *     property="vat_percentage",
+     *     type="float",
+     *     example="19"
+     *   ),
+     *   @OA\Property(
+     *     property="price_with_vat",
+     *     type="decimal",
+     *     example="11.9"
+     *   ),
+     *   @OA\Property(
+     *     property="price_without_vat",
+     *     type="decimal",
+     *     example="10"
+     *   ),
+     *   @OA\Property(
+     *     property="currency_iso_4217",
+     *     type="string",
+     *     example="EUR"
+     *   ),
+     *   @OA\Property(
+     *     property="is_manual_booking",
+     *     type="boolean",
+     *     example="false"
+     *   ),
+     *   required={"description", "currency_iso_4217", "price_with_vat", "vat_percentage"},
      * )
      */
 
@@ -40,8 +81,15 @@ class BookingRequest extends Request
     public function rules()
     {
         return [
+            'sale_id'           => 'nullable|integer',
+            'from_account_id'   => 'nullable|integer',
+            'to_account_id'     => 'nullable|integer',
             'description'       => 'required',
-            'currency_iso_4217' => 'currency_compatibility'
+            'vat_percentage'    => 'required|integer',
+            'price_with_vat'    => 'required|decimal',
+            'price_without_vat' => 'nullable|decimal',
+            'currency_iso_4217' => 'currency_compatibility',
+            'is_manual_booking' => 'nullable|boolean',
         ];
     }
 

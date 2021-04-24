@@ -2,36 +2,121 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Motor\Backend\Http\Controllers\Controller;
-use Partymeister\Accounting\Http\Requests\Backend\ItemRequest;
+use Motor\Backend\Http\Controllers\ApiController;
+
 use Partymeister\Accounting\Models\Item;
+use Partymeister\Accounting\Http\Requests\Backend\ItemRequest;
 use Partymeister\Accounting\Services\ItemService;
-use Partymeister\Accounting\Transformers\ItemTransformer;
+use Partymeister\Accounting\Http\Resources\ItemResource;
+use Partymeister\Accounting\Http\Resources\ItemCollection;
 
 /**
  * Class ItemsController
  * @package Partymeister\Accounting\Http\Controllers\Api
  */
-class ItemsController extends Controller
+class ItemsController extends ApiController
 {
 
+    protected string $modelResource = 'item';
+
     /**
+     * @OA\Get (
+     *   tags={"ItemsController"},
+     *   path="/api/items",
+     *   summary="Get item collection",
+     *   @OA\Parameter(
+     *     @OA\Schema(type="string"),
+     *     in="query",
+     *     allowReserved=true,
+     *     name="api_token",
+     *     parameter="api_token",
+     *     description="Personal api_token of the user"
+     *   ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *       @OA\Property(
+     *         property="data",
+     *         type="array",
+     *         @OA\Items(ref="#/components/schemas/ItemResource")
+     *       ),
+     *       @OA\Property(
+     *         property="meta",
+     *         ref="#/components/schemas/PaginationMeta"
+     *       ),
+     *       @OA\Property(
+     *         property="links",
+     *         ref="#/components/schemas/PaginationLinks"
+     *       ),
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         example="Collection read"
+     *       )
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response="403",
+     *     description="Access denied",
+     *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
+     *   )
+     * )
+     *
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return ItemCollection
      */
     public function index()
     {
         $paginator = ItemService::collection()->getPaginator();
-        $resource  = $this->transformPaginator($paginator, ItemTransformer::class);
-
-        return $this->respondWithJson('Item collection read', $resource);
+        return (new ItemCollection($paginator))->additional(['message' => 'Item collection read']);
     }
 
-
     /**
+     * @OA\Post (
+     *   tags={"ItemsController"},
+     *   path="/api/items",
+     *   summary="Create new item",
+     *   @OA\RequestBody(
+     *     @OA\JsonContent(ref="#/components/schemas/ItemRequest")
+     *   ),
+     *   @OA\Parameter(
+     *     @OA\Schema(type="string"),
+     *     in="query",
+     *     allowReserved=true,
+     *     name="api_token",
+     *     parameter="api_token",
+     *     description="Personal api_token of the user"
+     *   ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *       @OA\Property(
+     *         property="data",
+     *         type="object",
+     *         ref="#/components/schemas/ItemResource"
+     *       ),
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         example="Item created"
+     *       )
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response="403",
+     *     description="Access denied",
+     *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
+     *   ),
+     *   @OA\Response(
+     *     response="404",
+     *     description="Not found",
+     *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
+     *   )
+     * )
+     *
      * Store a newly created resource in storage.
      *
      * @param ItemRequest $request
@@ -39,45 +124,189 @@ class ItemsController extends Controller
      */
     public function store(ItemRequest $request)
     {
-        $result   = ItemService::create($request)->getResult();
-        $resource = $this->transformItem($result, ItemTransformer::class);
-
-        return $this->respondWithJson('Item created', $resource);
+        $result = ItemService::create($request)->getResult();
+        return (new ItemResource($result))->additional(['message' => 'Item created'])->response()->setStatusCode(201);
     }
 
 
     /**
+     * @OA\Get (
+     *   tags={"ItemsController"},
+     *   path="/api/items/{item}",
+     *   summary="Get single item",
+     *   @OA\Parameter(
+     *     @OA\Schema(type="string"),
+     *     in="query",
+     *     allowReserved=true,
+     *     name="api_token",
+     *     parameter="api_token",
+     *     description="Personal api_token of the user"
+     *   ),
+     *   @OA\Parameter(
+     *     @OA\Schema(type="integer"),
+     *     in="path",
+     *     name="item",
+     *     parameter="item",
+     *     description="Item id"
+     *   ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *       @OA\Property(
+     *         property="data",
+     *         type="object",
+     *         ref="#/components/schemas/ItemResource"
+     *       ),
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         example="Item read"
+     *       )
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response="403",
+     *     description="Access denied",
+     *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
+     *   ),
+     *   @OA\Response(
+     *     response="404",
+     *     description="Not found",
+     *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
+     *   )
+     * )
+     *
      * Display the specified resource.
      *
      * @param Item $record
-     * @return \Illuminate\Http\JsonResponse
+     * @return ItemResource
      */
     public function show(Item $record)
     {
-        $result   = ItemService::show($record)->getResult();
-        $resource = $this->transformItem($result, ItemTransformer::class);
-
-        return $this->respondWithJson('Item read', $resource);
+        $result = ItemService::show($record)->getResult();
+        return (new ItemResource($result))->additional(['message' => 'Item read']);
     }
 
 
     /**
+     * @OA\Put (
+     *   tags={"ItemsController"},
+     *   path="/api/items/{item}",
+     *   summary="Update an existing item",
+     *   @OA\RequestBody(
+     *     @OA\JsonContent(ref="#/components/schemas/ItemRequest")
+     *   ),
+     *   @OA\Parameter(
+     *     @OA\Schema(type="string"),
+     *     in="query",
+     *     allowReserved=true,
+     *     name="api_token",
+     *     parameter="api_token",
+     *     description="Personal api_token of the user"
+     *   ),
+     *   @OA\Parameter(
+     *     @OA\Schema(type="integer"),
+     *     in="path",
+     *     name="item",
+     *     parameter="item",
+     *     description="Item id"
+     *   ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *       @OA\Property(
+     *         property="data",
+     *         type="object",
+     *         ref="#/components/schemas/ItemResource"
+     *       ),
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         example="Item updated"
+     *       )
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response="403",
+     *     description="Access denied",
+     *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
+     *   ),
+     *   @OA\Response(
+     *     response="404",
+     *     description="Not found",
+     *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
+     *   )
+     * )
+     *
      * Update the specified resource in storage.
      *
      * @param ItemRequest $request
      * @param Item        $record
-     * @return \Illuminate\Http\JsonResponse
+     * @return ItemResource
      */
     public function update(ItemRequest $request, Item $record)
     {
-        $result   = ItemService::update($record, $request)->getResult();
-        $resource = $this->transformItem($result, ItemTransformer::class);
-
-        return $this->respondWithJson('Item updated', $resource);
+        $result = ItemService::update($record, $request)->getResult();
+        return (new ItemResource($result))->additional(['message' => 'Item updated']);
     }
 
 
     /**
+     * @OA\Delete (
+     *   tags={"ItemsController"},
+     *   path="/api/items/{item}",
+     *   summary="Delete a item",
+     *   @OA\Parameter(
+     *     @OA\Schema(type="string"),
+     *     in="query",
+     *     allowReserved=true,
+     *     name="api_token",
+     *     parameter="api_token",
+     *     description="Personal api_token of the user"
+     *   ),
+     *   @OA\Parameter(
+     *     @OA\Schema(type="integer"),
+     *     in="path",
+     *     name="item",
+     *     parameter="item",
+     *     description="Item id"
+     *   ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success",
+     *     @OA\JsonContent(
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         example="Item deleted"
+     *       )
+     *     )
+     *   ),
+     *   @OA\Response(
+     *     response="403",
+     *     description="Access denied",
+     *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
+     *   ),
+     *   @OA\Response(
+     *     response="404",
+     *     description="Not found",
+     *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
+     *   ),
+     *   @OA\Response(
+     *     response="400",
+     *     description="Bad request",
+     *     @OA\JsonContent(
+     *       @OA\Property(
+     *         property="message",
+     *         type="string",
+     *         example="Problem deleting item"
+     *       )
+     *     )
+     *   )
+     * )
+     *
      * Remove the specified resource from storage.
      *
      * @param Item $record
@@ -88,9 +317,8 @@ class ItemsController extends Controller
         $result = ItemService::delete($record)->getResult();
 
         if ($result) {
-            return $this->respondWithJson('Item deleted', [ 'success' => true ]);
+            return response()->json(['message' => 'Item deleted']);
         }
-
-        return $this->respondWithJson('Item NOT deleted', [ 'success' => false ]);
+        return response()->json(['message' => 'Problem deleting Item'], 404);
     }
 }

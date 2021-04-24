@@ -6,11 +6,11 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class PosInterfaceRequest
+ *
  * @package Partymeister\Accounting\Http\Requests\Backend
  */
 class PosInterfaceRequest extends Request
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -20,7 +20,6 @@ class PosInterfaceRequest extends Request
     {
         return true;
     }
-
 
     /**
      * Get the validation rules that apply to the request.

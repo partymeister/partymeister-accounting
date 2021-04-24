@@ -17,7 +17,17 @@ class ItemTypeRequest extends Request
      *   @OA\Property(
      *     property="name",
      *     type="string",
-     *     example="Example data"
+     *     example="Beverages"
+     *   ),
+     *   @OA\Property(
+     *     property="is_visible",
+     *     type="boolean",
+     *     example="true"
+     *   ),
+     *   @OA\Property(
+     *     property="sort_position",
+     *     type="integer",
+     *     example="3"
      *   ),
      *   required={"name"},
      * )
@@ -41,7 +51,9 @@ class ItemTypeRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name'          => 'required',
+            'sort_position' => 'nullable|integer',
+            'is_visible'    => 'nullable|boolean',
         ];
     }
 }

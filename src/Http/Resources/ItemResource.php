@@ -112,21 +112,23 @@ class ItemResource extends JsonResource
      */
     public function toArray($request)
     {
+        $comesFromItemTypeEndpoint = ($request->route()->uri() === 'api/item_types') ? true: false;
+
         return [
             'id'                               => (int) $this->id,
             'name'                             => $this->name,
             'description'                      => $this->description,
             'internal_description'             => $this->internal_description,
-            'item_type'                        => new ItemTypeResource($this->item_type),
+            'item_type'                        => $this->when(!$comesFromItemTypeEndpoint, new ItemTypeResource($this->item_type)),
             'vat_percentage'                   => (float) $this->vat_percentage,
             'price_with_vat'                   => (float) $this->price_with_vat,
             'price_without_vat'                => (float) $this->price_without_vat,
             'cost_price_with_vat'              => (float) $this->price_with_vat,
             'cost_price_without_vat'           => (float) $this->price_without_vat,
             'currency_iso_4217'                => $this->currency_iso_4217,
-            'pos_earnings_account'             => new AccountResource($this->pos_earnings_account_id),
-            'pos_cost_account'                 => new AccountResource($this->pos_cost_account_id),
-            'pos_create_booking_for_item'      => new ItemResource($this->pos_create_booking_for_item_id),
+            'pos_earnings_account'             => new AccountResource($this->pos_earnings_account),
+            'pos_cost_account'                 => new AccountResource($this->pos_cost_account),
+            'pos_create_booking_for_item'      => new ItemResource($this->pos_create_booking_for_item),
             'pos_can_book_negative_quantities' => (boolean) $this->pos_can_book_negative_quantities,
             'can_be_ordered'                   => (boolean) $this->can_be_ordered,
             'is_visible'                       => (boolean) $this->is_visible,

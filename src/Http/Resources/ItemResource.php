@@ -28,9 +28,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *     example="Only to be sold to adults!"
  *   ),
  *   @OA\Property(
- *     property="item_type_id",
- *     type="integer",
- *     example="1"
+ *     property="item_type",
+ *     type="object",
+ *     ref="#/components/schemas/ItemTypeResource"
  *   ),
  *   @OA\Property(
  *     property="vat_percentage",
@@ -63,15 +63,19 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *     example="EUR"
  *   ),
  *   @OA\Property(
- *     property="pos_cost_account_id",
- *     type="integer",
- *     example="2"
+ *     property="pos_cost_account",
+ *     type="object",
+ *     ref="#/components/schemas/AccountResource"
  *   ),
  *   @OA\Property(
- *     property="pos_create_booking_for_item_id",
- *     type="integer",
- *     example="3",
- *     description="Useful for booking something like deposit"
+ *     property="pos_earnings_account",
+ *     type="object",
+ *     ref="#/components/schemas/AccountResource"
+ *   ),
+ *   @OA\Property(
+ *     property="pos_create_booking_for_item",
+ *     type="object",
+ *     ref="#/components/schemas/ItemResource"
  *   ),
  *   @OA\Property(
  *     property="pos_can_book_negative_quantities",
@@ -120,6 +124,7 @@ class ItemResource extends JsonResource
             'cost_price_with_vat'              => (float) $this->price_with_vat,
             'cost_price_without_vat'           => (float) $this->price_without_vat,
             'currency_iso_4217'                => $this->currency_iso_4217,
+            'pos_earnings_account'             => new AccountResource($this->pos_earnings_account_id),
             'pos_cost_account'                 => new AccountResource($this->pos_cost_account_id),
             'pos_create_booking_for_item'      => new ItemResource($this->pos_create_booking_for_item_id),
             'pos_can_book_negative_quantities' => (boolean) $this->pos_can_book_negative_quantities,

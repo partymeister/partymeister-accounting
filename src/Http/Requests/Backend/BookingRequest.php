@@ -31,7 +31,7 @@ class BookingRequest extends Request
      *   ),
      *   @OA\Property(
      *     property="description",
-     *     type="text",
+     *     type="string",
      *     example="1x Karlsberg, 2x Orange Juice, 1x T-Shirt XL"
      *   ),
      *   @OA\Property(

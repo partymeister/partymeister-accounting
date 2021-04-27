@@ -21,12 +21,12 @@ class ItemRequest extends Request
      *   ),
      *   @OA\Property(
      *     property="description",
-     *     type="text",
+     *     type="string",
      *     example="1 Liter PET"
      *   ),
      *   @OA\Property(
      *     property="internal_description",
-     *     type="text",
+     *     type="string",
      *     example="Only to be sold to adults!"
      *   ),
      *   @OA\Property(

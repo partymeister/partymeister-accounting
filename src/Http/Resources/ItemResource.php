@@ -112,14 +112,12 @@ class ItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        $comesFromItemTypeEndpoint = ($request->route()->uri() === 'api/item_types') ? true: false;
-
         return [
             'id'                               => (int) $this->id,
             'name'                             => $this->name,
             'description'                      => $this->description,
             'internal_description'             => $this->internal_description,
-            'item_type'                        => $this->when(!$comesFromItemTypeEndpoint, new ItemTypeResource($this->item_type)),
+            'item_type'                        => new ItemTypeResource($this->whenLoaded('item_type')),
             'vat_percentage'                   => (float) $this->vat_percentage,
             'price_with_vat'                   => (float) $this->price_with_vat,
             'price_without_vat'                => (float) $this->price_without_vat,

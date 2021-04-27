@@ -39,15 +39,12 @@ class ItemTypeResource extends JsonResource
      */
     public function toArray($request)
     {
-        $comesFromItemEndpoint = ($request->route()
-                                          ->uri() === 'api/items') ? true : false;
-
         return [
             'id'            => (int) $this->id,
             'name'          => $this->name,
             'is_visible'    => (boolean) $this->is_visible,
             'sort_position' => (int) $this->sort_position,
-            'items'         => $this->when(! $comesFromItemEndpoint, ItemResource::collection($this->items)),
+            'items'         => ItemResource::collection($this->whenLoaded('items')),
         ];
     }
 }

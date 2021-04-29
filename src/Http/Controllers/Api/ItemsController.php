@@ -16,7 +16,7 @@ use Partymeister\Accounting\Http\Resources\ItemCollection;
  */
 class ItemsController extends ApiController
 {
-
+    protected string $model = 'Partymeister\Accounting\Models\Item';
     protected string $modelResource = 'item';
 
     /**

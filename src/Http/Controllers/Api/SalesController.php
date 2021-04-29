@@ -16,7 +16,7 @@ use Partymeister\Accounting\Http\Resources\SaleCollection;
  */
 class SalesController extends ApiController
 {
-
+    protected string $model = 'Partymeister\Accounting\Models\Sale';
     protected string $modelResource = 'sale';
 
     /**

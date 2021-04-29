@@ -16,7 +16,7 @@ use Partymeister\Accounting\Http\Resources\BookingCollection;
  */
 class BookingsController extends ApiController
 {
-
+    protected string $model = 'Partymeister\Accounting\Models\Booking';
     protected string $modelResource = 'booking';
 
     /**

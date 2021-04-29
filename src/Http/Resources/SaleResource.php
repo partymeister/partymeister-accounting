@@ -2,7 +2,7 @@
 
 namespace Partymeister\Accounting\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Motor\Backend\Http\Resources\BaseResource;
 
 /**
  * @OA\Schema(
@@ -54,7 +54,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *   ),
  * )
  */
-class SaleResource extends JsonResource
+class SaleResource extends BaseResource
 {
     /**
      * Transform the resource into an array.

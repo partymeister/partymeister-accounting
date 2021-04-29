@@ -16,7 +16,7 @@ use Partymeister\Accounting\Http\Resources\AccountTypeCollection;
  */
 class AccountTypesController extends ApiController
 {
-
+    protected string $model = 'Partymeister\Accounting\Models\AccountType';
     protected string $modelResource = 'account_type';
 
     /**

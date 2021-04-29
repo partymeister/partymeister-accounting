@@ -16,7 +16,7 @@ use Partymeister\Accounting\Http\Resources\AccountCollection;
  */
 class AccountsController extends ApiController
 {
-
+    protected string $model = 'Partymeister\Accounting\Models\Account';
     protected string $modelResource = 'account';
 
     /**

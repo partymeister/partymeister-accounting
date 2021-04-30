@@ -3,15 +3,14 @@
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Motor\Backend\Http\Controllers\Controller;
 use Partymeister\Accounting\Http\Requests\Backend\PosInterfaceRequest;
+use Partymeister\Accounting\Http\Resources\AccountResource;
+use Partymeister\Accounting\Http\Resources\BookingResource;
+use Partymeister\Accounting\Http\Resources\ItemResource;
 use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Models\Item;
-use Partymeister\Accounting\Transformers\AccountTransformer;
-use Partymeister\Accounting\Transformers\BookingTransformer;
-use Partymeister\Accounting\Transformers\ItemTransformer;
 
 /**
  * Class PosInterfacesController
@@ -31,15 +30,12 @@ class PosInterfacesController extends Controller
         $items       = Item::where('pos_earnings_account_id', $record->id)->orderBy('pos_sort_position', 'ASC')->get();
         $lastBooking = Booking::where('to_account_id', $record->id)->orderBy('created_at', 'DESC')->first();
 
-        $itemsResource = $this->transformCollection($items, ItemTransformer::class);
-        $itemsData     = $this->fractal->createData($itemsResource)->toArray();
+        $itemsData     = ItemResource::collection($items)->toArrayRecursive();
 
-        $accountResource = $this->transformItem($record, AccountTransformer::class);
-        $accountData     = $this->fractal->createData($accountResource)->toArray();
+        $accountData     = (new AccountResource($record))->toArrayRecursive();
 
         if (! is_null($lastBooking)) {
-            $bookingResource = $this->transformItem($lastBooking, BookingTransformer::class);
-            $bookingData     = $this->fractal->createData($bookingResource)->toArray();
+            $bookingData     = (new BookingResource($lastBooking))->toArrayRecursive();
         } else {
             $bookingData = [ 'data' => [] ];
         }
@@ -62,9 +58,7 @@ class PosInterfacesController extends Controller
         if (is_array($items)) {
             $booking = Booking::createSales($record, $items);
 
-            $resource = $this->transformItem($booking, BookingTransformer::class);
-
-            return $this->respondWithJson('Booking created', $resource);
+            return $this->respondWithJson('Booking created', new BookingResource($booking));
         }
 
         return response()->json([ 'message' => 'No items received' ], 404);

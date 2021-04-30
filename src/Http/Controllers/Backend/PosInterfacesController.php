@@ -4,14 +4,13 @@ namespace Partymeister\Accounting\Http\Controllers\Backend;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Motor\Backend\Http\Controllers\Controller;
 use Partymeister\Accounting\Http\Requests\Backend\PosInterfaceRequest;
+use Partymeister\Accounting\Http\Resources\BookingResource;
 use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Models\ItemType;
-use Partymeister\Accounting\Transformers\BookingTransformer;
 
 /**
  * Class PosInterfacesController
@@ -76,9 +75,7 @@ class PosInterfacesController extends Controller
         if (is_array($items)) {
             $booking = Booking::createSales($record, $items);
 
-            $resource = $this->transformItem($booking, BookingTransformer::class);
-
-            return $this->respondWithJson('Booking created', $resource);
+            return $this->respondWithJson('Booking created', new BookingResource($booking));
         }
 
         return response()->json([ 'message' => 'No items received' ], 404);

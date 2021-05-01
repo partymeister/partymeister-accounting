@@ -7,6 +7,7 @@ use Motor\Backend\Grid\Renderers\BooleanRenderer;
 
 /**
  * Class ItemTypeGrid
+ *
  * @package Partymeister\Accounting\Grids
  */
 class ItemTypeGrid extends Grid

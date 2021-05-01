@@ -85,9 +85,9 @@ class BookingRequest extends Request
             'from_account_id'   => 'nullable|integer',
             'to_account_id'     => 'nullable|integer',
             'description'       => 'required',
-            'vat_percentage'    => 'required|integer',
-            'price_with_vat'    => 'required|decimal',
-            'price_without_vat' => 'nullable|decimal',
+            'vat_percentage'    => 'required|numeric',
+            'price_with_vat'    => 'required|numeric',
+            'price_without_vat' => 'nullable|numeric',
             'currency_iso_4217' => 'currency_compatibility',
             'is_manual_booking' => 'nullable|boolean',
         ];

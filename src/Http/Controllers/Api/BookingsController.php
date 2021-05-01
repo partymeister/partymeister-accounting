@@ -3,20 +3,21 @@
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
 use Motor\Backend\Http\Controllers\ApiController;
-
-use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Http\Requests\Backend\BookingRequest;
-use Partymeister\Accounting\Services\BookingService;
-use Partymeister\Accounting\Http\Resources\BookingResource;
 use Partymeister\Accounting\Http\Resources\BookingCollection;
+use Partymeister\Accounting\Http\Resources\BookingResource;
+use Partymeister\Accounting\Models\Booking;
+use Partymeister\Accounting\Services\BookingService;
 
 /**
  * Class BookingsController
+ *
  * @package Partymeister\Accounting\Http\Controllers\Api
  */
 class BookingsController extends ApiController
 {
     protected string $model = 'Partymeister\Accounting\Models\Booking';
+
     protected string $modelResource = 'booking';
 
     /**
@@ -69,7 +70,9 @@ class BookingsController extends ApiController
      */
     public function index()
     {
-        $paginator = BookingService::collection()->getPaginator();
+        $paginator = BookingService::collection()
+                                   ->getPaginator();
+
         return (new BookingCollection($paginator))->additional(['message' => 'Booking collection read']);
     }
 
@@ -124,10 +127,13 @@ class BookingsController extends ApiController
      */
     public function store(BookingRequest $request)
     {
-        $result = BookingService::create($request)->getResult();
-        return (new BookingResource($result))->additional(['message' => 'Booking created'])->response()->setStatusCode(201);
-    }
+        $result = BookingService::create($request)
+                                ->getResult();
 
+        return (new BookingResource($result))->additional(['message' => 'Booking created'])
+                                             ->response()
+                                             ->setStatusCode(201);
+    }
 
     /**
      * @OA\Get (
@@ -184,10 +190,11 @@ class BookingsController extends ApiController
      */
     public function show(Booking $record)
     {
-        $result = BookingService::show($record)->getResult();
+        $result = BookingService::show($record)
+                                ->getResult();
+
         return (new BookingResource($result))->additional(['message' => 'Booking read']);
     }
-
 
     /**
      * @OA\Put (
@@ -243,15 +250,16 @@ class BookingsController extends ApiController
      * Update the specified resource in storage.
      *
      * @param BookingRequest $request
-     * @param Booking        $record
+     * @param Booking $record
      * @return BookingResource
      */
     public function update(BookingRequest $request, Booking $record)
     {
-        $result = BookingService::update($record, $request)->getResult();
+        $result = BookingService::update($record, $request)
+                                ->getResult();
+
         return (new BookingResource($result))->additional(['message' => 'Booking updated']);
     }
-
 
     /**
      * @OA\Delete (
@@ -314,11 +322,13 @@ class BookingsController extends ApiController
      */
     public function destroy(Booking $record)
     {
-        $result = BookingService::delete($record)->getResult();
+        $result = BookingService::delete($record)
+                                ->getResult();
 
         if ($result) {
             return response()->json(['message' => 'Booking deleted']);
         }
+
         return response()->json(['message' => 'Problem deleting Booking'], 404);
     }
 }

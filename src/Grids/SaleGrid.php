@@ -8,6 +8,7 @@ use Motor\Backend\Grid\Renderers\DateRenderer;
 
 /**
  * Class SaleGrid
+ *
  * @package Partymeister\Accounting\Grids
  */
 class SaleGrid extends Grid
@@ -17,12 +18,9 @@ class SaleGrid extends Grid
         $this->addColumn('created_at', trans('partymeister-accounting::backend/sales.time'))
              ->renderer(DateRenderer::class);
         $this->addColumn('item_and_quantity', trans('partymeister-accounting::backend/items.item'));
-        $this->addColumn(
-            'earnings_booking.to_account.name',
-            trans('partymeister-accounting::backend/bookings.to_account')
-        );
+        $this->addColumn('earnings_booking.to_account.name', trans('partymeister-accounting::backend/bookings.to_account'));
         $this->addColumn('price_with_vat', trans('partymeister-accounting::backend/bookings.price_with_vat'))
-             ->renderer(CurrencyRenderer::class, [ 'currency_column' => 'currency_iso_4217' ])
+             ->renderer(CurrencyRenderer::class, ['currency_column' => 'currency_iso_4217'])
              ->style('text-align: right');
     }
 }

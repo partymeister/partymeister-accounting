@@ -6,45 +6,45 @@ return [
         'values' => [
             'read',
             'write',
-            'delete'
-        ]
+            'delete',
+        ],
     ],
     'accounts'      => [
         'name'   => 'partymeister-accounting::backend/accounts.accounts',
         'values' => [
             'read',
             'write',
-            'delete'
-        ]
+            'delete',
+        ],
     ],
     'bookings'      => [
         'name'   => 'partymeister-accounting::backend/bookings.bookings',
         'values' => [
             'read',
             'write',
-            'delete'
-        ]
+            'delete',
+        ],
     ],
     'item_types'    => [
         'name'   => 'partymeister-accounting::backend/item_types.item_types',
         'values' => [
             'read',
             'write',
-            'delete'
-        ]
+            'delete',
+        ],
     ],
     'items'         => [
         'name'   => 'partymeister-accounting::backend/items.items',
         'values' => [
             'read',
             'write',
-            'delete'
-        ]
+            'delete',
+        ],
     ],
     'sales'         => [
         'name'   => 'partymeister-accounting::backend/sales.sales',
         'values' => [
-            'read'
-        ]
+            'read',
+        ],
     ],
 ];

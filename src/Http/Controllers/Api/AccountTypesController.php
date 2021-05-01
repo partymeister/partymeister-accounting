@@ -3,20 +3,21 @@
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
 use Motor\Backend\Http\Controllers\ApiController;
-
-use Partymeister\Accounting\Models\AccountType;
 use Partymeister\Accounting\Http\Requests\Backend\AccountTypeRequest;
-use Partymeister\Accounting\Services\AccountTypeService;
-use Partymeister\Accounting\Http\Resources\AccountTypeResource;
 use Partymeister\Accounting\Http\Resources\AccountTypeCollection;
+use Partymeister\Accounting\Http\Resources\AccountTypeResource;
+use Partymeister\Accounting\Models\AccountType;
+use Partymeister\Accounting\Services\AccountTypeService;
 
 /**
  * Class AccountTypesController
+ *
  * @package Partymeister\Accounting\Http\Controllers\Api
  */
 class AccountTypesController extends ApiController
 {
     protected string $model = 'Partymeister\Accounting\Models\AccountType';
+
     protected string $modelResource = 'account_type';
 
     /**
@@ -69,7 +70,9 @@ class AccountTypesController extends ApiController
      */
     public function index()
     {
-        $paginator = AccountTypeService::collection()->getPaginator();
+        $paginator = AccountTypeService::collection()
+                                       ->getPaginator();
+
         return (new AccountTypeCollection($paginator))->additional(['message' => 'AccountType collection read']);
     }
 
@@ -124,10 +127,13 @@ class AccountTypesController extends ApiController
      */
     public function store(AccountTypeRequest $request)
     {
-        $result = AccountTypeService::create($request)->getResult();
-        return (new AccountTypeResource($result))->additional(['message' => 'AccountType created'])->response()->setStatusCode(201);
-    }
+        $result = AccountTypeService::create($request)
+                                    ->getResult();
 
+        return (new AccountTypeResource($result))->additional(['message' => 'AccountType created'])
+                                                 ->response()
+                                                 ->setStatusCode(201);
+    }
 
     /**
      * @OA\Get (
@@ -184,10 +190,11 @@ class AccountTypesController extends ApiController
      */
     public function show(AccountType $record)
     {
-        $result = AccountTypeService::show($record)->getResult();
+        $result = AccountTypeService::show($record)
+                                    ->getResult();
+
         return (new AccountTypeResource($result))->additional(['message' => 'AccountType read']);
     }
-
 
     /**
      * @OA\Put (
@@ -243,15 +250,16 @@ class AccountTypesController extends ApiController
      * Update the specified resource in storage.
      *
      * @param AccountTypeRequest $request
-     * @param AccountType        $record
+     * @param AccountType $record
      * @return AccountTypeResource
      */
     public function update(AccountTypeRequest $request, AccountType $record)
     {
-        $result = AccountTypeService::update($record, $request)->getResult();
+        $result = AccountTypeService::update($record, $request)
+                                    ->getResult();
+
         return (new AccountTypeResource($result))->additional(['message' => 'AccountType updated']);
     }
-
 
     /**
      * @OA\Delete (
@@ -314,11 +322,13 @@ class AccountTypesController extends ApiController
      */
     public function destroy(AccountType $record)
     {
-        $result = AccountTypeService::delete($record)->getResult();
+        $result = AccountTypeService::delete($record)
+                                    ->getResult();
 
         if ($result) {
             return response()->json(['message' => 'AccountType deleted']);
         }
+
         return response()->json(['message' => 'Problem deleting AccountType'], 404);
     }
 }

@@ -10,11 +10,11 @@ use Partymeister\Accounting\Models\ItemType;
 
 /**
  * Class ComponentItemLists
+ *
  * @package Partymeister\Accounting\Components
  */
 class ComponentItemLists
 {
-
     /**
      * @var PageVersionComponent
      */
@@ -25,9 +25,9 @@ class ComponentItemLists
      */
     protected $itemTypes;
 
-
     /**
      * ComponentItemLists constructor.
+     *
      * @param PageVersionComponent $pageVersionComponent
      */
     public function __construct(PageVersionComponent $pageVersionComponent)
@@ -35,27 +35,24 @@ class ComponentItemLists
         $this->pageVersionComponent = $pageVersionComponent;
     }
 
-
     /**
      * @param Request $request
      * @return Factory|View
      */
     public function index(Request $request)
     {
-        $this->itemTypes = ItemType::where('is_visible', true)->orderBy('sort_position', 'ASC')->get();
+        $this->itemTypes = ItemType::where('is_visible', true)
+                                   ->orderBy('sort_position', 'ASC')
+                                   ->get();
 
         return $this->render();
     }
-
 
     /**
      * @return Factory|View
      */
     public function render()
     {
-        return view(
-            config('motor-cms-page-components.components.' . $this->pageVersionComponent->component_name . '.view'),
-            [ 'itemTypes' => $this->itemTypes ]
-        );
+        return view(config('motor-cms-page-components.components.'.$this->pageVersionComponent->component_name.'.view'), ['itemTypes' => $this->itemTypes]);
     }
 }

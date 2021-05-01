@@ -57,7 +57,7 @@ use Motor\Core\Traits\Searchable;
  * @method static Builder|Item newModelQuery()
  * @method static Builder|Item newQuery()
  * @method static Builder|Item query()
- * @method static Builder|Item search($q, $full_text = FALSE)
+ * @method static Builder|Item search($q, $full_text = false)
  * @method static Builder|Item whereCanBeOrdered($value)
  * @method static Builder|Item whereCostPriceWithVat($value)
  * @method static Builder|Item whereCostPriceWithoutVat($value)
@@ -82,162 +82,157 @@ use Motor\Core\Traits\Searchable;
  * @method static Builder|Item whereVatPercentage($value)
  * @mixin Eloquent
  */
-class Item extends Model {
-	use Searchable;
-	use Filterable;
-	use Blameable, CreatedBy, UpdatedBy, DeletedBy;
-	use HasFactory;
+class Item extends Model
+{
+    use Searchable;
+    use Filterable;
+    use Blameable, CreatedBy, UpdatedBy, DeletedBy;
+    use HasFactory;
 
-	/**
-	 * Columns for the Blameable trait
-	 *
-	 * @var array
-	 */
-	protected $blameable = [
-		'created',
-		'updated',
-		'deleted'
-	];
+    /**
+     * Columns for the Blameable trait
+     *
+     * @var array
+     */
+    protected $blameable = [
+        'created',
+        'updated',
+        'deleted',
+    ];
 
-	/**
-	 * Searchable columns for the searchable trait
-	 *
-	 * @var array
-	 */
-	protected $searchableColumns = [
-		'items.name',
-		'items.description',
-		'item_type.name',
-		'internal_description',
-		'items.price_with_vat',
-		'items.price_without_vat'
-	];
+    /**
+     * Searchable columns for the searchable trait
+     *
+     * @var array
+     */
+    protected $searchableColumns = [
+        'items.name',
+        'items.description',
+        'item_type.name',
+        'internal_description',
+        'items.price_with_vat',
+        'items.price_without_vat',
+    ];
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = [
-		'name',
-		'description',
-		'pos_cost_account_id',
-		'item_type_id',
-		'internal_description',
-		'vat_percentage',
-		'price_with_vat',
-		'price_without_vat',
-		'cost_price_with_vat',
-		'cost_price_without_vat',
-		'currency_iso_4217',
-		'can_be_ordered',
-		'is_visible',
-		'sort_position',
-		'pos_create_booking_for_item_id',
-		'pos_can_book_negative_quantities'
-	];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'description',
+        'pos_cost_account_id',
+        'item_type_id',
+        'internal_description',
+        'vat_percentage',
+        'price_with_vat',
+        'price_without_vat',
+        'cost_price_with_vat',
+        'cost_price_without_vat',
+        'currency_iso_4217',
+        'can_be_ordered',
+        'is_visible',
+        'sort_position',
+        'pos_create_booking_for_item_id',
+        'pos_can_book_negative_quantities',
+    ];
 
+    protected static function newFactory()
+    {
+        return ItemFactory::new();
+    }
 
-	protected static function newFactory()
-	{
-		return ItemFactory::new();
-	}
+    /**
+     * @return BelongsTo
+     */
+    public function pos_earnings_account()
+    {
+        return $this->belongsTo(Account::class);
+    }
 
-	/**
-	 * @return BelongsTo
-	 */
-	public function pos_earnings_account()
-	{
-		return $this->belongsTo(Account::class);
-	}
+    /**
+     * @return BelongsTo
+     */
+    public function pos_cost_account()
+    {
+        return $this->belongsTo(Account::class);
+    }
 
+    /**
+     * @return BelongsTo
+     */
+    public function item_type()
+    {
+        return $this->belongsTo(ItemType::class);
+    }
 
-	/**
-	 * @return BelongsTo
-	 */
-	public function pos_cost_account()
-	{
-		return $this->belongsTo(Account::class);
-	}
+    /**
+     * @param         $quantity
+     * @param Booking $booking
+     * @return Sale
+     */
+    public function sell($quantity, Booking $booking)
+    {
+        $sale = new Sale;
+        $sale->quantity = $quantity;
+        $sale->earnings_booking_id = $booking->id;
+        $sale->item_id = $this->id;
+        $sale->price_with_vat = $quantity * $this->price_with_vat;
+        $sale->price_without_vat = $quantity * $this->price_without_vat;
+        $sale->vat_percentage = $this->vat_percentage;
+        $sale->currency_iso_4217 = $this->currency_iso_4217;
+        $sale->save();
 
+        if (! is_null($this->pos_cost_account)) {
+            $costBooking = new Booking();
+            $costBooking->sale_id = $sale->id;
+            $costBooking->description = $sale->item_and_quantity;
+            $costBooking->vat_percentage = $this->vat_percentage;
+            $costBooking->price_with_vat = ($quantity * $this->cost_price_with_vat) * -1;
+            $costBooking->price_without_vat = ($quantity * $this->cost_price_without_vat) * -1;
+            $costBooking->currency_iso_4217 = $this->currency_iso_4217;
+            $costBooking->to_account_id = $this->pos_cost_account_id;
+            $costBooking->save();
 
-	/**
-	 * @return BelongsTo
-	 */
-	public function item_type()
-	{
-		return $this->belongsTo(ItemType::class);
-	}
+            $sale->cost_booking_id = $costBooking->id;
+            $sale->save();
+        }
 
+        return $sale;
+    }
 
-	/**
-	 * @param         $quantity
-	 * @param Booking $booking
-	 * @return Sale
-	 */
-	public function sell($quantity, Booking $booking)
-	{
-		$sale = new Sale;
-		$sale->quantity = $quantity;
-		$sale->earnings_booking_id = $booking->id;
-		$sale->item_id = $this->id;
-		$sale->price_with_vat = $quantity * $this->price_with_vat;
-		$sale->price_without_vat = $quantity * $this->price_without_vat;
-		$sale->vat_percentage = $this->vat_percentage;
-		$sale->currency_iso_4217 = $this->currency_iso_4217;
-		$sale->save();
+    /**
+     * @return int
+     */
+    public function getSalesAttribute()
+    {
+        $result = DB::table('sales')
+                    ->select(DB::raw('SUM(quantity) as quantity'))
+                    ->where('item_id', $this->id)
+                    ->get();
+        if (! is_null($result)) {
+            return (! is_null($result[0]->quantity) ? $result[0]->quantity : 0);
+        }
 
-		if (!is_null($this->pos_cost_account))
-		{
-			$costBooking = new Booking();
-			$costBooking->sale_id = $sale->id;
-			$costBooking->description = $sale->item_and_quantity;
-			$costBooking->vat_percentage = $this->vat_percentage;
-			$costBooking->price_with_vat = ($quantity * $this->cost_price_with_vat) * -1;
-			$costBooking->price_without_vat = ($quantity * $this->cost_price_without_vat) * -1;
-			$costBooking->currency_iso_4217 = $this->currency_iso_4217;
-			$costBooking->to_account_id = $this->pos_cost_account_id;
-			$costBooking->save();
+        return 0;
+    }
 
-			$sale->cost_booking_id = $costBooking->id;
-			$sale->save();
-		}
+    /**
+     * @return string
+     */
+    public function getRevenueAttribute()
+    {
+        $revenue = 0;
+        $result = DB::table('sales')
+                    ->select(DB::raw('SUM(quantity*items.price_with_vat) as quantity'))
+                    ->join('items', 'item_id', '=', 'items.id')
+                    ->where('item_id', $this->id)
+                    ->get();
+        if (! is_null($result)) {
+            $revenue = (! is_null($result[0]->quantity) ? $result[0]->quantity : 0);
+        }
 
-		return $sale;
-	}
-
-
-	/**
-	 * @return int
-	 */
-	public function getSalesAttribute()
-	{
-		$result = DB::table('sales')->select(DB::raw('SUM(quantity) as quantity'))->where('item_id', $this->id)->get();
-		if (!is_null($result))
-		{
-			return (!is_null($result[0]->quantity) ? $result[0]->quantity : 0);
-		}
-
-		return 0;
-	}
-
-
-	/**
-	 * @return string
-	 */
-	public function getRevenueAttribute()
-	{
-		$revenue = 0;
-		$result = DB::table('sales')
-			->select(DB::raw('SUM(quantity*items.price_with_vat) as quantity'))
-			->join('items', 'item_id', '=', 'items.id')
-			->where('item_id', $this->id)
-			->get();
-		if (!is_null($result))
-		{
-			$revenue = (!is_null($result[0]->quantity) ? $result[0]->quantity : 0);
-		}
-
-		return number_format($revenue, 2, ',', '.') . ' €';
-	}
+        return number_format($revenue, 2, ',', '.').' €';
+    }
 }

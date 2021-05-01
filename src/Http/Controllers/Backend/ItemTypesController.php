@@ -2,7 +2,6 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 use Motor\Backend\Http\Controllers\Controller;
@@ -14,12 +13,12 @@ use Partymeister\Accounting\Services\ItemTypeService;
 
 /**
  * Class ItemTypesController
+ *
  * @package Partymeister\Accounting\Http\Controllers\Backend
  */
 class ItemTypesController extends Controller
 {
     use FormBuilderTrait;
-
 
     /**
      * Display a listing of the resource.
@@ -38,7 +37,6 @@ class ItemTypesController extends Controller
         return view('partymeister-accounting::backend.item_types.index', compact('paginator', 'grid'));
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -49,12 +47,11 @@ class ItemTypesController extends Controller
         $form = $this->form(ItemTypeForm::class, [
             'method'  => 'POST',
             'route'   => 'backend.item_types.store',
-            'enctype' => 'multipart/form-data'
+            'enctype' => 'multipart/form-data',
         ]);
 
         return view('partymeister-accounting::backend.item_types.create', compact('form'));
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -68,7 +65,10 @@ class ItemTypesController extends Controller
 
         // It will automatically use current request, get the rules, and do the validation
         if (! $form->isValid()) {
-            return redirect()->back()->withErrors($form->getErrors())->withInput();
+            return redirect()
+                ->back()
+                ->withErrors($form->getErrors())
+                ->withInput();
         }
 
         ItemTypeService::createWithForm($request, $form);
@@ -77,7 +77,6 @@ class ItemTypesController extends Controller
 
         return redirect('backend/item_types');
     }
-
 
     /**
      * Display the specified resource.
@@ -89,7 +88,6 @@ class ItemTypesController extends Controller
         //
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -100,20 +98,19 @@ class ItemTypesController extends Controller
     {
         $form = $this->form(ItemTypeForm::class, [
             'method'  => 'PATCH',
-            'url'     => route('backend.item_types.update', [ $record->id ]),
+            'url'     => route('backend.item_types.update', [$record->id]),
             'enctype' => 'multipart/form-data',
-            'model'   => $record
+            'model'   => $record,
         ]);
 
         return view('partymeister-accounting::backend.item_types.edit', compact('form'));
     }
 
-
     /**
      * Update the specified resource in storage.
      *
      * @param ItemTypeRequest $request
-     * @param ItemType        $record
+     * @param ItemType $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(ItemTypeRequest $request, ItemType $record)
@@ -122,7 +119,10 @@ class ItemTypesController extends Controller
 
         // It will automatically use current request, get the rules, and do the validation
         if (! $form->isValid()) {
-            return redirect()->back()->withErrors($form->getErrors())->withInput();
+            return redirect()
+                ->back()
+                ->withErrors($form->getErrors())
+                ->withInput();
         }
 
         ItemTypeService::updateWithForm($record, $request, $form);
@@ -131,7 +131,6 @@ class ItemTypesController extends Controller
 
         return redirect('backend/item_types');
     }
-
 
     /**
      * Remove the specified resource from storage.

@@ -14,11 +14,11 @@ use Partymeister\Accounting\Models\Item;
 
 /**
  * Class PosInterfacesController
+ *
  * @package Partymeister\Accounting\Http\Controllers\Api
  */
 class PosInterfacesController extends Controller
 {
-
     /**
      * Display the specified resource.
      *
@@ -27,29 +27,30 @@ class PosInterfacesController extends Controller
      */
     public function show(Account $record)
     {
-        $items       = Item::where('pos_earnings_account_id', $record->id)->orderBy('pos_sort_position', 'ASC')->get();
-        $lastBooking = Booking::where('to_account_id', $record->id)->orderBy('created_at', 'DESC')->first();
+        $items = Item::where('pos_earnings_account_id', $record->id)
+                     ->orderBy('pos_sort_position', 'ASC')
+                     ->get();
+        $lastBooking = Booking::where('to_account_id', $record->id)
+                              ->orderBy('created_at', 'DESC')
+                              ->first();
 
-        $itemsData     = ItemResource::collection($items)->toArrayRecursive();
+        $itemsData = ItemResource::collection($items)
+                                 ->toArrayRecursive();
 
-        $accountData     = (new AccountResource($record))->toArrayRecursive();
+        $accountData = (new AccountResource($record))->toArrayRecursive();
 
         if (! is_null($lastBooking)) {
-            $bookingData     = (new BookingResource($lastBooking))->toArrayRecursive();
+            $bookingData = (new BookingResource($lastBooking))->toArrayRecursive();
         } else {
-            $bookingData = [ 'data' => [] ];
+            $bookingData = ['data' => []];
         }
 
-        return $this->respondWithJson(
-            'POS data for Account',
-            [ 'account' => $accountData, 'items' => $itemsData, 'last_booking' => $bookingData ]
-        );
+        return response()->json(['account' => $accountData, 'items' => $itemsData, 'last_booking' => $bookingData]);
     }
-
 
     /**
      * @param PosInterfaceRequest $request
-     * @param Account             $record
+     * @param Account $record
      * @return JsonResponse
      */
     public function create(PosInterfaceRequest $request, Account $record)
@@ -58,9 +59,9 @@ class PosInterfacesController extends Controller
         if (is_array($items)) {
             $booking = Booking::createSales($record, $items);
 
-            return $this->respondWithJson('Booking created', new BookingResource($booking));
+            return response()->json(new BookingResource($booking));
         }
 
-        return response()->json([ 'message' => 'No items received' ], 404);
+        return response()->json(['message' => 'No items received'], 404);
     }
 }

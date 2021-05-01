@@ -35,7 +35,7 @@ use Motor\Core\Traits\Searchable;
  * @method static Builder|AccountType newModelQuery()
  * @method static Builder|AccountType newQuery()
  * @method static Builder|AccountType query()
- * @method static Builder|AccountType search($q, $full_text = FALSE)
+ * @method static Builder|AccountType search($q, $full_text = false)
  * @method static Builder|AccountType whereCreatedAt($value)
  * @method static Builder|AccountType whereCreatedBy($value)
  * @method static Builder|AccountType whereDeletedBy($value)
@@ -45,43 +45,44 @@ use Motor\Core\Traits\Searchable;
  * @method static Builder|AccountType whereUpdatedBy($value)
  * @mixin Eloquent
  */
-class AccountType extends Model {
-	use Searchable;
-	use Filterable;
-	use Blameable, CreatedBy, UpdatedBy, DeletedBy;
-	use HasFactory;
+class AccountType extends Model
+{
+    use Searchable;
+    use Filterable;
+    use Blameable, CreatedBy, UpdatedBy, DeletedBy;
+    use HasFactory;
 
-	/**
-	 * Columns for the Blameable trait
-	 *
-	 * @var array
-	 */
-	protected $blameable = [
-		'created',
-		'updated',
-		'deleted'
-	];
+    /**
+     * Columns for the Blameable trait
+     *
+     * @var array
+     */
+    protected $blameable = [
+        'created',
+        'updated',
+        'deleted',
+    ];
 
-	/**
-	 * Searchable columns for the searchable trait
-	 *
-	 * @var array
-	 */
-	protected $searchableColumns = [
-		'name'
-	];
+    /**
+     * Searchable columns for the searchable trait
+     *
+     * @var array
+     */
+    protected $searchableColumns = [
+        'name',
+    ];
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = [
-		'name'
-	];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+    ];
 
-	protected static function newFactory()
-	{
-		return AccountTypeFactory::new();
-	}
+    protected static function newFactory()
+    {
+        return AccountTypeFactory::new();
+    }
 }

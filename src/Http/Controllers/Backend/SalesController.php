@@ -10,12 +10,12 @@ use Partymeister\Accounting\Services\SaleService;
 
 /**
  * Class SalesController
+ *
  * @package Partymeister\Accounting\Http\Controllers\Backend
  */
 class SalesController extends Controller
 {
     use FormBuilderTrait;
-
 
     /**
      * Display a listing of the resource.
@@ -33,7 +33,6 @@ class SalesController extends Controller
 
         return view('partymeister-accounting::backend.sales.index', compact('paginator', 'grid'));
     }
-
 
     /**
      * Display the specified resource.

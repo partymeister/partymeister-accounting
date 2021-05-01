@@ -72,8 +72,8 @@ class BookingResource extends BaseResource
         return [
             'id'                => (int) $this->id,
             'sale'              => new SaleResource($this->sale),
-            'from_account'      => new AccountResource($this->from_account_id),
-            'to_account'        => new AccountResource($this->to_account_id),
+            'from_account'      => new AccountResource($this->from_account),
+            'to_account'        => new AccountResource($this->to_account),
             'description'       => $this->description,
             'vat_percentage'    => (float) $this->vat_percentage,
             'price_with_vat'    => (float) $this->price_with_vat,

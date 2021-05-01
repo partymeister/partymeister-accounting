@@ -3,20 +3,21 @@
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
 use Motor\Backend\Http\Controllers\ApiController;
-
-use Partymeister\Accounting\Models\Item;
 use Partymeister\Accounting\Http\Requests\Backend\ItemRequest;
-use Partymeister\Accounting\Services\ItemService;
-use Partymeister\Accounting\Http\Resources\ItemResource;
 use Partymeister\Accounting\Http\Resources\ItemCollection;
+use Partymeister\Accounting\Http\Resources\ItemResource;
+use Partymeister\Accounting\Models\Item;
+use Partymeister\Accounting\Services\ItemService;
 
 /**
  * Class ItemsController
+ *
  * @package Partymeister\Accounting\Http\Controllers\Api
  */
 class ItemsController extends ApiController
 {
     protected string $model = 'Partymeister\Accounting\Models\Item';
+
     protected string $modelResource = 'item';
 
     /**
@@ -69,7 +70,9 @@ class ItemsController extends ApiController
      */
     public function index()
     {
-        $paginator = ItemService::collection()->getPaginator();
+        $paginator = ItemService::collection()
+                                ->getPaginator();
+
         return (new ItemCollection($paginator))->additional(['message' => 'Item collection read']);
     }
 
@@ -124,10 +127,13 @@ class ItemsController extends ApiController
      */
     public function store(ItemRequest $request)
     {
-        $result = ItemService::create($request)->getResult();
-        return (new ItemResource($result))->additional(['message' => 'Item created'])->response()->setStatusCode(201);
-    }
+        $result = ItemService::create($request)
+                             ->getResult();
 
+        return (new ItemResource($result))->additional(['message' => 'Item created'])
+                                          ->response()
+                                          ->setStatusCode(201);
+    }
 
     /**
      * @OA\Get (
@@ -184,10 +190,11 @@ class ItemsController extends ApiController
      */
     public function show(Item $record)
     {
-        $result = ItemService::show($record)->getResult();
+        $result = ItemService::show($record)
+                             ->getResult();
+
         return (new ItemResource($result))->additional(['message' => 'Item read']);
     }
-
 
     /**
      * @OA\Put (
@@ -243,15 +250,16 @@ class ItemsController extends ApiController
      * Update the specified resource in storage.
      *
      * @param ItemRequest $request
-     * @param Item        $record
+     * @param Item $record
      * @return ItemResource
      */
     public function update(ItemRequest $request, Item $record)
     {
-        $result = ItemService::update($record, $request)->getResult();
+        $result = ItemService::update($record, $request)
+                             ->getResult();
+
         return (new ItemResource($result))->additional(['message' => 'Item updated']);
     }
-
 
     /**
      * @OA\Delete (
@@ -314,11 +322,13 @@ class ItemsController extends ApiController
      */
     public function destroy(Item $record)
     {
-        $result = ItemService::delete($record)->getResult();
+        $result = ItemService::delete($record)
+                             ->getResult();
 
         if ($result) {
             return response()->json(['message' => 'Item deleted']);
         }
+
         return response()->json(['message' => 'Problem deleting Item'], 404);
     }
 }

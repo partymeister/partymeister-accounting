@@ -18,7 +18,7 @@ return [
             'permissions'     => [
 
             ],
-            'group'           => 'partymeister-accounting'
+            'group'           => 'partymeister-accounting',
         ],
     ],
 ];

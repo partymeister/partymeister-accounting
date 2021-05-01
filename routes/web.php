@@ -7,8 +7,8 @@ Route::group([
     'middleware' => [
         'web',
         'web_auth',
-        'navigation'
-    ]
+        'navigation',
+    ],
 ], function () {
     Route::resource('account_types', 'AccountTypesController');
     Route::resource('accounts', 'AccountsController');
@@ -16,8 +16,12 @@ Route::group([
     Route::resource('item_types', 'ItemTypesController');
     Route::resource('items', 'ItemsController');
     Route::resource('sales', 'SalesController');
-    Route::get('pos/{account}', 'PosInterfacesController@show')->name('pos.show');
-    Route::post('pos/{account}', 'PosInterfacesController@create')->name('pos.create');
-    Route::get('pos/edit/{account}', 'PosInterfacesController@edit')->name('pos.edit');
-    Route::patch('pos/edit/{account}', 'PosInterfacesController@update')->name('pos.update');
+    Route::get('pos/{account}', 'PosInterfacesController@show')
+         ->name('pos.show');
+    Route::post('pos/{account}', 'PosInterfacesController@create')
+         ->name('pos.create');
+    Route::get('pos/edit/{account}', 'PosInterfacesController@edit')
+         ->name('pos.edit');
+    Route::patch('pos/edit/{account}', 'PosInterfacesController@update')
+         ->name('pos.update');
 });

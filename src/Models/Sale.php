@@ -19,47 +19,47 @@ use Motor\Core\Traits\Searchable;
 /**
  * Partymeister\Accounting\Models\Sale
  *
- * @property int                                               $id
- * @property int                                               $earnings_booking_id
- * @property int|null                                          $cost_booking_id
- * @property int                                               $item_id
- * @property int                                               $quantity
- * @property float                                             $price_with_vat
- * @property float                                             $price_without_vat
- * @property float                           $vat_percentage
- * @property string                          $currency_iso_4217
- * @property int                             $created_by
- * @property int                             $updated_by
- * @property int|null                        $deleted_by
+ * @property int $id
+ * @property int $earnings_booking_id
+ * @property int|null $cost_booking_id
+ * @property int $item_id
+ * @property int $quantity
+ * @property float $price_with_vat
+ * @property float $price_without_vat
+ * @property float $vat_percentage
+ * @property string $currency_iso_4217
+ * @property int $created_by
+ * @property int $updated_by
+ * @property int|null $deleted_by
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Booking|null               $cost_booking
- * @property-read User                       $creator
- * @property-read Booking                    $earnings_booking
- * @property-read User|null                  $eraser
- * @property-read mixed                      $item_and_quantity
- * @property-read Item                       $item
- * @property-read User                       $updater
- * @method static Builder|Sale filteredBy( Filter $filter, $column )
- * @method static Builder|Sale filteredByMultiple( Filter $filter )
+ * @property-read Booking|null $cost_booking
+ * @property-read User $creator
+ * @property-read Booking $earnings_booking
+ * @property-read User|null $eraser
+ * @property-read mixed $item_and_quantity
+ * @property-read Item $item
+ * @property-read User $updater
+ * @method static Builder|Sale filteredBy(Filter $filter, $column)
+ * @method static Builder|Sale filteredByMultiple(Filter $filter)
  * @method static Builder|Sale newModelQuery()
  * @method static Builder|Sale newQuery()
  * @method static Builder|Sale query()
- * @method static Builder|Sale search( $q, $full_text = false )
- * @method static Builder|Sale whereCostBookingId( $value )
- * @method static Builder|Sale whereCreatedAt( $value )
- * @method static Builder|Sale whereCreatedBy( $value )
- * @method static Builder|Sale whereCurrencyIso4217( $value )
- * @method static Builder|Sale whereDeletedBy( $value )
- * @method static Builder|Sale whereEarningsBookingId( $value )
- * @method static Builder|Sale whereId( $value )
- * @method static Builder|Sale whereItemId( $value )
- * @method static Builder|Sale wherePriceWithVat( $value )
- * @method static Builder|Sale wherePriceWithoutVat( $value )
- * @method static Builder|Sale whereQuantity( $value )
- * @method static Builder|Sale whereUpdatedAt( $value )
- * @method static Builder|Sale whereUpdatedBy( $value )
- * @method static Builder|Sale whereVatPercentage( $value )
+ * @method static Builder|Sale search($q, $full_text = false)
+ * @method static Builder|Sale whereCostBookingId($value)
+ * @method static Builder|Sale whereCreatedAt($value)
+ * @method static Builder|Sale whereCreatedBy($value)
+ * @method static Builder|Sale whereCurrencyIso4217($value)
+ * @method static Builder|Sale whereDeletedBy($value)
+ * @method static Builder|Sale whereEarningsBookingId($value)
+ * @method static Builder|Sale whereId($value)
+ * @method static Builder|Sale whereItemId($value)
+ * @method static Builder|Sale wherePriceWithVat($value)
+ * @method static Builder|Sale wherePriceWithoutVat($value)
+ * @method static Builder|Sale whereQuantity($value)
+ * @method static Builder|Sale whereUpdatedAt($value)
+ * @method static Builder|Sale whereUpdatedBy($value)
+ * @method static Builder|Sale whereVatPercentage($value)
  * @mixin Eloquent
  */
 class Sale extends Model
@@ -73,7 +73,7 @@ class Sale extends Model
      *
      * @var array
      */
-    protected $blameable = [ 'created', 'updated', 'deleted' ];
+    protected $blameable = ['created', 'updated', 'deleted'];
 
     /**
      * Searchable columns for the searchable trait
@@ -84,7 +84,7 @@ class Sale extends Model
         'sales.quantity',
         'item.name',
         'sales.price_with_vat',
-        'sales.price_without_vat'
+        'sales.price_without_vat',
     ];
 
     /**
@@ -100,9 +100,8 @@ class Sale extends Model
         'vat_percentage',
         'price_with_vat',
         'price_without_vat',
-        'currency_iso_4217'
+        'currency_iso_4217',
     ];
-
 
     /**
      * @return BelongsTo
@@ -112,7 +111,6 @@ class Sale extends Model
         return $this->belongsTo(Item::class);
     }
 
-
     /**
      * @return BelongsTo
      */
@@ -120,7 +118,6 @@ class Sale extends Model
     {
         return $this->belongsTo(Booking::class);
     }
-
 
     /**
      * @return BelongsTo
@@ -130,12 +127,11 @@ class Sale extends Model
         return $this->belongsTo(Booking::class);
     }
 
-
     /**
      * @return string
      */
     public function getItemAndQuantityAttribute()
     {
-        return $this->quantity . 'x ' . $this->item->name;
+        return $this->quantity.'x '.$this->item->name;
     }
 }

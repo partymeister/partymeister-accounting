@@ -2,7 +2,6 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Backend;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 use Motor\Backend\Http\Controllers\Controller;
@@ -14,12 +13,12 @@ use Partymeister\Accounting\Services\ItemService;
 
 /**
  * Class ItemsController
+ *
  * @package Partymeister\Accounting\Http\Controllers\Backend
  */
 class ItemsController extends Controller
 {
     use FormBuilderTrait;
-
 
     /**
      * Display a listing of the resource.
@@ -38,7 +37,6 @@ class ItemsController extends Controller
         return view('partymeister-accounting::backend.items.index', compact('paginator', 'grid'));
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -49,12 +47,11 @@ class ItemsController extends Controller
         $form = $this->form(ItemForm::class, [
             'method'  => 'POST',
             'route'   => 'backend.items.store',
-            'enctype' => 'multipart/form-data'
+            'enctype' => 'multipart/form-data',
         ]);
 
         return view('partymeister-accounting::backend.items.create', compact('form'));
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -68,7 +65,10 @@ class ItemsController extends Controller
 
         // It will automatically use current request, get the rules, and do the validation
         if (! $form->isValid()) {
-            return redirect()->back()->withErrors($form->getErrors())->withInput();
+            return redirect()
+                ->back()
+                ->withErrors($form->getErrors())
+                ->withInput();
         }
 
         ItemService::createWithForm($request, $form);
@@ -77,7 +77,6 @@ class ItemsController extends Controller
 
         return redirect('backend/items');
     }
-
 
     /**
      * Display the specified resource.
@@ -89,7 +88,6 @@ class ItemsController extends Controller
         //
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -100,20 +98,19 @@ class ItemsController extends Controller
     {
         $form = $this->form(ItemForm::class, [
             'method'  => 'PATCH',
-            'url'     => route('backend.items.update', [ $record->id ]),
+            'url'     => route('backend.items.update', [$record->id]),
             'enctype' => 'multipart/form-data',
-            'model'   => $record
+            'model'   => $record,
         ]);
 
         return view('partymeister-accounting::backend.items.edit', compact('form'));
     }
 
-
     /**
      * Update the specified resource in storage.
      *
      * @param ItemRequest $request
-     * @param Item        $record
+     * @param Item $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(ItemRequest $request, Item $record)
@@ -122,7 +119,10 @@ class ItemsController extends Controller
 
         // It will automatically use current request, get the rules, and do the validation
         if (! $form->isValid()) {
-            return redirect()->back()->withErrors($form->getErrors())->withInput();
+            return redirect()
+                ->back()
+                ->withErrors($form->getErrors())
+                ->withInput();
         }
 
         ItemService::updateWithForm($record, $request, $form);
@@ -131,7 +131,6 @@ class ItemsController extends Controller
 
         return redirect('backend/items');
     }
-
 
     /**
      * Remove the specified resource from storage.

@@ -3,20 +3,21 @@
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
 use Motor\Backend\Http\Controllers\ApiController;
-
-use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Http\Requests\Backend\AccountRequest;
-use Partymeister\Accounting\Services\AccountService;
-use Partymeister\Accounting\Http\Resources\AccountResource;
 use Partymeister\Accounting\Http\Resources\AccountCollection;
+use Partymeister\Accounting\Http\Resources\AccountResource;
+use Partymeister\Accounting\Models\Account;
+use Partymeister\Accounting\Services\AccountService;
 
 /**
  * Class AccountsController
+ *
  * @package Partymeister\Accounting\Http\Controllers\Api
  */
 class AccountsController extends ApiController
 {
     protected string $model = 'Partymeister\Accounting\Models\Account';
+
     protected string $modelResource = 'account';
 
     /**
@@ -69,7 +70,9 @@ class AccountsController extends ApiController
      */
     public function index()
     {
-        $paginator = AccountService::collection()->getPaginator();
+        $paginator = AccountService::collection()
+                                   ->getPaginator();
+
         return (new AccountCollection($paginator))->additional(['message' => 'Account collection read']);
     }
 
@@ -124,10 +127,13 @@ class AccountsController extends ApiController
      */
     public function store(AccountRequest $request)
     {
-        $result = AccountService::create($request)->getResult();
-        return (new AccountResource($result))->additional(['message' => 'Account created'])->response()->setStatusCode(201);
-    }
+        $result = AccountService::create($request)
+                                ->getResult();
 
+        return (new AccountResource($result))->additional(['message' => 'Account created'])
+                                             ->response()
+                                             ->setStatusCode(201);
+    }
 
     /**
      * @OA\Get (
@@ -184,10 +190,11 @@ class AccountsController extends ApiController
      */
     public function show(Account $record)
     {
-        $result = AccountService::show($record)->getResult();
+        $result = AccountService::show($record)
+                                ->getResult();
+
         return (new AccountResource($result))->additional(['message' => 'Account read']);
     }
-
 
     /**
      * @OA\Put (
@@ -243,15 +250,16 @@ class AccountsController extends ApiController
      * Update the specified resource in storage.
      *
      * @param AccountRequest $request
-     * @param Account        $record
+     * @param Account $record
      * @return AccountResource
      */
     public function update(AccountRequest $request, Account $record)
     {
-        $result = AccountService::update($record, $request)->getResult();
+        $result = AccountService::update($record, $request)
+                                ->getResult();
+
         return (new AccountResource($result))->additional(['message' => 'Account updated']);
     }
-
 
     /**
      * @OA\Delete (
@@ -314,11 +322,13 @@ class AccountsController extends ApiController
      */
     public function destroy(Account $record)
     {
-        $result = AccountService::delete($record)->getResult();
+        $result = AccountService::delete($record)
+                                ->getResult();
 
         if ($result) {
             return response()->json(['message' => 'Account deleted']);
         }
+
         return response()->json(['message' => 'Problem deleting Account'], 404);
     }
 }

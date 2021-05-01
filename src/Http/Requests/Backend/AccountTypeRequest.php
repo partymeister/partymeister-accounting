@@ -6,11 +6,11 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class AccountTypeRequest
+ *
  * @package Partymeister\Accounting\Http\Requests\Backend
  */
 class AccountTypeRequest extends Request
 {
-
     /**
      * @OA\Schema(
      *   schema="AccountTypeRequest",
@@ -33,7 +33,6 @@ class AccountTypeRequest extends Request
         return true;
     }
 
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -42,7 +41,7 @@ class AccountTypeRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name' => 'required',
         ];
     }
 }

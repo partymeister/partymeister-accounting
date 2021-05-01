@@ -44,7 +44,7 @@ use Motor\Core\Traits\Searchable;
  * @method static Builder|Account newModelQuery()
  * @method static Builder|Account newQuery()
  * @method static Builder|Account query()
- * @method static Builder|Account search($q, $full_text = FALSE)
+ * @method static Builder|Account search($q, $full_text = false)
  * @method static Builder|Account whereAccountTypeId($value)
  * @method static Builder|Account whereCreatedAt($value)
  * @method static Builder|Account whereCreatedBy($value)
@@ -58,97 +58,98 @@ use Motor\Core\Traits\Searchable;
  * @method static Builder|Account whereUpdatedBy($value)
  * @mixin Eloquent
  */
-class Account extends Model {
-	use Searchable;
-	use Filterable;
-	use Blameable, CreatedBy, UpdatedBy, DeletedBy;
-	use HasFactory;
+class Account extends Model
+{
+    use Searchable;
+    use Filterable;
+    use Blameable, CreatedBy, UpdatedBy, DeletedBy;
+    use HasFactory;
 
-	/**
-	 * Columns for the Blameable trait
-	 *
-	 * @var array
-	 */
-	protected $blameable = [
-		'created',
-		'updated',
-		'deleted'
-	];
+    /**
+     * Columns for the Blameable trait
+     *
+     * @var array
+     */
+    protected $blameable = [
+        'created',
+        'updated',
+        'deleted',
+    ];
 
-	/**
-	 * Searchable columns for the searchable trait
-	 *
-	 * @var array
-	 */
-	protected $searchableColumns = [
-		'accounts.name',
-		'account_type.name'
-	];
+    /**
+     * Searchable columns for the searchable trait
+     *
+     * @var array
+     */
+    protected $searchableColumns = [
+        'accounts.name',
+        'account_type.name',
+    ];
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = [
-		'name',
-		'account_type_id',
-		'is_cashbox',
-		'currency_iso_4217',
-		'has_pos',
-		'pos_configuration'
-	];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'account_type_id',
+        'is_cashbox',
+        'currency_iso_4217',
+        'has_pos',
+        'pos_configuration',
+    ];
 
-	/**
-	 * The attributes that should be cast to native types.
-	 *
-	 * @var array
-	 */
-	protected $casts = [
-		'pos_configuration' => 'array',
-	];
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'pos_configuration' => 'array',
+    ];
 
+    protected static function newFactory()
+    {
+        return AccountFactory::new();
+    }
 
-	protected static function newFactory()
-	{
-		return AccountFactory::new();
-	}
+    /**
+     * @return BelongsTo
+     */
+    public function account_type()
+    {
+        return $this->belongsTo(AccountType::class);
+    }
 
-	/**
-	 * @return BelongsTo
-	 */
-	public function account_type()
-	{
-		return $this->belongsTo(AccountType::class);
-	}
+    /**
+     * @return mixed
+     */
+    public function getBalanceAttribute()
+    {
+        $incoming = DB::table('bookings')
+                      ->where('to_account_id', $this->id)
+                      ->sum('price_with_vat');
+        $outgoing = DB::table('bookings')
+                      ->where('from_account_id', $this->id)
+                      ->sum('price_with_vat');
 
+        return $incoming - $outgoing;
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getBalanceAttribute()
-	{
-		$incoming = DB::table('bookings')->where('to_account_id', $this->id)->sum('price_with_vat');
-		$outgoing = DB::table('bookings')->where('from_account_id', $this->id)->sum('price_with_vat');
+    /**
+     * @return mixed|null
+     */
+    public function getLastBookingAttribute()
+    {
+        $booking = Booking::where('to_account_id', $this->id)
+                          ->orWhere('from_account_id', $this->id)
+                          ->orderBy('created_at', 'DESC')
+                          ->first();
+        if (! is_null($booking)) {
+            return $booking->created_at;
+        }
 
-		return $incoming - $outgoing;
-	}
-
-
-	/**
-	 * @return mixed|null
-	 */
-	public function getLastBookingAttribute()
-	{
-		$booking = Booking::where('to_account_id', $this->id)
-			->orWhere('from_account_id', $this->id)
-			->orderBy('created_at', 'DESC')
-			->first();
-		if (!is_null($booking))
-		{
-			return $booking->created_at;
-		}
-
-		return NULL;
-	}
+        return null;
+    }
 }

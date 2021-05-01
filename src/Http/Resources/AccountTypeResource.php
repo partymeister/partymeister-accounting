@@ -32,7 +32,7 @@ class AccountTypeResource extends BaseResource
         return [
             'id'       => (int) $this->id,
             'name'     => $this->name,
-            'accounts' => AccountResource::collection($this->whenLoader('accounts')),
+            'accounts' => AccountResource::collection($this->whenLoaded('accounts')),
         ];
     }
 }

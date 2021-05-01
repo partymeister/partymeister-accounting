@@ -7,11 +7,11 @@ use Partymeister\Accounting\Models\ItemType;
 
 /**
  * Class ItemTypeService
+ *
  * @package Partymeister\Accounting\Services
  */
 class ItemTypeService extends BaseService
 {
-
     /**
      * @var string
      */

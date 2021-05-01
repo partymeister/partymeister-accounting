@@ -39,7 +39,7 @@ use Motor\Core\Traits\Searchable;
  * @method static Builder|ItemType newModelQuery()
  * @method static Builder|ItemType newQuery()
  * @method static Builder|ItemType query()
- * @method static Builder|ItemType search($q, $full_text = FALSE)
+ * @method static Builder|ItemType search($q, $full_text = false)
  * @method static Builder|ItemType whereCreatedAt($value)
  * @method static Builder|ItemType whereCreatedBy($value)
  * @method static Builder|ItemType whereDeletedBy($value)
@@ -51,62 +51,63 @@ use Motor\Core\Traits\Searchable;
  * @method static Builder|ItemType whereUpdatedBy($value)
  * @mixin Eloquent
  */
-class ItemType extends Model {
-	use Searchable;
-	use Filterable;
-	use Blameable, CreatedBy, UpdatedBy, DeletedBy;
-	use HasFactory;
+class ItemType extends Model
+{
+    use Searchable;
+    use Filterable;
+    use Blameable, CreatedBy, UpdatedBy, DeletedBy;
+    use HasFactory;
 
-	/**
-	 * Columns for the Blameable trait
-	 *
-	 * @var array
-	 */
-	protected $blameable = [
-		'created',
-		'updated',
-		'deleted'
-	];
+    /**
+     * Columns for the Blameable trait
+     *
+     * @var array
+     */
+    protected $blameable = [
+        'created',
+        'updated',
+        'deleted',
+    ];
 
-	/**
-	 * Searchable columns for the searchable trait
-	 *
-	 * @var array
-	 */
-	protected $searchableColumns = [
-		'name'
-	];
+    /**
+     * Searchable columns for the searchable trait
+     *
+     * @var array
+     */
+    protected $searchableColumns = [
+        'name',
+    ];
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = [
-		'name',
-		'sort_position',
-		'is_visible'
-	];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'sort_position',
+        'is_visible',
+    ];
 
-	protected static function newFactory()
-	{
-		return ItemTypeFactory::new();
-	}
+    protected static function newFactory()
+    {
+        return ItemTypeFactory::new();
+    }
 
-	/**
-	 * @return mixed
-	 */
-	public function getItemCountAttribute()
-	{
-		return $this->items()->count();
-	}
+    /**
+     * @return mixed
+     */
+    public function getItemCountAttribute()
+    {
+        return $this->items()
+                    ->count();
+    }
 
-
-	/**
-	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
-	 */
-	public function items()
-	{
-		return $this->hasMany(Item::class);
-	}
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }

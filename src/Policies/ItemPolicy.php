@@ -27,7 +27,7 @@ class ItemPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \Motor\Backend\Models\User  $user
+     * @param \Motor\Backend\Models\User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -38,8 +38,8 @@ class ItemPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \Motor\Backend\Models\User  $user
-     * @param  \Partymeister\Accounting\Models\Item  $item
+     * @param \Motor\Backend\Models\User $user
+     * @param \Partymeister\Accounting\Models\Item $item
      * @return mixed
      */
     public function view(User $user, Item $item)
@@ -50,7 +50,7 @@ class ItemPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \Motor\Backend\Models\User  $user
+     * @param \Motor\Backend\Models\User $user
      * @return mixed
      */
     public function create(User $user)
@@ -61,8 +61,8 @@ class ItemPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \Motor\Backend\Models\User  $user
-     * @param  \Partymeister\Accounting\Models\Item  $item
+     * @param \Motor\Backend\Models\User $user
+     * @param \Partymeister\Accounting\Models\Item $item
      * @return mixed
      */
     public function update(User $user, Item $item)
@@ -73,8 +73,8 @@ class ItemPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \Motor\Backend\Models\User  $user
-     * @param  \Partymeister\Accounting\Models\Item  $item
+     * @param \Motor\Backend\Models\User $user
+     * @param \Partymeister\Accounting\Models\Item $item
      * @return mixed
      */
     public function delete(User $user, Item $item)
@@ -85,8 +85,8 @@ class ItemPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \Motor\Backend\Models\User  $user
-     * @param  \Partymeister\Accounting\Models\Item  $item
+     * @param \Motor\Backend\Models\User $user
+     * @param \Partymeister\Accounting\Models\Item $item
      * @return mixed
      */
     public function restore(User $user, Item $item)
@@ -97,8 +97,8 @@ class ItemPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \Motor\Backend\Models\User  $user
-     * @param  \Partymeister\Accounting\Models\Item  $item
+     * @param \Motor\Backend\Models\User $user
+     * @param \Partymeister\Accounting\Models\Item $item
      * @return mixed
      */
     public function forceDelete(User $user, Item $item)

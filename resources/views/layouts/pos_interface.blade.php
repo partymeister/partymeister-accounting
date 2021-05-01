@@ -249,7 +249,7 @@
                 url: '{{ route('backend.pos.create', ['account' => $record->id]) }}',
                 data: {items: data},
                 success: function (response) {
-                    updateLastBooking(response.data);
+                    updateLastBooking(response);
                     clearItems();
                 }
             });

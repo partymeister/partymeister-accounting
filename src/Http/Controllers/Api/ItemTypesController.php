@@ -3,20 +3,21 @@
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
 use Motor\Backend\Http\Controllers\ApiController;
-
-use Partymeister\Accounting\Models\ItemType;
 use Partymeister\Accounting\Http\Requests\Backend\ItemTypeRequest;
-use Partymeister\Accounting\Services\ItemTypeService;
-use Partymeister\Accounting\Http\Resources\ItemTypeResource;
 use Partymeister\Accounting\Http\Resources\ItemTypeCollection;
+use Partymeister\Accounting\Http\Resources\ItemTypeResource;
+use Partymeister\Accounting\Models\ItemType;
+use Partymeister\Accounting\Services\ItemTypeService;
 
 /**
  * Class ItemTypesController
+ *
  * @package Partymeister\Accounting\Http\Controllers\Api
  */
 class ItemTypesController extends ApiController
 {
     protected string $model = 'Partymeister\Accounting\Models\ItemType';
+
     protected string $modelResource = 'item_type';
 
     /**
@@ -69,7 +70,9 @@ class ItemTypesController extends ApiController
      */
     public function index()
     {
-        $paginator = ItemTypeService::collection()->getPaginator();
+        $paginator = ItemTypeService::collection()
+                                    ->getPaginator();
+
         return (new ItemTypeCollection($paginator))->additional(['message' => 'ItemType collection read']);
     }
 
@@ -124,10 +127,13 @@ class ItemTypesController extends ApiController
      */
     public function store(ItemTypeRequest $request)
     {
-        $result = ItemTypeService::create($request)->getResult();
-        return (new ItemTypeResource($result))->additional(['message' => 'ItemType created'])->response()->setStatusCode(201);
-    }
+        $result = ItemTypeService::create($request)
+                                 ->getResult();
 
+        return (new ItemTypeResource($result))->additional(['message' => 'ItemType created'])
+                                              ->response()
+                                              ->setStatusCode(201);
+    }
 
     /**
      * @OA\Get (
@@ -184,10 +190,11 @@ class ItemTypesController extends ApiController
      */
     public function show(ItemType $record)
     {
-        $result = ItemTypeService::show($record)->getResult();
+        $result = ItemTypeService::show($record)
+                                 ->getResult();
+
         return (new ItemTypeResource($result))->additional(['message' => 'ItemType read']);
     }
-
 
     /**
      * @OA\Put (
@@ -243,15 +250,16 @@ class ItemTypesController extends ApiController
      * Update the specified resource in storage.
      *
      * @param ItemTypeRequest $request
-     * @param ItemType        $record
+     * @param ItemType $record
      * @return ItemTypeResource
      */
     public function update(ItemTypeRequest $request, ItemType $record)
     {
-        $result = ItemTypeService::update($record, $request)->getResult();
+        $result = ItemTypeService::update($record, $request)
+                                 ->getResult();
+
         return (new ItemTypeResource($result))->additional(['message' => 'ItemType updated']);
     }
-
 
     /**
      * @OA\Delete (
@@ -314,11 +322,13 @@ class ItemTypesController extends ApiController
      */
     public function destroy(ItemType $record)
     {
-        $result = ItemTypeService::delete($record)->getResult();
+        $result = ItemTypeService::delete($record)
+                                 ->getResult();
 
         if ($result) {
             return response()->json(['message' => 'ItemType deleted']);
         }
+
         return response()->json(['message' => 'Problem deleting ItemType'], 404);
     }
 }

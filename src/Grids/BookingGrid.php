@@ -8,6 +8,7 @@ use Motor\Backend\Grid\Renderers\DateRenderer;
 
 /**
  * Class BookingGrid
+ *
  * @package Partymeister\Accounting\Grids
  */
 class BookingGrid extends Grid
@@ -21,7 +22,7 @@ class BookingGrid extends Grid
         $this->addColumn('from_account.name', trans('partymeister-accounting::backend/bookings.from_account'));
         $this->addColumn('to_account.name', trans('partymeister-accounting::backend/bookings.to_account'));
         $this->addColumn('price_with_vat', trans('partymeister-accounting::backend/bookings.price_with_vat'))
-             ->renderer(CurrencyRenderer::class, [ 'currency_column' => 'currency_iso_4217' ])
+             ->renderer(CurrencyRenderer::class, ['currency_column' => 'currency_iso_4217'])
              ->style('text-align: right');
         $this->addEditAction(trans('motor-backend::backend/global.edit'), 'backend.bookings.edit');
         $this->addDeleteAction(trans('motor-backend::backend/global.delete'), 'backend.bookings.destroy');

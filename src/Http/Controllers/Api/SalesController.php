@@ -3,20 +3,21 @@
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
 use Motor\Backend\Http\Controllers\ApiController;
-
-use Partymeister\Accounting\Models\Sale;
 use Partymeister\Accounting\Http\Requests\Backend\SaleRequest;
-use Partymeister\Accounting\Services\SaleService;
-use Partymeister\Accounting\Http\Resources\SaleResource;
 use Partymeister\Accounting\Http\Resources\SaleCollection;
+use Partymeister\Accounting\Http\Resources\SaleResource;
+use Partymeister\Accounting\Models\Sale;
+use Partymeister\Accounting\Services\SaleService;
 
 /**
  * Class SalesController
+ *
  * @package Partymeister\Accounting\Http\Controllers\Api
  */
 class SalesController extends ApiController
 {
     protected string $model = 'Partymeister\Accounting\Models\Sale';
+
     protected string $modelResource = 'sale';
 
     /**
@@ -69,7 +70,9 @@ class SalesController extends ApiController
      */
     public function index()
     {
-        $paginator = SaleService::collection()->getPaginator();
+        $paginator = SaleService::collection()
+                                ->getPaginator();
+
         return (new SaleCollection($paginator))->additional(['message' => 'Sale collection read']);
     }
 
@@ -124,10 +127,13 @@ class SalesController extends ApiController
      */
     public function store(SaleRequest $request)
     {
-        $result = SaleService::create($request)->getResult();
-        return (new SaleResource($result))->additional(['message' => 'Sale created'])->response()->setStatusCode(201);
-    }
+        $result = SaleService::create($request)
+                             ->getResult();
 
+        return (new SaleResource($result))->additional(['message' => 'Sale created'])
+                                          ->response()
+                                          ->setStatusCode(201);
+    }
 
     /**
      * @OA\Get (
@@ -184,10 +190,11 @@ class SalesController extends ApiController
      */
     public function show(Sale $record)
     {
-        $result = SaleService::show($record)->getResult();
+        $result = SaleService::show($record)
+                             ->getResult();
+
         return (new SaleResource($result))->additional(['message' => 'Sale read']);
     }
-
 
     /**
      * @OA\Put (
@@ -243,15 +250,16 @@ class SalesController extends ApiController
      * Update the specified resource in storage.
      *
      * @param SaleRequest $request
-     * @param Sale        $record
+     * @param Sale $record
      * @return SaleResource
      */
     public function update(SaleRequest $request, Sale $record)
     {
-        $result = SaleService::update($record, $request)->getResult();
+        $result = SaleService::update($record, $request)
+                             ->getResult();
+
         return (new SaleResource($result))->additional(['message' => 'Sale updated']);
     }
-
 
     /**
      * @OA\Delete (
@@ -314,11 +322,13 @@ class SalesController extends ApiController
      */
     public function destroy(Sale $record)
     {
-        $result = SaleService::delete($record)->getResult();
+        $result = SaleService::delete($record)
+                             ->getResult();
 
         if ($result) {
             return response()->json(['message' => 'Sale deleted']);
         }
+
         return response()->json(['message' => 'Problem deleting Sale'], 404);
     }
 }

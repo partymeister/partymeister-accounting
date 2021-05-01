@@ -14,11 +14,11 @@ use Partymeister\Accounting\Models\ItemType;
 
 /**
  * Class PosInterfacesController
+ *
  * @package Partymeister\Accounting\Http\Controllers\Backend
  */
 class PosInterfacesController extends Controller
 {
-
     /**
      * Display the specified resource.
      *
@@ -27,16 +27,12 @@ class PosInterfacesController extends Controller
      */
     public function show(Account $record)
     {
-        $last_booking = Booking::where('to_account_id', $record->id)->orderBy('created_at', 'DESC')->first();
-        if ($last_booking instanceof Booking) {
-            $last_booking = $last_booking->toJson();
-        } else {
-            $last_booking = json_encode(null);
-        }
+        $last_booking = json_encode((new BookingResource(Booking::where('to_account_id', $record->id)
+                                                                ->orderBy('created_at', 'DESC')
+                                                                ->first()))->toArrayRecursive());
 
         return view('partymeister-accounting::layouts.pos_interface', compact('record', 'last_booking'));
     }
-
 
     /**
      * @param Account $record
@@ -44,14 +40,14 @@ class PosInterfacesController extends Controller
      */
     public function edit(Account $record)
     {
-        $itemTypes = ItemType::orderBy('sort_position', 'ASC')->get();
+        $itemTypes = ItemType::orderBy('sort_position', 'ASC')
+                             ->get();
 
         return view('partymeister-accounting::layouts.pos_interface_editor', compact('record', 'itemTypes'));
     }
 
-
     /**
-     * @param Account             $record
+     * @param Account $record
      * @param PosInterfaceRequest $request
      * @return JsonResponse
      */
@@ -60,13 +56,12 @@ class PosInterfacesController extends Controller
         $record->pos_configuration = $request->get('pos_configuration');
         $record->save();
 
-        return response()->json([ 'message' => 'POS configuration saved' ], 200);
+        return response()->json(['message' => 'POS configuration saved'], 200);
     }
-
 
     /**
      * @param PosInterfaceRequest $request
-     * @param Account             $record
+     * @param Account $record
      * @return JsonResponse
      */
     public function create(PosInterfaceRequest $request, Account $record)
@@ -75,9 +70,9 @@ class PosInterfacesController extends Controller
         if (is_array($items)) {
             $booking = Booking::createSales($record, $items);
 
-            return $this->respondWithJson('Booking created', new BookingResource($booking));
+            return response()->json(new BookingResource($booking));
         }
 
-        return response()->json([ 'message' => 'No items received' ], 404);
+        return response()->json(['message' => 'No items received'], 404);
     }
 }

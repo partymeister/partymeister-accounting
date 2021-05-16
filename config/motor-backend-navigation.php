@@ -4,15 +4,15 @@ return [
     'items' => [
         110 => [
             'slug'        => 'partymeister-accounting',
-            'name'        => 'partymeister-accounting::backend/global.accounting',
-            'icon'        => 'fas fa-euro-sign',
+            'name'        => 'partymeister-accounting.accounting',
+            'icon'        => 'euro-sign',
             'route'       => null,
             'roles'       => ['SuperAdmin'],
             'permissions' => ['partymeister.read'],
             'items'       => [
                 10 => [ // <-- !!! replace 847 with your own sort position !!!
                         'slug'        => 'accounts',
-                        'name'        => 'partymeister-accounting::backend/accounts.accounts',
+                        'name'        => 'partymeister-accounting.accounts.accounts',
                         'icon'        => 'fa fa-angle-right',
                         'route'       => 'backend.accounts.index',
                         'roles'       => ['SuperAdmin'],
@@ -20,7 +20,7 @@ return [
                 ],
                 20 => [ // <-- !!! replace 149 with your own sort position !!!
                         'slug'        => 'account_types',
-                        'name'        => 'partymeister-accounting::backend/account_types.account_types',
+                        'name'        => 'partymeister-accounting.account_types.account_types',
                         'icon'        => 'fa fa-angle-right',
                         'route'       => 'backend.account_types.index',
                         'roles'       => ['SuperAdmin'],
@@ -28,7 +28,7 @@ return [
                 ],
                 30 => [ // <-- !!! replace 512 with your own sort position !!!
                         'slug'        => 'bookings',
-                        'name'        => 'partymeister-accounting::backend/bookings.bookings',
+                        'name'        => 'partymeister-accounting.bookings.bookings',
                         'icon'        => 'fa fa-angle-right',
                         'route'       => 'backend.bookings.index',
                         'roles'       => ['SuperAdmin'],
@@ -36,7 +36,7 @@ return [
                 ],
                 40 => [ // <-- !!! replace 845 with your own sort position !!!
                         'slug'        => 'items',
-                        'name'        => 'partymeister-accounting::backend/items.items',
+                        'name'        => 'partymeister-accounting.items.items',
                         'icon'        => 'fa fa-angle-right',
                         'route'       => 'backend.items.index',
                         'roles'       => ['SuperAdmin'],
@@ -44,7 +44,7 @@ return [
                 ],
                 50 => [ // <-- !!! replace 435 with your own sort position !!!
                         'slug'        => 'item_types',
-                        'name'        => 'partymeister-accounting::backend/item_types.item_types',
+                        'name'        => 'partymeister-accounting.item_types.item_types',
                         'icon'        => 'fa fa-angle-right',
                         'route'       => 'backend.item_types.index',
                         'roles'       => ['SuperAdmin'],
@@ -52,7 +52,7 @@ return [
                 ],
                 60 => [ // <-- !!! replace 612 with your own sort position !!!
                         'slug'        => 'sales',
-                        'name'        => 'partymeister-accounting::backend/sales.sales',
+                        'name'        => 'partymeister-accounting.sales.sales',
                         'icon'        => 'fa fa-angle-right',
                         'route'       => 'backend.sales.index',
                         'roles'       => ['SuperAdmin'],

@@ -6,7 +6,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 use Motor\Backend\Models\User;
 use Partymeister\Accounting\Models\Sale;
 
-class SalesPolicy
+class SalePolicy
 {
     use HandlesAuthorization;
 

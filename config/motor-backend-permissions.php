@@ -45,6 +45,8 @@ return [
         'name'   => 'partymeister-accounting::backend/sales.sales',
         'values' => [
             'read',
+            'write',
+            'delete',
         ],
     ],
 ];

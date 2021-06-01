@@ -73,7 +73,7 @@ class ItemsController extends ApiController
         $paginator = ItemService::collection()
                                 ->getPaginator();
 
-        return (new ItemCollection($paginator))->additional(['message' => 'Item collection read']);
+        return (new ItemCollection($paginator->load('item_type')))->additional(['message' => 'Item collection read']);
     }
 
     /**

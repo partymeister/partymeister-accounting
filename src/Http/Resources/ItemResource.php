@@ -131,6 +131,8 @@ class ItemResource extends BaseResource
             'can_be_ordered'                   => (boolean) $this->can_be_ordered,
             'is_visible'                       => (boolean) $this->is_visible,
             'sort_position'                    => (int) $this->sort_position,
+            'sales'                            => (int) $this->sales,
+            'revenue'                          => $this->revenue,
         ];
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 Route::group([
-    'middleware' => ['auth:api', 'bindings', 'permission'],
+    'middleware' => ['auth:sanctum', 'bindings', 'permission'],
     'namespace'  => 'Partymeister\Accounting\Http\Controllers\Api',
     'prefix'     => 'api',
     'as'         => 'api.',

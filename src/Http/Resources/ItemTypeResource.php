@@ -44,6 +44,7 @@ class ItemTypeResource extends BaseResource
             'name'          => $this->name,
             'is_visible'    => (boolean) $this->is_visible,
             'sort_position' => (int) $this->sort_position,
+            'item_count'    => (int) $this->item_count,
             'items'         => ItemResource::collection($this->whenLoaded('items')),
         ];
     }

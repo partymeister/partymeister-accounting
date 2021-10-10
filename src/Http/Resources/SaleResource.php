@@ -2,6 +2,7 @@
 
 namespace Partymeister\Accounting\Http\Resources;
 
+use Illuminate\Support\Str;
 use Motor\Backend\Http\Resources\BaseResource;
 
 /**
@@ -66,14 +67,16 @@ class SaleResource extends BaseResource
     {
         return [
             'id'                => (int) $this->id,
-            'earnings_booking'  => new BookingResource($this->earnings_booking_id),
-            'cost_booking'      => new BookingResource($this->cost_booking_id),
-            'item'              => new ItemResource($this->item_id),
+            'earnings_booking'  => new BookingResource($this->earnings_booking),
+            'cost_booking'      => new BookingResource($this->cost_booking),
+            'item'              => new ItemResource($this->item),
+            'item_and_quantity' => $this->item_and_quantity,
             'quantity'          => (int) $this->quantity,
             'vat_percentage'    => (float) $this->vat_percentage,
             'price_with_vat'    => (float) $this->price_with_vat,
             'price_without_vat' => (float) $this->price_without_vat,
             'currency_iso_4217' => $this->currency_iso_4217,
+            'created_at'        => Str::replaceFirst(' ', 'T', $this->created_at),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Partymeister\Accounting\Http\Resources;
 
+use Illuminate\Support\Str;
 use Motor\Backend\Http\Resources\BaseResource;
 
 /**
@@ -73,13 +74,16 @@ class BookingResource extends BaseResource
             'id'                => (int) $this->id,
             'sale'              => new SaleResource($this->sale),
             'from_account'      => new AccountResource($this->from_account),
+            'from_account_id'   => $this->from_account_id,
             'to_account'        => new AccountResource($this->to_account),
+            'to_account_id'     => $this->to_account_id,
             'description'       => $this->description,
             'vat_percentage'    => (float) $this->vat_percentage,
             'price_with_vat'    => (float) $this->price_with_vat,
             'price_without_vat' => (float) $this->price_without_vat,
             'currency_iso_4217' => $this->currency_iso_4217,
             'is_manual_booking' => (boolean) $this->is_manual_booking,
+            'created_at'        => Str::replaceFirst(' ', 'T', $this->created_at),
         ];
     }
 }

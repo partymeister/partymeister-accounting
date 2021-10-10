@@ -2,6 +2,7 @@
 
 namespace Partymeister\Accounting\Http\Resources;
 
+use Illuminate\Support\Str;
 use Motor\Backend\Http\Resources\BaseResource;
 
 /**
@@ -57,7 +58,7 @@ class AccountResource extends BaseResource
             'has_pos'           => (boolean) $this->has_pos,
             'currency_iso_4217' => $this->currency_iso_4217,
             'pos_configuration' => $this->pos_configuration,
-            'last_booking'      => $this->last_booking,
+            'last_booking'      => Str::replaceFirst(' ', 'T', $this->last_booking),
             'balance'           => $this->balance,
         ];
     }

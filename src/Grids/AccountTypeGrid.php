@@ -6,8 +6,6 @@ use Motor\Backend\Grid\Grid;
 
 /**
  * Class AccountTypeGrid
- *
- * @package Partymeister\Accounting\Grids
  */
 class AccountTypeGrid extends Grid
 {

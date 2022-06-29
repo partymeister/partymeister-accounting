@@ -40,6 +40,7 @@ use Motor\Core\Traits\Searchable;
  * @property-read mixed $item_and_quantity
  * @property-read Item $item
  * @property-read User $updater
+ *
  * @method static Builder|Sale filteredBy(Filter $filter, $column)
  * @method static Builder|Sale filteredByMultiple(Filter $filter)
  * @method static Builder|Sale newModelQuery()

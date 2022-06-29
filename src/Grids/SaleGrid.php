@@ -8,8 +8,6 @@ use Motor\Backend\Grid\Renderers\DateRenderer;
 
 /**
  * Class SaleGrid
- *
- * @package Partymeister\Accounting\Grids
  */
 class SaleGrid extends Grid
 {

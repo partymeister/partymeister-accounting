@@ -8,16 +8,14 @@ use Partymeister\Accounting\Models\Account;
 
 /**
  * Class CurrencyCompatibilityValidator
- *
- * @package Partymeister\Accounting\Validators
  */
 class CurrencyCompatibilityValidator
 {
     /**
-     * @param                                  $attribute
-     * @param                                  $value
-     * @param                                  $parameters
-     * @param Validator $validator
+     * @param    $attribute
+     * @param    $value
+     * @param    $parameters
+     * @param  Validator  $validator
      * @return bool
      */
     public function validate($attribute, $value, $parameters, Validator $validator)

@@ -10,8 +10,6 @@ use Symfony\Component\Intl\Currencies;
 
 /**
  * Class ItemForm
- *
- * @package Partymeister\Accounting\Forms\Backend
  */
 class ItemForm extends Form
 {

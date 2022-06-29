@@ -25,5 +25,5 @@ return [
     'pos_do_break'                     => 'POS: break after this item',
 
     'sales'   => 'Sales',
-    'revenue' => 'Revenue'
+    'revenue' => 'Revenue',
 ];

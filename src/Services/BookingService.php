@@ -10,8 +10,6 @@ use Partymeister\Accounting\Models\Booking;
 
 /**
  * Class BookingService
- *
- * @package Partymeister\Accounting\Services
  */
 class BookingService extends BaseService
 {

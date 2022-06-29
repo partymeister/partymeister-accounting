@@ -41,6 +41,7 @@ use Motor\Core\Traits\Searchable;
  * @property-read Account|null $from_account
  * @property-read Account|null $to_account
  * @property-read User $updater
+ *
  * @method static Builder|Booking filteredBy(Filter $filter, $column)
  * @method static Builder|Booking filteredByMultiple(Filter $filter)
  * @method static Builder|Booking newModelQuery()
@@ -68,7 +69,6 @@ class Booking extends Model
 {
     use Searchable;
     use Filterable;
-
     use Blameable, CreatedBy, UpdatedBy, DeletedBy;
     use HasFactory;
 
@@ -118,9 +118,9 @@ class Booking extends Model
     }
 
     /**
-     * @param Account $account
-     * @param         $item
-     * @param int $quantity
+     * @param  Account  $account
+     * @param    $item
+     * @param  int  $quantity
      * @return Booking
      */
     public static function createSale(Account $account, $item, $quantity = 1)
@@ -133,8 +133,8 @@ class Booking extends Model
     }
 
     /**
-     * @param Account $account
-     * @param         $items
+     * @param  Account  $account
+     * @param    $items
      * @return Booking
      */
     public static function createSales(Account $account, $items)

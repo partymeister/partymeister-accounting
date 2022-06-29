@@ -46,38 +46,34 @@ class PartymeisterAccountingBackendItemTest extends TestCase
         'user_has_permissions',
         'user_has_roles',
         'role_has_permissions',
-        'media'
+        'media',
     ];
-
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->withFactories(__DIR__ . '/../../../../database/factories');
+        $this->withFactories(__DIR__.'/../../../../database/factories');
 
         $this->addDefaults();
     }
-
 
     protected function addDefaults()
     {
         $this->user = create_test_superadmin();
 
-        $this->readPermission   = create_test_permission_with_name('items.read');
-        $this->writePermission  = create_test_permission_with_name('items.write');
+        $this->readPermission = create_test_permission_with_name('items.read');
+        $this->writePermission = create_test_permission_with_name('items.write');
         $this->deletePermission = create_test_permission_with_name('items.delete');
 
         $this->actingAs($this->user);
     }
-
 
     /** @test */
     public function can_see_grid_without_item()
     {
         $this->visit('/backend/items')->see('Items')->see('No records');
     }
-
 
     /** @test */
     public function can_see_grid_with_one_item()
@@ -86,23 +82,21 @@ class PartymeisterAccountingBackendItemTest extends TestCase
         $this->visit('/backend/items')->see('Items')->see($record->name);
     }
 
-
     /** @test */
     public function can_visit_the_edit_form_of_a_item_and_use_the_back_button()
     {
         $record = create_test_item();
         $this->visit('/backend/items')->within('table', function () {
             $this->click('Edit');
-        })->seePageIs('/backend/items/' . $record->id . '/edit')->click('back')->seePageIs('/backend/items');
+        })->seePageIs('/backend/items/'.$record->id.'/edit')->click('back')->seePageIs('/backend/items');
     }
-
 
     /** @test */
     public function can_visit_the_edit_form_of_a_item_and_change_values()
     {
         $record = create_test_item();
 
-        $this->visit('/backend/items/' . $record->id . '/edit')
+        $this->visit('/backend/items/'.$record->id.'/edit')
              ->see($record->name)
              ->type('Updated Item', 'name')
              ->type('Updated Item Description', 'description')
@@ -117,13 +111,11 @@ class PartymeisterAccountingBackendItemTest extends TestCase
         $this->assertEquals('Updated Item', $record->name);
     }
 
-
     /** @test */
     public function can_click_the_item_create_button()
     {
         $this->visit('/backend/items')->click('Create item')->seePageIs('/backend/items/create');
     }
-
 
     /** @test */
     public function can_create_a_new_item()
@@ -142,7 +134,6 @@ class PartymeisterAccountingBackendItemTest extends TestCase
              ->seePageIs('/backend/items');
     }
 
-
     /** @test */
     public function cannot_create_a_new_item_with_empty_fields()
     {
@@ -151,12 +142,11 @@ class PartymeisterAccountingBackendItemTest extends TestCase
         })->see('Data missing!')->seePageIs('/backend/items/create');
     }
 
-
     /** @test */
     public function can_modify_a_item()
     {
         $record = create_test_item();
-        $this->visit('/backend/items/' . $record->id . '/edit')
+        $this->visit('/backend/items/'.$record->id.'/edit')
              ->see('Edit item')
              ->type('Modified Item Name', 'name')
              ->type('Modified Item Description', 'description')
@@ -167,7 +157,6 @@ class PartymeisterAccountingBackendItemTest extends TestCase
              ->see('Modified Item Name')
              ->seePageIs('/backend/items');
     }
-
 
     /** @test */
     public function can_delete_a_item()
@@ -183,7 +172,6 @@ class PartymeisterAccountingBackendItemTest extends TestCase
         $this->assertCount(0, Item::all());
     }
 
-
     /** @test */
     public function can_paginate_item_results()
     {
@@ -192,7 +180,6 @@ class PartymeisterAccountingBackendItemTest extends TestCase
             $this->click('3');
         })->seePageIs('/backend/items?page=3');
     }
-
 
     /** @test */
     public function can_search_item_results()

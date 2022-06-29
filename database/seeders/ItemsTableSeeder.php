@@ -11,11 +11,9 @@ use Partymeister\Accounting\Models\ItemType;
 
 /**
  * Class ItemsTableSeeder
- * @package Partymeister\Accounting\Database\Seeds
  */
 class ItemsTableSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -133,7 +131,6 @@ class ItemsTableSeeder extends Seeder
             $this->createItem($item);
         }
     }
-
 
     /**
      * @param $item

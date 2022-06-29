@@ -43,31 +43,28 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
         'user_has_permissions',
         'user_has_roles',
         'role_has_permissions',
-        'media'
+        'media',
     ];
-
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->withFactories(__DIR__ . '/../../../../database/factories');
+        $this->withFactories(__DIR__.'/../../../../database/factories');
 
         $this->addDefaults();
     }
-
 
     protected function addDefaults()
     {
         $this->user = create_test_superadmin();
 
-        $this->readPermission   = create_test_permission_with_name('account_types.read');
-        $this->writePermission  = create_test_permission_with_name('account_types.write');
+        $this->readPermission = create_test_permission_with_name('account_types.read');
+        $this->writePermission = create_test_permission_with_name('account_types.write');
         $this->deletePermission = create_test_permission_with_name('account_types.delete');
 
         $this->actingAs($this->user);
     }
-
 
     /** @test */
     public function can_see_grid_without_account_type()
@@ -75,14 +72,12 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
         $this->visit('/backend/account_types')->see('Account types')->see('No records');
     }
 
-
     /** @test */
     public function can_see_grid_with_one_account_type()
     {
         $record = create_test_account_type();
         $this->visit('/backend/account_types')->see('Account types')->see($record->name);
     }
-
 
     /** @test */
     public function can_visit_the_edit_form_of_a_account_type_and_use_the_back_button()
@@ -92,18 +87,17 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
              ->within('table', function () {
                  $this->click('Edit');
              })
-             ->seePageIs('/backend/account_types/' . $record->id . '/edit')
+             ->seePageIs('/backend/account_types/'.$record->id.'/edit')
              ->click('back')
              ->seePageIs('/backend/account_types');
     }
-
 
     /** @test */
     public function can_visit_the_edit_form_of_a_account_type_and_change_values()
     {
         $record = create_test_account_type();
 
-        $this->visit('/backend/account_types/' . $record->id . '/edit')
+        $this->visit('/backend/account_types/'.$record->id.'/edit')
              ->see($record->name)
              ->type('Updated Account type', 'name')
              ->within('.box-footer', function () {
@@ -117,7 +111,6 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
         $this->assertEquals('Updated Account type', $record->name);
     }
 
-
     /** @test */
     public function can_click_the_create_button()
     {
@@ -125,7 +118,6 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
              ->click('Create account type')
              ->seePageIs('/backend/account_types/create');
     }
-
 
     /** @test */
     public function can_create_a_new_account_type()
@@ -141,7 +133,6 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
              ->seePageIs('/backend/account_types');
     }
 
-
     /** @test */
     public function cannot_create_a_new_account_type_with_empty_fields()
     {
@@ -150,12 +141,11 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
         })->see('Data missing!')->seePageIs('/backend/account_types/create');
     }
 
-
     /** @test */
     public function can_modify_a_account_type()
     {
         $record = create_test_account_type();
-        $this->visit('/backend/account_types/' . $record->id . '/edit')
+        $this->visit('/backend/account_types/'.$record->id.'/edit')
              ->see('Edit account type')
              ->type('Modified Account type Name', 'name')
              ->within('.box-footer', function () {
@@ -165,7 +155,6 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
              ->see('Modified Account type Name')
              ->seePageIs('/backend/account_types');
     }
-
 
     /** @test */
     public function can_delete_a_account_type()
@@ -181,7 +170,6 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
         $this->assertCount(0, AccountType::all());
     }
 
-
     /** @test */
     public function can_paginate_results()
     {
@@ -190,7 +178,6 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
             $this->click('3');
         })->seePageIs('/backend/account_types?page=3');
     }
-
 
     /** @test */
     public function can_search_results()

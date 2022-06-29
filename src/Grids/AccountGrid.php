@@ -10,8 +10,6 @@ use Partymeister\Accounting\Grid\Renderers\BalanceRowRenderer;
 
 /**
  * Class AccountGrid
- *
- * @package Partymeister\Accounting\Grids
  */
 class AccountGrid extends Grid
 {

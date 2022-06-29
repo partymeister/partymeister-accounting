@@ -8,8 +8,6 @@ use Motor\Backend\Grid\Renderers\DateRenderer;
 
 /**
  * Class BookingGrid
- *
- * @package Partymeister\Accounting\Grids
  */
 class BookingGrid extends Grid
 {

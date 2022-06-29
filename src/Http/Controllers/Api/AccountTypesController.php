@@ -11,8 +11,6 @@ use Partymeister\Accounting\Services\AccountTypeService;
 
 /**
  * Class AccountTypesController
- *
- * @package Partymeister\Accounting\Http\Controllers\Api
  */
 class AccountTypesController extends ApiController
 {
@@ -122,7 +120,7 @@ class AccountTypesController extends ApiController
      *
      * Store a newly created resource in storage.
      *
-     * @param AccountTypeRequest $request
+     * @param  AccountTypeRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(AccountTypeRequest $request)
@@ -185,7 +183,7 @@ class AccountTypesController extends ApiController
      *
      * Display the specified resource.
      *
-     * @param AccountType $record
+     * @param  AccountType  $record
      * @return AccountTypeResource
      */
     public function show(AccountType $record)
@@ -249,8 +247,8 @@ class AccountTypesController extends ApiController
      *
      * Update the specified resource in storage.
      *
-     * @param AccountTypeRequest $request
-     * @param AccountType $record
+     * @param  AccountTypeRequest  $request
+     * @param  AccountType  $record
      * @return AccountTypeResource
      */
     public function update(AccountTypeRequest $request, AccountType $record)
@@ -317,7 +315,7 @@ class AccountTypesController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param AccountType $record
+     * @param  AccountType  $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(AccountType $record)

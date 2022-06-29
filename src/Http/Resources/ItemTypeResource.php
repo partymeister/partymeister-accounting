@@ -34,7 +34,7 @@ class ItemTypeResource extends BaseResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
@@ -42,7 +42,7 @@ class ItemTypeResource extends BaseResource
         return [
             'id'            => (int) $this->id,
             'name'          => $this->name,
-            'is_visible'    => (boolean) $this->is_visible,
+            'is_visible'    => (bool) $this->is_visible,
             'sort_position' => (int) $this->sort_position,
             'items'         => ItemResource::collection($this->whenLoaded('items')),
         ];

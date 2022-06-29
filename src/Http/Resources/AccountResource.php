@@ -44,7 +44,7 @@ class AccountResource extends BaseResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
@@ -53,7 +53,7 @@ class AccountResource extends BaseResource
             'id'                => (int) $this->id,
             'account_type'      => new AccountTypeResource($this->account_type),
             'name'              => $this->name,
-            'has_pos'           => (boolean) $this->has_pos,
+            'has_pos'           => (bool) $this->has_pos,
             'currency_iso_4217' => $this->currency_iso_4217,
             'pos_configuration' => $this->pos_configuration,
         ];

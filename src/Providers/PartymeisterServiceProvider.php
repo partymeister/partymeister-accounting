@@ -82,7 +82,7 @@ class PartymeisterServiceProvider extends ServiceProvider
 
     public function translations()
     {
-        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'partymeister-accounting');
+        $this->loadTranslationsFrom(__DIR__.'/../../lang', 'partymeister-accounting');
 
         $this->publishes([
             __DIR__.'/../../resources/lang' => resource_path('lang/vendor/partymeister-accounting'),

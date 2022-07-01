@@ -3,7 +3,7 @@
 namespace Partymeister\Accounting\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Motor\Backend\Models\User;
+use Motor\Admin\Models\User;
 use Partymeister\Accounting\Models\AccountType;
 
 class AccountTypePolicy

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Motor\Backend\Models\User;
+use Motor\Admin\Models\User;
 use Motor\CMS\Database\Factories\ItemFactory;
 use Motor\Core\Filter\Filter;
 use Motor\Core\Traits\Filterable;

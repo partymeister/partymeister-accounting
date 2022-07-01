@@ -3,7 +3,7 @@
 namespace Motor\CMS\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Motor\Backend\Models\User;
+use Motor\Admin\Models\User;
 use Partymeister\Accounting\Models\ItemType;
 
 class ItemTypeFactory extends Factory {

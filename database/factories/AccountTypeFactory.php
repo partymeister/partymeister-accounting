@@ -4,7 +4,7 @@ namespace Motor\CMS\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use Motor\Backend\Models\User;
+use Motor\Admin\Models\User;
 use Partymeister\Accounting\Models\AccountType;
 
 class AccountTypeFactory extends Factory {

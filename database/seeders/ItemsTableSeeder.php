@@ -5,7 +5,7 @@ namespace Partymeister\Accounting\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
-use Motor\Backend\Models\User;
+use Motor\Admin\Models\User;
 use Partymeister\Accounting\Models\Item;
 use Partymeister\Accounting\Models\ItemType;
 

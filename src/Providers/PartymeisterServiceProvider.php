@@ -125,7 +125,7 @@ class PartymeisterServiceProvider extends ServiceProvider
 
     public function validators()
     {
-        Validator::extend('currency_compatibility', 'Partymeister\Accounting\Validators\CurrencyCompatibilityValidator@validate');
+        //Validator::extend('currency_compatibility', 'Partymeister\Accounting\Validators\CurrencyCompatibilityValidator@validate');
     }
 
     public function publishResourceAssets()

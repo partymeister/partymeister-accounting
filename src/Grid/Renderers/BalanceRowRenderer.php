@@ -6,8 +6,6 @@ use Motor\Backend\Grid\Renderers\CurrencyRenderer;
 
 /**
  * Class BalanceRowRenderer
- *
- * @package Partymeister\Accounting\Grid\Renderers
  */
 class BalanceRowRenderer
 {

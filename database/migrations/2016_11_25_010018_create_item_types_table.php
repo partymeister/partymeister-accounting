@@ -8,7 +8,6 @@ use Illuminate\Database\Migrations\Migration;
  */
 class CreateItemTypesTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -29,7 +28,6 @@ class CreateItemTypesTable extends Migration
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.

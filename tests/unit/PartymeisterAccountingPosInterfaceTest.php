@@ -47,19 +47,17 @@ class PartymeisterAccountingPosInterfaceTest extends TestCase
         'user_has_permissions',
         'user_has_roles',
         'role_has_permissions',
-        'media'
+        'media',
     ];
-
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->withFactories(__DIR__ . '/../../database/factories');
+        $this->withFactories(__DIR__.'/../../database/factories');
 
         $this->addDefaults();
     }
-
 
     protected function addDefaults()
     {
@@ -67,7 +65,6 @@ class PartymeisterAccountingPosInterfaceTest extends TestCase
 
         $this->actingAs($this->user);
     }
-
 
     /** @test */
     public function can_create_a_booking_with_one_item()
@@ -80,20 +77,19 @@ class PartymeisterAccountingPosInterfaceTest extends TestCase
         $this->assertEquals(5 * $item->price_with_vat, $booking->price_with_vat);
 
         // check if we have a sale in the database
-        $this->seeInDatabase('sales', [ 'earnings_booking_id' => $booking->id ]);
+        $this->seeInDatabase('sales', ['earnings_booking_id' => $booking->id]);
     }
-
 
     /** @test */
     public function can_create_a_booking_with_multiple_items()
     {
         $items = create_test_item(5);
 
-        $itemsToSell    = [];
+        $itemsToSell = [];
         $price_with_vat = 0;
         foreach ($items as $item) {
             $itemsToSell[$item->id] = rand(1, 5);
-            $price_with_vat         += $itemsToSell[$item->id] * $item->price_with_vat;
+            $price_with_vat += $itemsToSell[$item->id] * $item->price_with_vat;
         }
 
         $booking = Booking::createSales($itemsToSell);
@@ -105,17 +101,16 @@ class PartymeisterAccountingPosInterfaceTest extends TestCase
         $this->assertCount(5, Sale::where('earnings_booking_id', $booking->id)->get());
     }
 
-
     /** @test */
     public function can_create_a_booking_with_negative_quantities_of_items()
     {
         $items = create_test_item(5);
 
-        $itemsToSell    = [];
+        $itemsToSell = [];
         $price_with_vat = 0;
         foreach ($items as $item) {
             $itemsToSell[$item->id] = rand(-1, -10);
-            $price_with_vat         += $itemsToSell[$item->id] * $item->price_with_vat;
+            $price_with_vat += $itemsToSell[$item->id] * $item->price_with_vat;
         }
 
         $booking = Booking::createSales($itemsToSell);
@@ -132,17 +127,16 @@ class PartymeisterAccountingPosInterfaceTest extends TestCase
         $this->assertCount(5, $sales);
     }
 
-
     /** @test */
     public function if_a_booking_is_deleted_all_sales_and_cost_bookings_are_deleted_as_well()
     {
         $items = create_test_item(5);
 
-        $itemsToSell    = [];
+        $itemsToSell = [];
         $price_with_vat = 0;
         foreach ($items as $item) {
             $itemsToSell[$item->id] = rand(-1, -10);
-            $price_with_vat         += $itemsToSell[$item->id] * $item->price_with_vat;
+            $price_with_vat += $itemsToSell[$item->id] * $item->price_with_vat;
         }
 
         $booking = Booking::createSales($itemsToSell);

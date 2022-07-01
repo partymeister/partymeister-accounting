@@ -6,8 +6,6 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class AccountRequest
- *
- * @package Partymeister\Accounting\Http\Requests\Backend
  */
 class AccountRequest extends Request
 {

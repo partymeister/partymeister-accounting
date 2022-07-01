@@ -14,8 +14,6 @@ use Partymeister\Accounting\Models\Sale;
 
 /**
  * Class PartymeisterServiceProvider
- *
- * @package Partymeister\Accounting\Providers
  */
 class PartymeisterServiceProvider extends ServiceProvider
 {

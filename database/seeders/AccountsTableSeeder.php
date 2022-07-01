@@ -9,11 +9,9 @@ use Partymeister\Accounting\Models\AccountType;
 
 /**
  * Class AccountsTableSeeder
- * @package Partymeister\Accounting\Database\Seeds
  */
 class AccountsTableSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *

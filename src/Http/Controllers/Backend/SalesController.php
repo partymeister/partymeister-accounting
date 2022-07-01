@@ -10,8 +10,6 @@ use Partymeister\Accounting\Services\SaleService;
 
 /**
  * Class SalesController
- *
- * @package Partymeister\Accounting\Http\Controllers\Backend
  */
 class SalesController extends Controller
 {
@@ -21,6 +19,7 @@ class SalesController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \ReflectionException
      */
     public function index()

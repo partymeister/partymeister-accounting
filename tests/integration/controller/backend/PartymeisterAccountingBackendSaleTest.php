@@ -42,31 +42,28 @@ class PartymeisterAccountingBackendSaleTest extends TestCase
         'user_has_permissions',
         'user_has_roles',
         'role_has_permissions',
-        'media'
+        'media',
     ];
-
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->withFactories(__DIR__ . '/../../../../database/factories');
+        $this->withFactories(__DIR__.'/../../../../database/factories');
 
         $this->addDefaults();
     }
-
 
     protected function addDefaults()
     {
         $this->user = create_test_superadmin();
 
-        $this->readPermission   = create_test_permission_with_name('sales.read');
-        $this->writePermission  = create_test_permission_with_name('sales.write');
+        $this->readPermission = create_test_permission_with_name('sales.read');
+        $this->writePermission = create_test_permission_with_name('sales.write');
         $this->deletePermission = create_test_permission_with_name('sales.delete');
 
         $this->actingAs($this->user);
     }
-
 
     /** @test */
     public function can_see_grid_without_sale()
@@ -74,14 +71,12 @@ class PartymeisterAccountingBackendSaleTest extends TestCase
         $this->visit('/backend/sales')->see('Sales')->see('No records');
     }
 
-
     /** @test */
     public function can_see_grid_with_one_sale()
     {
         $record = create_test_sale();
         $this->visit('/backend/sales')->see('Sales')->see($record->name);
     }
-
 
     /** @test */
     public function can_paginate_sale_results()
@@ -91,7 +86,6 @@ class PartymeisterAccountingBackendSaleTest extends TestCase
             $this->click('3');
         })->seePageIs('/backend/sales?page=3');
     }
-
 
     /** @test */
     public function can_search_sale_results()

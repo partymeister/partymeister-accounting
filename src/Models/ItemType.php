@@ -34,6 +34,7 @@ use Motor\Core\Traits\Searchable;
  * @property-read mixed $item_count
  * @property-read Item $items
  * @property-read User $updater
+ *
  * @method static Builder|ItemType filteredBy(Filter $filter, $column)
  * @method static Builder|ItemType filteredByMultiple(Filter $filter)
  * @method static Builder|ItemType newModelQuery()

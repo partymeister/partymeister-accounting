@@ -13,8 +13,6 @@ use Partymeister\Accounting\Services\AccountTypeService;
 
 /**
  * Class AccountTypesController
- *
- * @package Partymeister\Accounting\Http\Controllers\Backend
  */
 class AccountTypesController extends Controller
 {
@@ -24,6 +22,7 @@ class AccountTypesController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \ReflectionException
      */
     public function index()
@@ -56,7 +55,7 @@ class AccountTypesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param AccountTypeRequest $request
+     * @param  AccountTypeRequest  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(AccountTypeRequest $request)
@@ -91,7 +90,7 @@ class AccountTypesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param AccountType $record
+     * @param  AccountType  $record
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(AccountType $record)
@@ -109,8 +108,8 @@ class AccountTypesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param AccountTypeRequest $request
-     * @param AccountType $record
+     * @param  AccountTypeRequest  $request
+     * @param  AccountType  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(AccountTypeRequest $request, AccountType $record)
@@ -135,7 +134,7 @@ class AccountTypesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param AccountType $record
+     * @param  AccountType  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(AccountType $record)

@@ -8,7 +8,6 @@ use Illuminate\Database\Migrations\Migration;
  */
 class CreateBookingsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -37,7 +36,6 @@ class CreateBookingsTable extends Migration
             $table->foreign('to_account_id')->references('id')->on('accounts')->onDelete('set null');
         });
     }
-
 
     /**
      * Reverse the migrations.

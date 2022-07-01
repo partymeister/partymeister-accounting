@@ -52,6 +52,7 @@ use Motor\Core\Traits\Searchable;
  * @property-read Account|null $pos_cost_account
  * @property-read Account $pos_earnings_account
  * @property-read User $updater
+ *
  * @method static Builder|Item filteredBy(Filter $filter, $column)
  * @method static Builder|Item filteredByMultiple(Filter $filter)
  * @method static Builder|Item newModelQuery()
@@ -168,8 +169,8 @@ class Item extends Model
     }
 
     /**
-     * @param         $quantity
-     * @param Booking $booking
+     * @param    $quantity
+     * @param  Booking  $booking
      * @return Sale
      */
     public function sell($quantity, Booking $booking)
@@ -212,7 +213,7 @@ class Item extends Model
                     ->where('item_id', $this->id)
                     ->get();
         if (! is_null($result)) {
-            return (! is_null($result[0]->quantity) ? $result[0]->quantity : 0);
+            return ! is_null($result[0]->quantity) ? $result[0]->quantity : 0;
         }
 
         return 0;

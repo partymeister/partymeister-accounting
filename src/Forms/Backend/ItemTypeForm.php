@@ -6,8 +6,6 @@ use Kris\LaravelFormBuilder\Form;
 
 /**
  * Class ItemTypeForm
- *
- * @package Partymeister\Accounting\Forms\Backend
  */
 class ItemTypeForm extends Form
 {

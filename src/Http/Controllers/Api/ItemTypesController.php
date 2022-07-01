@@ -11,8 +11,6 @@ use Partymeister\Accounting\Services\ItemTypeService;
 
 /**
  * Class ItemTypesController
- *
- * @package Partymeister\Accounting\Http\Controllers\Api
  */
 class ItemTypesController extends ApiController
 {
@@ -122,7 +120,7 @@ class ItemTypesController extends ApiController
      *
      * Store a newly created resource in storage.
      *
-     * @param ItemTypeRequest $request
+     * @param  ItemTypeRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(ItemTypeRequest $request)
@@ -185,7 +183,7 @@ class ItemTypesController extends ApiController
      *
      * Display the specified resource.
      *
-     * @param ItemType $record
+     * @param  ItemType  $record
      * @return ItemTypeResource
      */
     public function show(ItemType $record)
@@ -249,8 +247,8 @@ class ItemTypesController extends ApiController
      *
      * Update the specified resource in storage.
      *
-     * @param ItemTypeRequest $request
-     * @param ItemType $record
+     * @param  ItemTypeRequest  $request
+     * @param  ItemType  $record
      * @return ItemTypeResource
      */
     public function update(ItemTypeRequest $request, ItemType $record)
@@ -317,7 +315,7 @@ class ItemTypesController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param ItemType $record
+     * @param  ItemType  $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(ItemType $record)

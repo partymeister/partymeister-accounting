@@ -13,8 +13,6 @@ use Partymeister\Accounting\Services\ItemService;
 
 /**
  * Class ItemsController
- *
- * @package Partymeister\Accounting\Http\Controllers\Backend
  */
 class ItemsController extends Controller
 {
@@ -24,6 +22,7 @@ class ItemsController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \ReflectionException
      */
     public function index()
@@ -56,7 +55,7 @@ class ItemsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ItemRequest $request
+     * @param  ItemRequest  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(ItemRequest $request)
@@ -91,7 +90,7 @@ class ItemsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Item $record
+     * @param  Item  $record
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Item $record)
@@ -109,8 +108,8 @@ class ItemsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ItemRequest $request
-     * @param Item $record
+     * @param  ItemRequest  $request
+     * @param  Item  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(ItemRequest $request, Item $record)
@@ -135,7 +134,7 @@ class ItemsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Item $record
+     * @param  Item  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Item $record)

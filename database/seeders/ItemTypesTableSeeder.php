@@ -8,11 +8,9 @@ use Motor\Admin\Models\User;
 
 /**
  * Class ItemTypesTableSeeder
- * @package Partymeister\Accounting\Database\Seeds
  */
 class ItemTypesTableSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -24,17 +22,17 @@ class ItemTypesTableSeeder extends Seeder
             [
                 'name'          => 'Beverages',
                 'sort_position' => 10,
-                'is_visible'    => true
+                'is_visible'    => true,
             ],
             [
                 'name'          => 'Entrance',
                 'sort_position' => 20,
-                'is_visible'    => true
+                'is_visible'    => true,
             ],
             [
                 'name'          => 'Merchandise',
                 'sort_position' => 30,
-                'is_visible'    => true
+                'is_visible'    => true,
             ],
         ];
 

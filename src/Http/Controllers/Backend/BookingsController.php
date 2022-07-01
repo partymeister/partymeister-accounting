@@ -13,8 +13,6 @@ use Partymeister\Accounting\Services\BookingService;
 
 /**
  * Class BookingsController
- *
- * @package Partymeister\Accounting\Http\Controllers\Backend
  */
 class BookingsController extends Controller
 {
@@ -24,6 +22,7 @@ class BookingsController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \ReflectionException
      */
     public function index()
@@ -56,7 +55,7 @@ class BookingsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param BookingRequest $request
+     * @param  BookingRequest  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(BookingRequest $request)
@@ -91,7 +90,7 @@ class BookingsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Booking $record
+     * @param  Booking  $record
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Booking $record)
@@ -109,8 +108,8 @@ class BookingsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param BookingRequest $request
-     * @param Booking $record
+     * @param  BookingRequest  $request
+     * @param  Booking  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(BookingRequest $request, Booking $record)
@@ -135,7 +134,7 @@ class BookingsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Booking $record
+     * @param  Booking  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(Booking $record)

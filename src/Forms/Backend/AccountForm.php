@@ -8,8 +8,6 @@ use Symfony\Component\Intl\Currencies;
 
 /**
  * Class AccountForm
- *
- * @package Partymeister\Accounting\Forms\Backend
  */
 class AccountForm extends Form
 {

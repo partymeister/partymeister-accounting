@@ -14,15 +14,13 @@ use Partymeister\Accounting\Models\ItemType;
 
 /**
  * Class PosInterfacesController
- *
- * @package Partymeister\Accounting\Http\Controllers\Backend
  */
 class PosInterfacesController extends Controller
 {
     /**
      * Display the specified resource.
      *
-     * @param Account $record
+     * @param  Account  $record
      * @return Factory|View
      */
     public function show(Account $record)
@@ -35,7 +33,7 @@ class PosInterfacesController extends Controller
     }
 
     /**
-     * @param Account $record
+     * @param  Account  $record
      * @return Factory|View
      */
     public function edit(Account $record)
@@ -47,8 +45,8 @@ class PosInterfacesController extends Controller
     }
 
     /**
-     * @param Account $record
-     * @param PosInterfaceRequest $request
+     * @param  Account  $record
+     * @param  PosInterfaceRequest  $request
      * @return JsonResponse
      */
     public function update(Account $record, PosInterfaceRequest $request)
@@ -60,8 +58,8 @@ class PosInterfacesController extends Controller
     }
 
     /**
-     * @param PosInterfaceRequest $request
-     * @param Account $record
+     * @param  PosInterfaceRequest  $request
+     * @param  Account  $record
      * @return JsonResponse
      */
     public function create(PosInterfaceRequest $request, Account $record)

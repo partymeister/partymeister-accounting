@@ -13,8 +13,6 @@ use Partymeister\Accounting\Services\ItemTypeService;
 
 /**
  * Class ItemTypesController
- *
- * @package Partymeister\Accounting\Http\Controllers\Backend
  */
 class ItemTypesController extends Controller
 {
@@ -24,6 +22,7 @@ class ItemTypesController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      * @throws \ReflectionException
      */
     public function index()
@@ -56,7 +55,7 @@ class ItemTypesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ItemTypeRequest $request
+     * @param  ItemTypeRequest  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(ItemTypeRequest $request)
@@ -91,7 +90,7 @@ class ItemTypesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param ItemType $record
+     * @param  ItemType  $record
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(ItemType $record)
@@ -109,8 +108,8 @@ class ItemTypesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ItemTypeRequest $request
-     * @param ItemType $record
+     * @param  ItemTypeRequest  $request
+     * @param  ItemType  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(ItemTypeRequest $request, ItemType $record)
@@ -135,7 +134,7 @@ class ItemTypesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ItemType $record
+     * @param  ItemType  $record
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(ItemType $record)

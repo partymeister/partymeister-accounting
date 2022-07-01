@@ -9,8 +9,6 @@ use Partymeister\Accounting\Models\ItemType;
 
 /**
  * Class ItemService
- *
- * @package Partymeister\Accounting\Services
  */
 class ItemService extends BaseService
 {

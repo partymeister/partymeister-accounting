@@ -39,6 +39,7 @@ use Motor\Core\Traits\Searchable;
  * @property-read mixed $balance
  * @property-read mixed $last_booking
  * @property-read User $updater
+ *
  * @method static Builder|Account filteredBy(Filter $filter, $column)
  * @method static Builder|Account filteredByMultiple(Filter $filter)
  * @method static Builder|Account newModelQuery()

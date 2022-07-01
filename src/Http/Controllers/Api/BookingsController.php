@@ -11,8 +11,6 @@ use Partymeister\Accounting\Services\BookingService;
 
 /**
  * Class BookingsController
- *
- * @package Partymeister\Accounting\Http\Controllers\Api
  */
 class BookingsController extends ApiController
 {
@@ -122,7 +120,7 @@ class BookingsController extends ApiController
      *
      * Store a newly created resource in storage.
      *
-     * @param BookingRequest $request
+     * @param  BookingRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(BookingRequest $request)
@@ -185,7 +183,7 @@ class BookingsController extends ApiController
      *
      * Display the specified resource.
      *
-     * @param Booking $record
+     * @param  Booking  $record
      * @return BookingResource
      */
     public function show(Booking $record)
@@ -249,8 +247,8 @@ class BookingsController extends ApiController
      *
      * Update the specified resource in storage.
      *
-     * @param BookingRequest $request
-     * @param Booking $record
+     * @param  BookingRequest  $request
+     * @param  Booking  $record
      * @return BookingResource
      */
     public function update(BookingRequest $request, Booking $record)
@@ -317,7 +315,7 @@ class BookingsController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param Booking $record
+     * @param  Booking  $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Booking $record)

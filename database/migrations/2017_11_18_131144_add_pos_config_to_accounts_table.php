@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Schema;
  */
 class AddPosConfigToAccountsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -21,7 +20,6 @@ class AddPosConfigToAccountsTable extends Migration
             $table->json('pos_configuration')->after('has_pos');
         });
     }
-
 
     /**
      * Reverse the migrations.

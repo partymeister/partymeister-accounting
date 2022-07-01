@@ -6,8 +6,6 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class ItemTypeRequest
- *
- * @package Partymeister\Accounting\Http\Requests\Backend
  */
 class ItemTypeRequest extends Request
 {

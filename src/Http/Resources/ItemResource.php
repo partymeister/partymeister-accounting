@@ -107,7 +107,7 @@ class ItemResource extends BaseResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
@@ -132,9 +132,9 @@ class ItemResource extends BaseResource
             'pos_cost_account_id'              => (int) $this->pos_cost_account_id,
             'pos_create_booking_for_item'      => new ItemResource($this->pos_create_booking_for_item),
             'pos_create_booking_for_item_id'   => (int) $this->pos_create_booking_for_item_id,
-            'pos_can_book_negative_quantities' => (boolean) $this->pos_can_book_negative_quantities,
-            'can_be_ordered'                   => (boolean) $this->can_be_ordered,
-            'is_visible'                       => (boolean) $this->is_visible,
+            'pos_can_book_negative_quantities' => (bool) $this->pos_can_book_negative_quantities,
+            'can_be_ordered'                   => (bool) $this->can_be_ordered,
+            'is_visible'                       => (bool) $this->is_visible,
             'sort_position'                    => (int) $this->sort_position,
             'sales'                            => (int) $this->sales,
             'revenue'                          => $this->revenue,

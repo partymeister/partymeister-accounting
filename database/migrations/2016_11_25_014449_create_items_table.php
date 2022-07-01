@@ -8,7 +8,6 @@ use Illuminate\Database\Migrations\Migration;
  */
 class CreateItemsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -51,7 +50,6 @@ class CreateItemsTable extends Migration
             $table->foreign('pos_cost_account_id')->references('id')->on('accounts')->onDelete('set null');
         });
     }
-
 
     /**
      * Reverse the migrations.

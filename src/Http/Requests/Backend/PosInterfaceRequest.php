@@ -6,8 +6,6 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class PosInterfaceRequest
- *
- * @package Partymeister\Accounting\Http\Requests\Backend
  */
 class PosInterfaceRequest extends Request
 {

@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Schema;
  */
 class RemoveUnusedAttributesFromItemsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
@@ -18,15 +17,14 @@ class RemoveUnusedAttributesFromItemsTable extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->dropForeign([ 'pos_earnings_account_id' ]);
-            $table->dropIndex([ 'pos_earnings_account_id' ]);
+            $table->dropForeign(['pos_earnings_account_id']);
+            $table->dropIndex(['pos_earnings_account_id']);
             $table->dropColumn('pos_earnings_account_id');
             $table->dropColumn('is_visible_in_pos');
             $table->dropColumn('pos_sort_position');
             $table->dropColumn('pos_do_break');
         });
     }
-
 
     /**
      * Reverse the migrations.

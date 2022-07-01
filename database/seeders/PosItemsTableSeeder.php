@@ -8,11 +8,9 @@ use Partymeister\Accounting\Models\ItemType;
 
 /**
  * Class AccountsTableSeeder
- * @package Partymeister\Accounting\Database\Seeds
  */
 class PosItemsTableSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -23,7 +21,7 @@ class PosItemsTableSeeder extends Seeder
         $posConfig = [
             '1' => ItemType::where('name', 'Entrance')->first()->items()->pluck('id')->toArray(),
             '2' => ItemType::where('name', 'Beverages')->first()->items()->pluck('id')->toArray(),
-            '3' => ItemType::where('name', 'Merchandise')->first()->items()->pluck('id')->toArray()
+            '3' => ItemType::where('name', 'Merchandise')->first()->items()->pluck('id')->toArray(),
         ];
 
         $account = Account::where('name', 'POS')->first();

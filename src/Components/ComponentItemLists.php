@@ -10,8 +10,6 @@ use Partymeister\Accounting\Models\ItemType;
 
 /**
  * Class ComponentItemLists
- *
- * @package Partymeister\Accounting\Components
  */
 class ComponentItemLists
 {
@@ -28,7 +26,7 @@ class ComponentItemLists
     /**
      * ComponentItemLists constructor.
      *
-     * @param PageVersionComponent $pageVersionComponent
+     * @param  PageVersionComponent  $pageVersionComponent
      */
     public function __construct(PageVersionComponent $pageVersionComponent)
     {
@@ -36,7 +34,7 @@ class ComponentItemLists
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return Factory|View
      */
     public function index(Request $request)

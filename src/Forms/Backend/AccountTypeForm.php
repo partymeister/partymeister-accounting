@@ -6,8 +6,6 @@ use Kris\LaravelFormBuilder\Form;
 
 /**
  * Class AccountTypeForm
- *
- * @package Partymeister\Accounting\Forms\Backend
  */
 class AccountTypeForm extends Form
 {

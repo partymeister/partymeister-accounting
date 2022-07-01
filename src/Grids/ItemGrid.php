@@ -7,8 +7,6 @@ use Motor\Backend\Grid\Renderers\CurrencyRenderer;
 
 /**
  * Class ItemGrid
- *
- * @package Partymeister\Accounting\Grids
  */
 class ItemGrid extends Grid
 {

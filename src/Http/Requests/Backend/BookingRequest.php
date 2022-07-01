@@ -6,8 +6,6 @@ use Motor\Backend\Http\Requests\Request;
 
 /**
  * Class BookingRequest
- *
- * @package Partymeister\Accounting\Http\Requests\Backend
  */
 class BookingRequest extends Request
 {

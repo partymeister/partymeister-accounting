@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'accounting' => 'Accounting'
+    'accounting' => 'Accounting',
 ];

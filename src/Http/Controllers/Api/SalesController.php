@@ -11,8 +11,6 @@ use Partymeister\Accounting\Services\SaleService;
 
 /**
  * Class SalesController
- *
- * @package Partymeister\Accounting\Http\Controllers\Api
  */
 class SalesController extends ApiController
 {
@@ -122,7 +120,7 @@ class SalesController extends ApiController
      *
      * Store a newly created resource in storage.
      *
-     * @param SaleRequest $request
+     * @param  SaleRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(SaleRequest $request)
@@ -185,7 +183,7 @@ class SalesController extends ApiController
      *
      * Display the specified resource.
      *
-     * @param Sale $record
+     * @param  Sale  $record
      * @return SaleResource
      */
     public function show(Sale $record)
@@ -249,8 +247,8 @@ class SalesController extends ApiController
      *
      * Update the specified resource in storage.
      *
-     * @param SaleRequest $request
-     * @param Sale $record
+     * @param  SaleRequest  $request
+     * @param  Sale  $record
      * @return SaleResource
      */
     public function update(SaleRequest $request, Sale $record)
@@ -317,7 +315,7 @@ class SalesController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param Sale $record
+     * @param  Sale  $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Sale $record)

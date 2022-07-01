@@ -8,8 +8,6 @@ use Symfony\Component\Intl\Currencies;
 
 /**
  * Class BookingForm
- *
- * @package Partymeister\Accounting\Forms\Backend
  */
 class BookingForm extends Form
 {
@@ -31,17 +29,17 @@ class BookingForm extends Form
                  'empty_value' => trans('partymeister-accounting::backend/bookings.book_out'),
              ])
              ->add('description', 'textarea', [
-                     'label' => trans('partymeister-accounting::backend/bookings.description'),
-                     'rules' => 'required',
-                 ])
+                 'label' => trans('partymeister-accounting::backend/bookings.description'),
+                 'rules' => 'required',
+             ])
              ->add('vat_percentage', 'text', [
-                     'label' => trans('partymeister-accounting::backend/bookings.vat_percentage'),
-                     'rules' => 'required',
-                 ])
+                 'label' => trans('partymeister-accounting::backend/bookings.vat_percentage'),
+                 'rules' => 'required',
+             ])
              ->add('price_with_vat', 'text', [
-                     'label' => trans('partymeister-accounting::backend/bookings.price_with_vat'),
-                     'rules' => 'required',
-                 ])
+                 'label' => trans('partymeister-accounting::backend/bookings.price_with_vat'),
+                 'rules' => 'required',
+             ])
              ->add('price_without_vat', 'text', ['label' => trans('partymeister-accounting::backend/bookings.price_without_vat')])
              ->add('currency_iso_4217', 'select2', [
                  'label'         => trans('partymeister-accounting::backend/accounts.currency_iso_4217'),

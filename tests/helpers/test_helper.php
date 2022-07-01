@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $count
+ * @param  int  $count
  * @return mixed
  */
 function create_test_account_type($count = 1)
@@ -10,7 +10,7 @@ function create_test_account_type($count = 1)
 }
 
 /**
- * @param int $count
+ * @param  int  $count
  * @return mixed
  */
 function create_test_account($count = 1)
@@ -19,7 +19,7 @@ function create_test_account($count = 1)
 }
 
 /**
- * @param int $count
+ * @param  int  $count
  * @return mixed
  */
 function create_test_booking($count = 1)
@@ -28,7 +28,7 @@ function create_test_booking($count = 1)
 }
 
 /**
- * @param int $count
+ * @param  int  $count
  * @return mixed
  */
 function create_test_item_type($count = 1)
@@ -37,7 +37,7 @@ function create_test_item_type($count = 1)
 }
 
 /**
- * @param int $count
+ * @param  int  $count
  * @return mixed
  */
 function create_test_item($count = 1)
@@ -46,8 +46,8 @@ function create_test_item($count = 1)
 }
 
 /**
- * @param     $earningsAccountId
- * @param int $count
+ * @param    $earningsAccountId
+ * @param  int  $count
  * @return mixed
  */
 function create_test_items_for_earnings_account($earningsAccountId, $count = 1)
@@ -55,11 +55,11 @@ function create_test_items_for_earnings_account($earningsAccountId, $count = 1)
     return factory(
         Partymeister\Accounting\Models\Item::class,
         $count
-    )->create([ 'pos_earnings_account_id' => $earningsAccountId ]);
+    )->create(['pos_earnings_account_id' => $earningsAccountId]);
 }
 
 /**
- * @param int $count
+ * @param  int  $count
  * @return mixed
  */
 function create_test_sale($count = 1)

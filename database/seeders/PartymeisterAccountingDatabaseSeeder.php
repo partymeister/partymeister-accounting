@@ -6,11 +6,9 @@ use Illuminate\Database\Seeder;
 
 /**
  * Class AccountsTableSeeder
- * @package Partymeister\Accounting\Database\Seeds
  */
 class PartymeisterAccountingDatabaseSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *

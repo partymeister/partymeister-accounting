@@ -4,7 +4,7 @@ namespace Partymeister\Accounting\Http\Controllers\Backend;
 
 use Illuminate\Http\Response;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
-use Motor\Backend\Http\Controllers\Controller;
+use Motor\Admin\Http\Controllers\Controller;
 use Partymeister\Accounting\Forms\Backend\BookingForm;
 use Partymeister\Accounting\Grids\BookingGrid;
 use Partymeister\Accounting\Http\Requests\Backend\BookingRequest;

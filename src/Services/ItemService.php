@@ -2,7 +2,7 @@
 
 namespace Partymeister\Accounting\Services;
 
-use Motor\Backend\Services\BaseService;
+use Motor\Admin\Services\BaseService;
 use Motor\Core\Filter\Renderers\SelectRenderer;
 use Partymeister\Accounting\Models\Item;
 use Partymeister\Accounting\Models\ItemType;

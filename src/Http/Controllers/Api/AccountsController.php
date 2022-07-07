@@ -2,7 +2,7 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
-use Motor\Backend\Http\Controllers\ApiController;
+use Motor\Admin\Http\Controllers\ApiController;
 use Partymeister\Accounting\Http\Requests\Backend\AccountRequest;
 use Partymeister\Accounting\Http\Resources\AccountCollection;
 use Partymeister\Accounting\Http\Resources\AccountResource;
@@ -14,7 +14,7 @@ use Partymeister\Accounting\Services\AccountService;
  */
 class AccountsController extends ApiController
 {
-    protected string $model = 'Partymeister\Accounting\Models\Account';
+    protected string $model = \Partymeister\Accounting\Models\Account::class;
 
     protected string $modelResource = 'account';
 

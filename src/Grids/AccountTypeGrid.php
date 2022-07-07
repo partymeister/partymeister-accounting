@@ -2,7 +2,7 @@
 
 namespace Partymeister\Accounting\Grids;
 
-use Motor\Backend\Grid\Grid;
+use Motor\Admin\Grid\Grid;
 
 /**
  * Class AccountTypeGrid

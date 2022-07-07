@@ -2,8 +2,8 @@
 
 namespace Partymeister\Accounting\Grids;
 
-use Motor\Backend\Grid\Grid;
-use Motor\Backend\Grid\Renderers\CurrencyRenderer;
+use Motor\Admin\Grid\Grid;
+use Motor\Admin\Grid\Renderers\CurrencyRenderer;
 
 /**
  * Class ItemGrid

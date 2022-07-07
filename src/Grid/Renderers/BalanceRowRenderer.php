@@ -2,7 +2,7 @@
 
 namespace Partymeister\Accounting\Grid\Renderers;
 
-use Motor\Backend\Grid\Renderers\CurrencyRenderer;
+use Motor\Admin\Grid\Renderers\CurrencyRenderer;
 
 /**
  * Class BalanceRowRenderer

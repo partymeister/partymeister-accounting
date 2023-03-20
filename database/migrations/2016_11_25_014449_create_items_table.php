@@ -1,7 +1,7 @@
 <?php
 
-use Culpa\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 /**
  * Class CreateItemsTable
@@ -38,9 +38,9 @@ class CreateItemsTable extends Migration
             $table->integer('pos_sort_position')->unsigned()->nullable();
             $table->integer('pos_do_break');
 
-            $table->createdBy();
-            $table->updatedBy();
-            $table->deletedBy(true);
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->integer('deleted_by')->nullable();
 
             $table->timestamps();
 

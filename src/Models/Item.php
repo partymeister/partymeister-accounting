@@ -4,7 +4,7 @@ namespace Partymeister\Accounting\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Kra8\Snowflake\HasShortFlakePrimary;
+use Kra8\Snowflake\HasShortflakePrimary;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -87,7 +87,7 @@ class Item extends Model
     use Filterable;
     use BlameableTrait;
     use HasFactory;
-    use HasShortFlakePrimary;
+    use HasShortflakePrimary;
 
     /**
      * Searchable columns for the searchable trait

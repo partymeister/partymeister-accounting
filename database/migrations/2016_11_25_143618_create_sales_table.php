@@ -16,7 +16,7 @@ class CreateSalesTable extends Migration
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('earnings_booking_id')->unsigned()->index();
             $table->integer('cost_booking_id')->unsigned()->nullable()->index();
             $table->integer('item_id')->unsigned()->index();

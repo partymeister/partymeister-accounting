@@ -4,7 +4,7 @@ namespace Partymeister\Accounting\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Kra8\Snowflake\HasSnowflakePrimary;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -56,7 +56,7 @@ class ItemType extends Model
     use Filterable;
     use BlameableTrait;
     use HasFactory;
-    use HasUuids;
+    use HasSnowflakePrimary;
 
     /**
      * Searchable columns for the searchable trait

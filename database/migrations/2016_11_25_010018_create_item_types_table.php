@@ -16,7 +16,7 @@ class CreateItemTypesTable extends Migration
     public function up()
     {
         Schema::create('item_types', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
             $table->boolean('is_visible');
             $table->integer('sort_position')->unsigned()->nullable();

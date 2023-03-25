@@ -16,7 +16,7 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('account_type_id')->nullable()->unsigned()->index();
             $table->string('name');
             $table->string('currency_iso_4217')->default('EUR');

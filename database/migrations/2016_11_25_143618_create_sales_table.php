@@ -17,18 +17,18 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->integer('earnings_booking_id')->unsigned()->index();
-            $table->integer('cost_booking_id')->unsigned()->nullable()->index();
-            $table->integer('item_id')->unsigned()->index();
+            $table->bigInteger('earnings_booking_id')->unsigned()->index();
+            $table->bigInteger('cost_booking_id')->unsigned()->nullable()->index();
+            $table->bigInteger('item_id')->unsigned()->index();
             $table->integer('quantity')->default(0);
             $table->decimal('price_with_vat', 15, 4);
             $table->decimal('price_without_vat', 15, 4);
             $table->decimal('vat_percentage', 4, 2);
             $table->string('currency_iso_4217')->default('EUR');
 
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('deleted_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('deleted_by')->nullable();
 
             $table->timestamps();
 
@@ -38,7 +38,7 @@ class CreateSalesTable extends Migration
         });
 
         Schema::table('bookings', function (Blueprint $table) {
-            $table->integer('sale_id')->after('id')->unsigned()->index()->nullable();
+            $table->bigInteger('sale_id')->after('id')->unsigned()->index()->nullable();
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade');
         });
     }

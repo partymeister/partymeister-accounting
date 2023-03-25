@@ -17,9 +17,9 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->integer('pos_earnings_account_id')->unsigned()->nullable()->index();
-            $table->integer('pos_cost_account_id')->unsigned()->nullable()->index();
-            $table->integer('item_type_id')->unsigned()->nullable()->index();
+            $table->bigInteger('pos_earnings_account_id')->unsigned()->nullable()->index();
+            $table->bigInteger('pos_cost_account_id')->unsigned()->nullable()->index();
+            $table->bigInteger('item_type_id')->unsigned()->nullable()->index();
             $table->string('name');
             $table->text('description');
             $table->text('internal_description');
@@ -33,14 +33,14 @@ class CreateItemsTable extends Migration
             $table->boolean('is_visible');
             $table->integer('sort_position')->unsigned()->nullable();
             $table->boolean('is_visible_in_pos');
-            $table->integer('pos_create_booking_for_item_id')->unsigned()->nullable();
+            $table->bigInteger('pos_create_booking_for_item_id')->unsigned()->nullable();
             $table->boolean('pos_can_book_negative_quantities');
             $table->integer('pos_sort_position')->unsigned()->nullable();
             $table->integer('pos_do_break');
 
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('deleted_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('deleted_by')->nullable();
 
             $table->timestamps();
 

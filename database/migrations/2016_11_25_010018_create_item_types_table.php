@@ -21,9 +21,9 @@ class CreateItemTypesTable extends Migration
             $table->boolean('is_visible');
             $table->integer('sort_position')->unsigned()->nullable();
 
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('deleted_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('deleted_by')->nullable();
 
             $table->timestamps();
         });

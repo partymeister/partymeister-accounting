@@ -17,8 +17,8 @@ class CreateBookingsTable extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->integer('from_account_id')->unsigned()->nullable()->index();
-            $table->integer('to_account_id')->unsigned()->nullable()->index();
+            $table->bigInteger('from_account_id')->unsigned()->nullable()->index();
+            $table->bigInteger('to_account_id')->unsigned()->nullable()->index();
             $table->text('description');
             $table->decimal('vat_percentage', 4, 2);
             $table->decimal('price_with_vat', 15, 4);
@@ -26,9 +26,9 @@ class CreateBookingsTable extends Migration
             $table->string('currency_iso_4217');
             $table->boolean('is_manual_booking')->default(false);
 
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('deleted_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('deleted_by')->nullable();
 
             $table->timestamps();
 

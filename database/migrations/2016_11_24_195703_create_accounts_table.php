@@ -17,14 +17,14 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->integer('account_type_id')->nullable()->unsigned()->index();
+            $table->bigInteger('account_type_id')->nullable()->unsigned()->index();
             $table->string('name');
             $table->string('currency_iso_4217')->default('EUR');
             $table->boolean('has_pos')->default(false);
 
-            $table->integer('created_by')->nullable();
-            $table->integer('updated_by')->nullable();
-            $table->integer('deleted_by')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
+            $table->bigInteger('deleted_by')->nullable();
 
             $table->timestamps();
 

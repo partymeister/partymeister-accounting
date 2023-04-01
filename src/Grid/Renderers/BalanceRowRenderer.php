@@ -45,7 +45,7 @@ class BalanceRowRenderer
         $currency = $this->defaultCurrency;
         foreach ($this->paginator->getCollection() as $record) {
             $currency = $record->currency_iso_4217;
-            $balance += $record->balance;
+            $balance += $record->cash_balance;
         }
 
         $renderer = new CurrencyRenderer($balance, ['currency' => $currency]);

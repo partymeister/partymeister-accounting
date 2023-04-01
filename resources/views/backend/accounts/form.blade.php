@@ -4,7 +4,7 @@
         <h3 class="box-title">{{ trans('motor-backend::backend/global.base_info') }}</h3>
     </div>
     <div class="@boxBody">
-        {!! form_until($form, 'has_pos') !!}
+        {!! form_until($form, 'has_card_payments') !!}
     </div>
     <!-- /.box-body -->
 

@@ -25,9 +25,16 @@ class PosInterfacesController extends Controller
      */
     public function show(Account $record)
     {
-        $last_booking = json_encode((new BookingResource(Booking::where('to_account_id', $record->id)
-                                                                ->orderBy('created_at', 'DESC')
-                                                                ->first()))->toArrayRecursive());
+        $booking = Booking::where('to_account_id', $record->id)
+                          ->orderBy('created_at', 'DESC')
+                          ->first();
+
+        $last_booking = "{}";
+
+        if (!is_null($booking)) {
+            $last_booking = json_encode( (new BookingResource($booking))->toArrayRecursive());
+        }
+
 
         return view('partymeister-accounting::layouts.pos_interface', compact('record', 'last_booking'));
     }
@@ -66,7 +73,7 @@ class PosInterfacesController extends Controller
     {
         $items = $request->get('items');
         if (is_array($items)) {
-            $booking = Booking::createSales($record, $items);
+            $booking = Booking::createSales($record, $items, $request->get('is_card_payment', 0), $request->get('is_coupon_payment', 0));
 
             return response()->json(new BookingResource($booking));
         }

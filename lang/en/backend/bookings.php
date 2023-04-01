@@ -18,6 +18,8 @@ return [
     'price_with_vat'    => 'Price (with VAT)',
     'price_without_vat' => 'Price (without VAT)',
     'is_manual_booking' => 'Manual booking',
+    'is_card_payment'   => 'Card payment',
+    'is_coupon_payment' => 'Coupon payment',
     'book_in'           => 'Book in (from outside account)',
     'book_out'          => 'Book out (to outside account)',
 

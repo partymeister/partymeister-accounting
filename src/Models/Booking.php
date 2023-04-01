@@ -98,6 +98,8 @@ class Booking extends Model
         'price_without_vat',
         'currency_iso_4217',
         'is_manual_booking',
+        'is_card_payment',
+        'is_coupon_payment',
     ];
 
     protected static function newFactory()
@@ -106,9 +108,9 @@ class Booking extends Model
     }
 
     /**
-     * @param  Account  $account
+     * @param Account $account
      * @param    $item
-     * @param  int  $quantity
+     * @param int $quantity
      * @return Booking
      */
     public static function createSale(Account $account, $item, $quantity = 1)
@@ -121,11 +123,11 @@ class Booking extends Model
     }
 
     /**
-     * @param  Account  $account
+     * @param Account $account
      * @param    $items
      * @return Booking
      */
-    public static function createSales(Account $account, $items)
+    public static function createSales(Account $account, $items, $cardPayment = 0, $couponPayment)
     {
         $record = new static;
 
@@ -152,6 +154,9 @@ class Booking extends Model
         $record->price_with_vat = $price_with_vat;
         $record->price_without_vat = $price_without_vat;
         $record->to_account_id = $account->id;
+        $record->is_card_payment = $cardPayment;
+        $record->is_coupon_payment = $couponPayment;
+
         $record->save();
 
         // Add sales to items

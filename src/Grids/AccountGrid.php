@@ -23,7 +23,13 @@ class AccountGrid extends Grid
         $this->addColumn('currency_iso_4217', trans('partymeister-accounting::backend/accounts.currency_iso_4217'));
         $this->addColumn('last_booking', trans('partymeister-accounting::backend/accounts.last_booking'))
              ->renderer(DateRenderer::class);
-        $this->addColumn('balance', trans('partymeister-accounting::backend/accounts.balance'))
+        $this->addColumn('cash_balance', trans('partymeister-accounting::backend/accounts.cash_balance'))
+             ->renderer(CurrencyRenderer::class, ['currency_column' => 'currency_iso_4217'])
+             ->style('text-align: right');
+        $this->addColumn('card_balance', trans('partymeister-accounting::backend/accounts.card_balance'))
+             ->renderer(CurrencyRenderer::class, ['currency_column' => 'currency_iso_4217'])
+             ->style('text-align: right');
+        $this->addColumn('coupon_balance', trans('partymeister-accounting::backend/accounts.coupon_balance'))
              ->renderer(CurrencyRenderer::class, ['currency_column' => 'currency_iso_4217'])
              ->style('text-align: right');
         $this->addAction(trans('partymeister-accounting::backend/accounts.show_pos'), 'backend.pos.show', ['class' => 'btn-primary'])

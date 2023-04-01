@@ -79,7 +79,10 @@
                                 <td style="text-align: right;" class="sales_price" data-total="0"><span>0</span></td>
                                 <td style="text-align: right;">@if (!$item->pos_can_book_negative_quantities)
                                         <button class="btn btn-danger delete" data-item-id="{{$item->id}}">X
-                                        </button>@else&nbsp;@endif</td>
+                                        </button>
+                                    @else
+                                        &nbsp;
+                                    @endif</td>
                             </tr>
                         @endforeach
                         <tr id="sales_total">
@@ -89,9 +92,34 @@
                         </tr>
                         </tbody>
                     </table>
-                    <button id="book"
-                            class="btn-lg btn-success">{{trans('partymeister-accounting::backend/pos.book')}}</button>
+                    @if ($record->has_card_payments)
+                        <div class="btn-group" style="width: 100%;">
+
+                            <button id="book_cash"
+                                    class="book-button btn-lg btn-success" style="width: 50%; height: 150px;"><i
+                                        class="fa fa-coins"></i><br>{{trans('partymeister-accounting::backend/pos.book_cash')}}</button>
+                            <button id="book_card"
+                                    class="book-button btn-lg btn-success" style="width: 50%; height: 150px;"><i
+                                        class="fa fa-credit-card"></i><br>{{trans('partymeister-accounting::backend/pos.book_card')}}</button>
+                        </div>
+                    @elseif ($record->has_coupon_payments)
+                        <div class="btn-group" style="width: 100%;">
+
+                            <button id="book_cash"
+                                    class="book-button btn-lg btn-success" style="width: 50%; height: 150px;"><i
+                                        class="fa fa-coins"></i><br>{{trans('partymeister-accounting::backend/pos.book_cash')}}</button>
+                            <button id="book_coupon"
+                                    class="book-button btn-lg btn-success" style="width: 50%; height: 150px;"><i
+                                        class="fa fa-pencil-alt"></i><br>{{trans('partymeister-accounting::backend/pos.book_coupon')}}</button>
+                        </div>
+                    @else
+                        <button id="book"
+                                class="book-button btn-lg btn-success" style="width: 100%; height: 150px;"><i
+                                    class="fa fa-coins"></i><br>{{trans('partymeister-accounting::backend/pos.book_cash')}}</button>
+                    @endif
                     <input type="hidden" id="booking" name="booking"/>
+                    <input type="hidden" id="is_card_payment" name="is_card_payment"/>
+                    <input type="hidden" id="is_coupon_payment" name="is_coupon_payment"/>
                 </form>
             </div>
             <div class="well-lg last-booking hide mb-3">
@@ -221,12 +249,27 @@
             return false;
         });
 
+
+        // Let the button blink
+        $('#book').click(function (e) {
+            $(this).effect('highlight');
+        });
+        $('#book_card').click(function (e) {
+            $('#is_card_payment').val(1);
+            $(this).effect('highlight');
+        });
+        $('#book_coupon').click(function (e) {
+            $('#is_coupon_payment').val(1);
+            $(this).effect('highlight');
+        });
+        $('#book_cash').click(function (e) {
+            $(this).effect('highlight');
+        });
+
+
         $('#submit').submit(function (e) {
 
             e.preventDefault();
-
-            // Let the button blink
-            $('#book').effect('highlight');
 
             let data = {};
             $('.beverage tbody tr').each(function (index) {
@@ -247,13 +290,15 @@
             $.ajax({
                 type: "POST",
                 url: '{{ route('backend.pos.create', ['account' => $record->id]) }}',
-                data: {items: data},
+                data: {items: data, is_card_payment: $('#is_card_payment').val(), is_coupon_payment: $('#is_coupon_payment').val()},
                 success: function (response) {
                     updateLastBooking(response);
                     clearItems();
                 }
             });
 
+            $('#is_card_payment').val(0);
+            $('#is_coupon_payment').val(0);
             return false;
         });
     });

@@ -37,6 +37,20 @@ class BookingService extends BaseService
                          1 => trans('motor-backend::backend/global.yes'),
                          0 => trans('motor-backend::backend/global.no'),
                      ]);
+        $this->filter->add(new SelectRenderer('is_card_payment'))
+                     ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.is_card_payment'))
+                     ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.is_card_payment').' --')
+                     ->setOptions([
+                         1 => trans('motor-backend::backend/global.yes'),
+                         0 => trans('motor-backend::backend/global.no'),
+                     ]);
+        $this->filter->add(new SelectRenderer('is_coupon_payment'))
+                     ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.is_coupon_payment'))
+                     ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.is_coupon_payment').' --')
+                     ->setOptions([
+                         1 => trans('motor-backend::backend/global.yes'),
+                         0 => trans('motor-backend::backend/global.no'),
+                     ]);
     }
 
     public function beforeCreate()

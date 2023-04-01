@@ -86,6 +86,8 @@ class Account extends Model
         'is_cashbox',
         'currency_iso_4217',
         'has_pos',
+        'has_card_payments',
+        'has_coupon_payments',
         'pos_configuration',
     ];
 
@@ -114,16 +116,46 @@ class Account extends Model
     /**
      * @return mixed
      */
-    public function getBalanceAttribute()
+    public function getCashBalanceAttribute()
     {
         $incoming = DB::table('bookings')
                       ->where('to_account_id', $this->id)
+                      ->where('is_card_payment', false)
+                      ->where('is_coupon_payment', false)
                       ->sum('price_with_vat');
         $outgoing = DB::table('bookings')
                       ->where('from_account_id', $this->id)
+                      ->where('is_card_payment', false)
+                      ->where('is_coupon_payment', false)
                       ->sum('price_with_vat');
 
         return $incoming - $outgoing;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCardBalanceAttribute()
+    {
+        $incoming = DB::table('bookings')
+                      ->where('to_account_id', $this->id)
+                      ->where('is_card_payment', true)
+                      ->sum('price_with_vat');
+
+        return $incoming;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCouponBalanceAttribute()
+    {
+        $incoming = DB::table('bookings')
+                      ->where('to_account_id', $this->id)
+                      ->where('is_coupon_payment', true)
+                      ->sum('price_with_vat');
+
+        return $incoming;
     }
 
     /**

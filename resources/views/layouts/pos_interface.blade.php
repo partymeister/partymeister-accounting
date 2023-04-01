@@ -34,12 +34,19 @@
                                            value="{{$item->pos_create_booking_for_item_id}}">
                                     <div class="buttons">
                                         @if ($item->pos_can_book_negative_quantities)
+                                            @if ($item->name == 'Coupon2Cash')
                                             <button data-quantity="-1" data-item="{{$item->id}}"
-                                                    class="add-item btn-lg btn-danger">-1
+                                                    class="add-item btn-lg btn-danger" style="line-height: 1; padding: 0.5rem;">- {{number_format($item->price_with_vat, 2, ',')}} €
                                             </button>
                                             <button data-quantity="-2" data-item="{{$item->id}}"
-                                                    class="add-item btn-lg btn-danger">-2
+                                                    class="add-item btn-lg btn-danger" style="line-height: 1; padding: 0.5rem;">- {{number_format($item->price_with_vat * 2, 2, ',')}} €
                                             </button>
+                                            @else
+                                                <button data-quantity="-1" data-item="{{$item->id}}"
+                                                        class="add-item btn-lg btn-danger">-1</button>
+                                                <button data-quantity="-2" data-item="{{$item->id}}"
+                                                        class="add-item btn-lg btn-danger">-2</button>
+                                            @endif
                                         @else
                                             <button data-quantity="1" data-item="{{$item->id}}"
                                                     class="add-item btn-lg btn-success">+1

@@ -34,7 +34,7 @@
                                            value="{{$item->pos_create_booking_for_item_id}}">
                                     <div class="buttons">
                                         @if ($item->pos_can_book_negative_quantities)
-                                            @if ($item->name == 'Coupon2Cash')
+                                            @if ($item->name == config('partymeister-accounting.coupon_item_pos'))
                                             <button data-quantity="-1" data-item="{{$item->id}}"
                                                     class="add-item btn-lg btn-danger" style="line-height: 1; padding: 0.5rem;">- {{number_format($item->price_with_vat, 2, ',')}} €
                                             </button>

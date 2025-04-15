@@ -21,7 +21,7 @@
                                         {{trans('partymeister-accounting::backend/pos.separator')}}
                                     </h2>
                                     <button class="btn btn-xs btn-danger pull-right delete-config-item">X</button>
-                                @else
+                                @elseif (!is_null(\Partymeister\Accounting\Models\Item::find($item)))
                                     <h2>{{\Partymeister\Accounting\Models\Item::find($item)->name}}</h2>
                                     <button class="btn btn-xs btn-danger delete-config-item">X</button>
                                     <div class="buttons">
@@ -34,6 +34,11 @@
                                             <button data-quantity="2" class="add-item btn-lg btn-success">+2</button>
                                         @endif
                                     </div>
+                                @else
+                                    <h2>
+                                        INVALID ITEM
+                                    </h2>
+                                    <button class="btn btn-xs btn-danger pull-right delete-config-item">X</button>
                                 @endif
                             </div>
                         @endforeach

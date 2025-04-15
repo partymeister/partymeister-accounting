@@ -22,7 +22,7 @@
                             @endphp
                             @if ($id == 'separator')
                                 <div class="item well separator"></div>
-                            @else
+                            @elseif (!is_null($item))
                                 <div class="item well" data-item-id="{{$item->id}}">
                                     <h2>{{$item->name}}</h2>
                                     <br>

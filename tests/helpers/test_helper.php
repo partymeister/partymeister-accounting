@@ -46,7 +46,6 @@ function create_test_item($count = 1)
 }
 
 /**
- * @param    $earningsAccountId
  * @param  int  $count
  * @return mixed
  */

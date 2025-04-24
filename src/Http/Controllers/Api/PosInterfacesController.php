@@ -20,20 +20,19 @@ class PosInterfacesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Account  $record
      * @return JsonResponse
      */
     public function show(Account $record)
     {
         $items = Item::where('pos_earnings_account_id', $record->id)
-                     ->orderBy('pos_sort_position', 'ASC')
-                     ->get();
+            ->orderBy('pos_sort_position', 'ASC')
+            ->get();
         $lastBooking = Booking::where('to_account_id', $record->id)
-                              ->orderBy('created_at', 'DESC')
-                              ->first();
+            ->orderBy('created_at', 'DESC')
+            ->first();
 
         $itemsData = ItemResource::collection($items)
-                                 ->toArrayRecursive();
+            ->toArrayRecursive();
 
         $accountData = (new AccountResource($record))->toArrayRecursive();
 
@@ -47,8 +46,6 @@ class PosInterfacesController extends Controller
     }
 
     /**
-     * @param  PosInterfaceRequest  $request
-     * @param  Account  $record
      * @return JsonResponse
      */
     public function create(PosInterfaceRequest $request, Account $record)

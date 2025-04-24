@@ -7,6 +7,7 @@ use Motor\Backend\Http\Resources\BaseResource;
 /**
  * @OA\Schema(
  *   schema="AccountResource",
+ *
  *   @OA\Property(
  *     property="id",
  *     type="integer",
@@ -49,16 +50,16 @@ class AccountResource extends BaseResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-            'id'                => (int) $this->id,
-            'account_type'      => new AccountTypeResource($this->account_type),
-            'name'              => $this->name,
-            'has_pos'           => (bool) $this->has_pos,
+            'id' => (int) $this->id,
+            'account_type' => new AccountTypeResource($this->account_type),
+            'name' => $this->name,
+            'has_pos' => (bool) $this->has_pos,
             'has_card_payments' => (bool) $this->has_card_payments,
             'currency_iso_4217' => $this->currency_iso_4217,
             'pos_configuration' => $this->pos_configuration,

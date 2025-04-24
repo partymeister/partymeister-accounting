@@ -11,24 +11,12 @@ class PartymeisterAccountingPosInterfaceTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $sale;
 
-    /**
-     * @var
-     */
     protected $booking;
 
-    /**
-     * @var
-     */
     protected $item;
 
     /**
@@ -50,7 +38,7 @@ class PartymeisterAccountingPosInterfaceTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 

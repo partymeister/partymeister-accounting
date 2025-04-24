@@ -12,10 +12,6 @@ use Partymeister\Accounting\Models\Account;
 class CurrencyCompatibilityValidator
 {
     /**
-     * @param    $attribute
-     * @param    $value
-     * @param    $parameters
-     * @param  Validator  $validator
      * @return bool
      */
     public function validate($attribute, $value, $parameters, Validator $validator)

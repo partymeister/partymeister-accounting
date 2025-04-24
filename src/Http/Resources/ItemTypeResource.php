@@ -7,6 +7,7 @@ use Motor\Backend\Http\Resources\BaseResource;
 /**
  * @OA\Schema(
  *   schema="ItemTypeResource",
+ *
  *   @OA\Property(
  *     property="id",
  *     type="integer",
@@ -40,11 +41,11 @@ class ItemTypeResource extends BaseResource
     public function toArray($request)
     {
         return [
-            'id'            => (int) $this->id,
-            'name'          => $this->name,
-            'is_visible'    => (bool) $this->is_visible,
+            'id' => (int) $this->id,
+            'name' => $this->name,
+            'is_visible' => (bool) $this->is_visible,
             'sort_position' => (int) $this->sort_position,
-            'items'         => ItemResource::collection($this->whenLoaded('items')),
+            'items' => ItemResource::collection($this->whenLoaded('items')),
         ];
     }
 }

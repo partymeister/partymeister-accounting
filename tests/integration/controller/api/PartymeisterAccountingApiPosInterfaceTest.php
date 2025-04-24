@@ -9,24 +9,12 @@ class PartymeisterAccountingApiPosInterfaceTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $readPermission;
 
-    /**
-     * @var
-     */
     protected $writePermission;
 
-    /**
-     * @var
-     */
     protected $deletePermission;
 
     /**
@@ -49,7 +37,7 @@ class PartymeisterAccountingApiPosInterfaceTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -75,9 +63,9 @@ class PartymeisterAccountingApiPosInterfaceTest extends TestCase
         $account = create_test_account();
         $items = create_test_items_for_earnings_account($account->id, 5);
         $this->json('GET', '/api/pos/'.$account->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(200)
-             ->seeJson(['name' => $account->name])
-             ->seeJson(['name' => $items[3]->name]);
+            ->seeStatusCode(200)
+            ->seeJson(['name' => $account->name])
+            ->seeJson(['name' => $items[3]->name]);
     }
 
     /** @test */
@@ -90,8 +78,8 @@ class PartymeisterAccountingApiPosInterfaceTest extends TestCase
     public function gets_404_for_invalid_account()
     {
         $this->json('GET', '/api/pos/999?api_token='.$this->user->api_token)
-             ->seeStatusCode(404)
-             ->seeJson(['message' => 'Record not found']);
+            ->seeStatusCode(404)
+            ->seeJson(['message' => 'Record not found']);
     }
 
     /** @test */
@@ -99,8 +87,8 @@ class PartymeisterAccountingApiPosInterfaceTest extends TestCase
     {
         $account = create_test_account();
         $this->json('POST', '/api/pos/'.$account->id.'?api_token='.$this->user->api_token, [])
-             ->seeStatusCode(404)
-             ->seeJson(['message' => 'No items received']);
+            ->seeStatusCode(404)
+            ->seeJson(['message' => 'No items received']);
     }
 
     /** @test */

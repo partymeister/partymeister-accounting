@@ -9,24 +9,12 @@ class PartymeisterAccountingBackendPosInterfaceTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $readPermission;
 
-    /**
-     * @var
-     */
     protected $writePermission;
 
-    /**
-     * @var
-     */
     protected $deletePermission;
 
     /**
@@ -49,7 +37,7 @@ class PartymeisterAccountingBackendPosInterfaceTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -102,14 +90,14 @@ class PartymeisterAccountingBackendPosInterfaceTest extends TestCase
         $description = ['1x '.$items[0]->name, '2x '.$items[1]->name];
 
         $this->get('/backend/pos/'.$account->id)
-             ->seeStatusCode(200)
-             ->post('/backend/pos/'.$account->id, ['items' => $itemData])
-             ->seeJson([
-                 'message' => 'Booking created',
-             ])
-             ->seeJson([
-                 'description' => implode("\r\n", $description),
-             ])
-             ->seeStatusCode(200);
+            ->seeStatusCode(200)
+            ->post('/backend/pos/'.$account->id, ['items' => $itemData])
+            ->seeJson([
+                'message' => 'Booking created',
+            ])
+            ->seeJson([
+                'description' => implode("\r\n", $description),
+            ])
+            ->seeStatusCode(200);
     }
 }

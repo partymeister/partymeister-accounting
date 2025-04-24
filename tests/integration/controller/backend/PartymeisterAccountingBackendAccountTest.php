@@ -10,24 +10,12 @@ class PartymeisterAccountingBackendAccountTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $readPermission;
 
-    /**
-     * @var
-     */
     protected $writePermission;
 
-    /**
-     * @var
-     */
     protected $deletePermission;
 
     /**
@@ -46,7 +34,7 @@ class PartymeisterAccountingBackendAccountTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -94,14 +82,14 @@ class PartymeisterAccountingBackendAccountTest extends TestCase
         $record = create_test_account();
 
         $this->visit('/backend/accounts/'.$record->id.'/edit')
-             ->see($record->name)
-             ->type('Updated Account', 'name')
-             ->within('.box-footer', function () {
-                 $this->press('Save account');
-             })
-             ->see('Account updated')
-             ->see('Updated Account')
-             ->seePageIs('/backend/accounts');
+            ->see($record->name)
+            ->type('Updated Account', 'name')
+            ->within('.box-footer', function () {
+                $this->press('Save account');
+            })
+            ->see('Account updated')
+            ->see('Updated Account')
+            ->seePageIs('/backend/accounts');
 
         $record = Account::find($record->id);
         $this->assertEquals('Updated Account', $record->name);
@@ -117,14 +105,14 @@ class PartymeisterAccountingBackendAccountTest extends TestCase
     public function can_create_a_new_account()
     {
         $this->visit('/backend/accounts/create')
-             ->see('Create account')
-             ->type('Create Account Name', 'name')
-             ->within('.box-footer', function () {
-                 $this->press('Save account');
-             })
-             ->see('Account created')
-             ->see('Create Account Name')
-             ->seePageIs('/backend/accounts');
+            ->see('Create account')
+            ->type('Create Account Name', 'name')
+            ->within('.box-footer', function () {
+                $this->press('Save account');
+            })
+            ->see('Account created')
+            ->see('Create Account Name')
+            ->seePageIs('/backend/accounts');
     }
 
     /** @test */
@@ -140,14 +128,14 @@ class PartymeisterAccountingBackendAccountTest extends TestCase
     {
         $record = create_test_account();
         $this->visit('/backend/accounts/'.$record->id.'/edit')
-             ->see('Edit account')
-             ->type('Modified Account Name', 'name')
-             ->within('.box-footer', function () {
-                 $this->press('Save account');
-             })
-             ->see('Account updated')
-             ->see('Modified Account Name')
-             ->seePageIs('/backend/accounts');
+            ->see('Edit account')
+            ->type('Modified Account Name', 'name')
+            ->within('.box-footer', function () {
+                $this->press('Save account');
+            })
+            ->see('Account updated')
+            ->see('Modified Account Name')
+            ->seePageIs('/backend/accounts');
     }
 
     /** @test */
@@ -178,9 +166,9 @@ class PartymeisterAccountingBackendAccountTest extends TestCase
     {
         $records = create_test_account(10);
         $this->visit('/backend/accounts')
-             ->type(substr($records[6]->name, 0, 3), 'search')
-             ->press('grid-search-button')
-             ->seeInField('search', substr($records[6]->name, 0, 3))
-             ->see($records[6]->name);
+            ->type(substr($records[6]->name, 0, 3), 'search')
+            ->press('grid-search-button')
+            ->seeInField('search', substr($records[6]->name, 0, 3))
+            ->see($records[6]->name);
     }
 }

@@ -12,6 +12,7 @@ class AccountRequest extends Request
     /**
      * @OA\Schema(
      *   schema="AccountRequest",
+     *
      *   @OA\Property(
      *     property="account_type_id",
      *     type="integer",
@@ -59,10 +60,10 @@ class AccountRequest extends Request
     public function rules()
     {
         return [
-            'account_type_id'   => 'required|integer',
-            'name'              => 'required',
+            'account_type_id' => 'required|integer',
+            'name' => 'required',
             'currency_iso_4217' => 'required',
-            'has_pos'           => 'nullable|boolean',
+            'has_pos' => 'nullable|boolean',
             'pos_configuration' => 'nullable',
         ];
     }

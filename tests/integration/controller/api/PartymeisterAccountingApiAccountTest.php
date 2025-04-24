@@ -9,24 +9,12 @@ class PartymeisterAccountingApiAccountTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $readPermission;
 
-    /**
-     * @var
-     */
     protected $writePermission;
 
-    /**
-     * @var
-     */
     protected $deletePermission;
 
     /**
@@ -45,7 +33,7 @@ class PartymeisterAccountingApiAccountTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -101,10 +89,10 @@ class PartymeisterAccountingApiAccountTest extends TestCase
     {
         $this->user->givePermissionTo($this->writePermission);
         $this->json('POST', '/api/accounts?api_token='.$this->user->api_token, [
-            'name'              => 'Test Account',
+            'name' => 'Test Account',
             'currency_iso_4217' => 'EUR',
         ])->seeStatusCode(200)->seeJson([
-            'name'              => 'Test Account',
+            'name' => 'Test Account',
             'currency_iso_4217' => 'EUR',
         ]);
     }
@@ -115,10 +103,10 @@ class PartymeisterAccountingApiAccountTest extends TestCase
         $this->user->givePermissionTo($this->readPermission);
         $record = create_test_account();
         $this->json('GET', '/api/accounts/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(200)
-             ->seeJson([
-                 'name' => $record->name,
-             ]);
+            ->seeStatusCode(200)
+            ->seeJson([
+                'name' => $record->name,
+            ]);
     }
 
     /** @test */
@@ -126,10 +114,10 @@ class PartymeisterAccountingApiAccountTest extends TestCase
     {
         $record = create_test_account();
         $this->json('GET', '/api/accounts/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(403)
-             ->seeJson([
-                 'error' => 'Access denied.',
-             ]);
+            ->seeStatusCode(403)
+            ->seeJson([
+                'error' => 'Access denied.',
+            ]);
     }
 
     /** @test */
@@ -157,10 +145,10 @@ class PartymeisterAccountingApiAccountTest extends TestCase
         $this->user->givePermissionTo($this->readPermission);
         $records = create_test_account(10);
         $this->json('GET', '/api/accounts?api_token='.$this->user->api_token.'&search='.$records[2]->name)
-             ->seeStatusCode(200)
-             ->seeJson([
-                 'name' => $records[2]->name,
-             ]);
+            ->seeStatusCode(200)
+            ->seeJson([
+                'name' => $records[2]->name,
+            ]);
     }
 
     /** @test */
@@ -169,10 +157,10 @@ class PartymeisterAccountingApiAccountTest extends TestCase
         $this->user->givePermissionTo($this->readPermission);
         create_test_account(50);
         $this->json('GET', '/api/accounts?api_token='.$this->user->api_token.'&page=2')
-             ->seeStatusCode(200)
-             ->seeJson([
-                 'current_page' => 2,
-             ]);
+            ->seeStatusCode(200)
+            ->seeJson([
+                'current_page' => 2,
+            ]);
     }
 
     /** @test */
@@ -201,10 +189,10 @@ class PartymeisterAccountingApiAccountTest extends TestCase
     {
         $record = create_test_account();
         $this->json('PATCH', '/api/accounts/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(403)
-             ->seeJson([
-                 'error' => 'Access denied.',
-             ]);
+            ->seeStatusCode(403)
+            ->seeJson([
+                'error' => 'Access denied.',
+            ]);
     }
 
     /** @test */
@@ -213,7 +201,7 @@ class PartymeisterAccountingApiAccountTest extends TestCase
         $this->user->givePermissionTo($this->writePermission);
         $record = create_test_account();
         $this->json('PATCH', '/api/accounts/'.$record->id.'?api_token='.$this->user->api_token, [
-            'name'              => 'Modified Account',
+            'name' => 'Modified Account',
             'currency_iso_4217' => 'EUR',
         ])->seeStatusCode(200)->seeJson([
             'name' => 'Modified Account',
@@ -234,10 +222,10 @@ class PartymeisterAccountingApiAccountTest extends TestCase
     {
         $record = create_test_account();
         $this->json('DELETE', '/api/accounts/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(403)
-             ->seeJson([
-                 'error' => 'Access denied.',
-             ]);
+            ->seeStatusCode(403)
+            ->seeJson([
+                'error' => 'Access denied.',
+            ]);
     }
 
     /** @test */
@@ -246,9 +234,9 @@ class PartymeisterAccountingApiAccountTest extends TestCase
         $this->user->givePermissionTo($this->deletePermission);
         $record = create_test_account();
         $this->json('DELETE', '/api/accounts/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(200)
-             ->seeJson([
-                 'success' => true,
-             ]);
+            ->seeStatusCode(200)
+            ->seeJson([
+                'success' => true,
+            ]);
     }
 }

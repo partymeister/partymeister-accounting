@@ -15,9 +15,9 @@ class AccountTypeForm extends Form
     public function buildForm()
     {
         $this->add('name', 'text', ['label' => trans('motor-backend::backend/global.name'), 'rules' => 'required'])
-             ->add('submit', 'submit', [
-                 'attr'  => ['class' => 'btn btn-primary'],
-                 'label' => trans('partymeister-accounting::backend/account_types.save'),
-             ]);
+            ->add('submit', 'submit', [
+                'attr' => ['class' => 'btn btn-primary'],
+                'label' => trans('partymeister-accounting::backend/account_types.save'),
+            ]);
     }
 }

@@ -23,11 +23,11 @@ class ItemTypeFactory extends Factory
     public function definition()
     {
         return [
-            'name'          => $this->faker->word,
+            'name' => $this->faker->word,
             'sort_position' => $this->faker->numberBetween(0, 100),
-            'is_visible'    => (bool) rand(0, 1),
-            'created_by'    => User::factory()->make()->id,
-            'updated_by'    => User::factory()->make()->id,
+            'is_visible' => (bool) rand(0, 1),
+            'created_by' => User::factory()->make()->id,
+            'updated_by' => User::factory()->make()->id,
         ];
     }
 }

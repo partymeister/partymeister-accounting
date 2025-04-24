@@ -10,24 +10,12 @@ class PartymeisterAccountingBackendBookingTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $readPermission;
 
-    /**
-     * @var
-     */
     protected $writePermission;
 
-    /**
-     * @var
-     */
     protected $deletePermission;
 
     /**
@@ -48,7 +36,7 @@ class PartymeisterAccountingBackendBookingTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -96,14 +84,14 @@ class PartymeisterAccountingBackendBookingTest extends TestCase
         $record = create_test_booking();
 
         $this->visit('/backend/bookings/'.$record->id.'/edit')
-             ->see($record->name)
-             ->type('Updated Booking', 'description')
-             ->within('.box-footer', function () {
-                 $this->press('Save booking');
-             })
-             ->see('Booking updated')
-             ->see('Updated Booking')
-             ->seePageIs('/backend/bookings');
+            ->see($record->name)
+            ->type('Updated Booking', 'description')
+            ->within('.box-footer', function () {
+                $this->press('Save booking');
+            })
+            ->see('Booking updated')
+            ->see('Updated Booking')
+            ->seePageIs('/backend/bookings');
 
         $record = Booking::find($record->id);
         $this->assertEquals('Updated Booking', $record->description);
@@ -120,16 +108,16 @@ class PartymeisterAccountingBackendBookingTest extends TestCase
     {
         $account = create_test_account();
         $this->visit('/backend/bookings/create')
-             ->see('Create booking')
-             ->select($account->id, 'from_account_id')
-             ->type('Create Booking Name', 'description')
-             ->type($account->currency_iso_4217, 'currency_iso_4217')
-             ->within('.box-footer', function () {
-                 $this->press('Save booking');
-             })
-             ->see('Booking created')
-             ->see('Create Booking Name')
-             ->seePageIs('/backend/bookings');
+            ->see('Create booking')
+            ->select($account->id, 'from_account_id')
+            ->type('Create Booking Name', 'description')
+            ->type($account->currency_iso_4217, 'currency_iso_4217')
+            ->within('.box-footer', function () {
+                $this->press('Save booking');
+            })
+            ->see('Booking created')
+            ->see('Create Booking Name')
+            ->seePageIs('/backend/bookings');
     }
 
     /** @test */
@@ -145,14 +133,14 @@ class PartymeisterAccountingBackendBookingTest extends TestCase
     {
         $record = create_test_booking();
         $this->visit('/backend/bookings/'.$record->id.'/edit')
-             ->see('Edit booking')
-             ->type('Modified Booking Name', 'description')
-             ->within('.box-footer', function () {
-                 $this->press('Save booking');
-             })
-             ->see('Booking updated')
-             ->see('Modified Booking Name')
-             ->seePageIs('/backend/bookings');
+            ->see('Edit booking')
+            ->type('Modified Booking Name', 'description')
+            ->within('.box-footer', function () {
+                $this->press('Save booking');
+            })
+            ->see('Booking updated')
+            ->see('Modified Booking Name')
+            ->seePageIs('/backend/bookings');
     }
 
     /** @test */
@@ -183,9 +171,9 @@ class PartymeisterAccountingBackendBookingTest extends TestCase
     {
         $records = create_test_booking(10);
         $this->visit('/backend/bookings')
-             ->type(substr($records[6]->name, 0, 3), 'search')
-             ->press('grid-search-button')
-             ->seeInField('search', substr($records[6]->name, 0, 3))
-             ->see($records[6]->description);
+            ->type(substr($records[6]->name, 0, 3), 'search')
+            ->press('grid-search-button')
+            ->seeInField('search', substr($records[6]->name, 0, 3))
+            ->see($records[6]->description);
     }
 }

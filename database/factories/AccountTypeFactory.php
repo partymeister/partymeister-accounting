@@ -24,7 +24,7 @@ class AccountTypeFactory extends Factory
     public function definition()
     {
         return [
-            'name'       => $this->faker->word.'.'.Str::random(20),
+            'name' => $this->faker->word.'.'.Str::random(20),
             'created_by' => User::factory()->make()->id,
             'updated_by' => User::factory()->make()->id,
         ];

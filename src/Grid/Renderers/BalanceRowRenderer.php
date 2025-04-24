@@ -14,9 +14,6 @@ class BalanceRowRenderer
      */
     protected $options = [];
 
-    /**
-     * @var
-     */
     protected $paginator;
 
     /**
@@ -26,9 +23,6 @@ class BalanceRowRenderer
 
     /**
      * BalanceRowRenderer constructor.
-     *
-     * @param $options
-     * @param $paginator
      */
     public function __construct($options, $paginator)
     {

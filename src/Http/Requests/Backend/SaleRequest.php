@@ -12,6 +12,7 @@ class SaleRequest extends Request
     /**
      * @OA\Schema(
      *   schema="SaleRequest",
+     *
      *   @OA\Property(
      *     property="earnings_booking_id",
      *     type="integer",
@@ -74,14 +75,14 @@ class SaleRequest extends Request
     public function rules()
     {
         return [
-            'item_id'             => 'required|integer',
+            'item_id' => 'required|integer',
             'earnings_booking_id' => 'nullable|integer',
-            'cost_booking_id'     => 'nullable|integer',
-            'quantity'            => 'required|integer',
-            'vat_percentage'      => 'required|integer',
-            'price_with_vat'      => 'required|decimal',
-            'price_without_vat'   => 'nullable|decimal',
-            'currency_iso_4217'   => 'required',
+            'cost_booking_id' => 'nullable|integer',
+            'quantity' => 'required|integer',
+            'vat_percentage' => 'required|integer',
+            'price_with_vat' => 'required|decimal',
+            'price_without_vat' => 'nullable|decimal',
+            'currency_iso_4217' => 'required',
         ];
     }
 }

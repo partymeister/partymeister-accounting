@@ -7,6 +7,7 @@ use Motor\Backend\Http\Resources\BaseResource;
 /**
  * @OA\Schema(
  *   schema="BookingResource",
+ *
  *   @OA\Property(
  *     property="id",
  *     type="integer",
@@ -69,23 +70,23 @@ class BookingResource extends BaseResource
     /**
      * Transform the resource into an array.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-            'id'                => (int) $this->id,
-            'sale'              => new SaleResource($this->sale),
-            'from_account'      => new AccountResource($this->from_account),
-            'to_account'        => new AccountResource($this->to_account),
-            'description'       => $this->description,
-            'vat_percentage'    => (float) $this->vat_percentage,
-            'price_with_vat'    => (float) $this->price_with_vat,
+            'id' => (int) $this->id,
+            'sale' => new SaleResource($this->sale),
+            'from_account' => new AccountResource($this->from_account),
+            'to_account' => new AccountResource($this->to_account),
+            'description' => $this->description,
+            'vat_percentage' => (float) $this->vat_percentage,
+            'price_with_vat' => (float) $this->price_with_vat,
             'price_without_vat' => (float) $this->price_without_vat,
             'currency_iso_4217' => $this->currency_iso_4217,
             'is_manual_booking' => (bool) $this->is_manual_booking,
-            'is_card_payment'   => (bool) $this->is_card_payment,
+            'is_card_payment' => (bool) $this->is_card_payment,
         ];
     }
 }

@@ -4,12 +4,12 @@ namespace Partymeister\Accounting\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Kra8\Snowflake\HasShortflakePrimary;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Kra8\Snowflake\HasShortflakePrimary;
 use Motor\Backend\Models\User;
 use Motor\CMS\Database\Factories\ItemFactory;
 use Motor\Core\Filter\Filter;
@@ -79,15 +79,16 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
  * @method static Builder|Item whereUpdatedAt($value)
  * @method static Builder|Item whereUpdatedBy($value)
  * @method static Builder|Item whereVatPercentage($value)
+ *
  * @mixin Eloquent
  */
 class Item extends Model
 {
-    use Searchable;
-    use Filterable;
     use BlameableTrait;
+    use Filterable;
     use HasFactory;
     use HasShortflakePrimary;
+    use Searchable;
 
     /**
      * Searchable columns for the searchable trait
@@ -157,8 +158,6 @@ class Item extends Model
     }
 
     /**
-     * @param    $quantity
-     * @param  Booking  $booking
      * @return Sale
      */
     public function sell($quantity, Booking $booking)
@@ -174,7 +173,7 @@ class Item extends Model
         $sale->save();
 
         if (! is_null($this->pos_cost_account)) {
-            $costBooking = new Booking();
+            $costBooking = new Booking;
             $costBooking->sale_id = $sale->id;
             $costBooking->description = $sale->item_and_quantity;
             $costBooking->vat_percentage = $this->vat_percentage;
@@ -197,9 +196,9 @@ class Item extends Model
     public function getSalesAttribute()
     {
         $result = DB::table('sales')
-                    ->select(DB::raw('SUM(quantity) as quantity'))
-                    ->where('item_id', $this->id)
-                    ->get();
+            ->select(DB::raw('SUM(quantity) as quantity'))
+            ->where('item_id', $this->id)
+            ->get();
         if (! is_null($result)) {
             return ! is_null($result[0]->quantity) ? $result[0]->quantity : 0;
         }
@@ -214,10 +213,10 @@ class Item extends Model
     {
         $revenue = 0;
         $result = DB::table('sales')
-                    ->select(DB::raw('SUM(quantity*items.price_with_vat) as quantity'))
-                    ->join('items', 'item_id', '=', 'items.id')
-                    ->where('item_id', $this->id)
-                    ->get();
+            ->select(DB::raw('SUM(quantity*items.price_with_vat) as quantity'))
+            ->join('items', 'item_id', '=', 'items.id')
+            ->where('item_id', $this->id)
+            ->get();
         if (! is_null($result)) {
             $revenue = (! is_null($result[0]->quantity) ? $result[0]->quantity : 0);
         }

@@ -24,16 +24,16 @@ class BookingFactory extends Factory
     public function definition()
     {
         return [
-            'from_account_id'   => Account::factory()->make()->id,
-            'to_account_id'     => Account::factory()->make()->id,
-            'description'       => $this->faker->sentence,
+            'from_account_id' => Account::factory()->make()->id,
+            'to_account_id' => Account::factory()->make()->id,
+            'description' => $this->faker->sentence,
             'is_manual_booking' => (bool) rand(0, 1),
-            'vat_percentage'    => rand(0, 19),
-            'price_with_vat'    => rand(0, 10000) / 100,
+            'vat_percentage' => rand(0, 19),
+            'price_with_vat' => rand(0, 10000) / 100,
             'price_without_vat' => rand(0, 10000) / 100,
             'currency_iso_4217' => 'EUR',
-            'created_by'        => User::factory()->make()->id,
-            'updated_by'        => User::factory()->make()->id,
+            'created_by' => User::factory()->make()->id,
+            'updated_by' => User::factory()->make()->id,
         ];
     }
 }

@@ -20,9 +20,9 @@ class ItemService extends BaseService
     public function filters()
     {
         $this->filter->add(new SelectRenderer('item_type_id'))
-                     ->setOptionPrefix(trans('partymeister-accounting::backend/item_types.item_type'))
-                     ->setEmptyOption('-- '.trans('partymeister-accounting::backend/item_types.item_type').' --')
-                     ->setOptions(ItemType::orderBy('sort_position', 'ASC')
-                                          ->pluck('name', 'id'));
+            ->setOptionPrefix(trans('partymeister-accounting::backend/item_types.item_type'))
+            ->setEmptyOption('-- '.trans('partymeister-accounting::backend/item_types.item_type').' --')
+            ->setOptions(ItemType::orderBy('sort_position', 'ASC')
+                ->pluck('name', 'id'));
     }
 }

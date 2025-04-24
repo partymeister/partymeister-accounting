@@ -4,10 +4,10 @@ namespace Partymeister\Accounting\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Kra8\Snowflake\HasShortflakePrimary;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Kra8\Snowflake\HasShortflakePrimary;
 use Motor\Backend\Models\User;
 use Motor\CMS\Database\Factories\ItemTypeFactory;
 use Motor\Core\Filter\Filter;
@@ -48,15 +48,16 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
  * @method static Builder|ItemType whereSortPosition($value)
  * @method static Builder|ItemType whereUpdatedAt($value)
  * @method static Builder|ItemType whereUpdatedBy($value)
+ *
  * @mixin Eloquent
  */
 class ItemType extends Model
 {
-    use Searchable;
-    use Filterable;
     use BlameableTrait;
+    use Filterable;
     use HasFactory;
     use HasShortflakePrimary;
+    use Searchable;
 
     /**
      * Searchable columns for the searchable trait
@@ -89,7 +90,7 @@ class ItemType extends Model
     public function getItemCountAttribute()
     {
         return $this->items()
-                    ->count();
+            ->count();
     }
 
     /**

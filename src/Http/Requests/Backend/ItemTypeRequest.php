@@ -12,6 +12,7 @@ class ItemTypeRequest extends Request
     /**
      * @OA\Schema(
      *   schema="ItemTypeRequest",
+     *
      *   @OA\Property(
      *     property="name",
      *     type="string",
@@ -49,9 +50,9 @@ class ItemTypeRequest extends Request
     public function rules()
     {
         return [
-            'name'          => 'required',
+            'name' => 'required',
             'sort_position' => 'nullable|integer',
-            'is_visible'    => 'nullable|boolean',
+            'is_visible' => 'nullable|boolean',
         ];
     }
 }

@@ -25,12 +25,12 @@ class AccountFactory extends Factory
     public function definition()
     {
         return [
-            'name'              => $this->faker->word.'.'.Str::random(20),
-            'account_type_id'   => AccountType::factory()->make()->id,
-            'has_pos'           => (bool) rand(0, 1),
+            'name' => $this->faker->word.'.'.Str::random(20),
+            'account_type_id' => AccountType::factory()->make()->id,
+            'has_pos' => (bool) rand(0, 1),
             'currency_iso_4217' => 'EUR',
-            'created_by'        => User::factory()->make()->id,
-            'updated_by'        => User::factory()->make()->id,
+            'created_by' => User::factory()->make()->id,
+            'updated_by' => User::factory()->make()->id,
         ];
     }
 }

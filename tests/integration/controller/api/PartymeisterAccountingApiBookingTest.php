@@ -9,24 +9,12 @@ class PartymeisterAccountingApiBookingTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $readPermission;
 
-    /**
-     * @var
-     */
     protected $writePermission;
 
-    /**
-     * @var
-     */
     protected $deletePermission;
 
     /**
@@ -47,7 +35,7 @@ class PartymeisterAccountingApiBookingTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -115,10 +103,10 @@ class PartymeisterAccountingApiBookingTest extends TestCase
         $this->user->givePermissionTo($this->readPermission);
         $record = create_test_booking();
         $this->json('GET', '/api/bookings/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(200)
-             ->seeJson([
-                 'description' => $record->description,
-             ]);
+            ->seeStatusCode(200)
+            ->seeJson([
+                'description' => $record->description,
+            ]);
     }
 
     /** @test */
@@ -126,10 +114,10 @@ class PartymeisterAccountingApiBookingTest extends TestCase
     {
         $record = create_test_booking();
         $this->json('GET', '/api/bookings/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(403)
-             ->seeJson([
-                 'error' => 'Access denied.',
-             ]);
+            ->seeStatusCode(403)
+            ->seeJson([
+                'error' => 'Access denied.',
+            ]);
     }
 
     /** @test */
@@ -157,10 +145,10 @@ class PartymeisterAccountingApiBookingTest extends TestCase
         $this->user->givePermissionTo($this->readPermission);
         $records = create_test_booking(10);
         $this->json('GET', '/api/bookings?api_token='.$this->user->api_token.'&search='.$records[2]->name)
-             ->seeStatusCode(200)
-             ->seeJson([
-                 'description' => $records[2]->description,
-             ]);
+            ->seeStatusCode(200)
+            ->seeJson([
+                'description' => $records[2]->description,
+            ]);
     }
 
     /** @test */
@@ -169,10 +157,10 @@ class PartymeisterAccountingApiBookingTest extends TestCase
         $this->user->givePermissionTo($this->readPermission);
         create_test_booking(50);
         $this->json('GET', '/api/bookings?api_token='.$this->user->api_token.'&page=2')
-             ->seeStatusCode(200)
-             ->seeJson([
-                 'current_page' => 2,
-             ]);
+            ->seeStatusCode(200)
+            ->seeJson([
+                'current_page' => 2,
+            ]);
     }
 
     /** @test */
@@ -190,10 +178,10 @@ class PartymeisterAccountingApiBookingTest extends TestCase
         $this->user->givePermissionTo($this->writePermission);
         $record = create_test_booking();
         $this->json('PATCH', '/api/bookings/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(422)
-             ->seeJson([
-                 'description' => ['The description field is required.'],
-             ]);
+            ->seeStatusCode(422)
+            ->seeJson([
+                'description' => ['The description field is required.'],
+            ]);
     }
 
     /** @test */
@@ -201,10 +189,10 @@ class PartymeisterAccountingApiBookingTest extends TestCase
     {
         $record = create_test_booking();
         $this->json('PATCH', '/api/bookings/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(403)
-             ->seeJson([
-                 'error' => 'Access denied.',
-             ]);
+            ->seeStatusCode(403)
+            ->seeJson([
+                'error' => 'Access denied.',
+            ]);
     }
 
     /** @test */
@@ -233,10 +221,10 @@ class PartymeisterAccountingApiBookingTest extends TestCase
     {
         $record = create_test_booking();
         $this->json('DELETE', '/api/bookings/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(403)
-             ->seeJson([
-                 'error' => 'Access denied.',
-             ]);
+            ->seeStatusCode(403)
+            ->seeJson([
+                'error' => 'Access denied.',
+            ]);
     }
 
     /** @test */
@@ -245,9 +233,9 @@ class PartymeisterAccountingApiBookingTest extends TestCase
         $this->user->givePermissionTo($this->deletePermission);
         $record = create_test_booking();
         $this->json('DELETE', '/api/bookings/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(200)
-             ->seeJson([
-                 'success' => true,
-             ]);
+            ->seeStatusCode(200)
+            ->seeJson([
+                'success' => true,
+            ]);
     }
 }

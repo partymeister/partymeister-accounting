@@ -23,7 +23,9 @@ class ItemTypesController extends ApiController
      *   tags={"ItemTypesController"},
      *   path="/api/item_types",
      *   summary="Get item_type collection",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -31,15 +33,20 @@ class ItemTypesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="array",
+     *
      *         @OA\Items(ref="#/components/schemas/ItemTypeResource")
      *       ),
+     *
      *       @OA\Property(
      *         property="meta",
      *         ref="#/components/schemas/PaginationMeta"
@@ -55,9 +62,11 @@ class ItemTypesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   )
      * )
@@ -69,7 +78,7 @@ class ItemTypesController extends ApiController
     public function index()
     {
         $paginator = ItemTypeService::collection()
-                                    ->getPaginator();
+            ->getPaginator();
 
         return (new ItemTypeCollection($paginator))->additional(['message' => 'ItemType collection read']);
     }
@@ -79,10 +88,14 @@ class ItemTypesController extends ApiController
      *   tags={"ItemTypesController"},
      *   path="/api/item_types",
      *   summary="Create new item_type",
+     *
      *   @OA\RequestBody(
+     *
      *     @OA\JsonContent(ref="#/components/schemas/ItemTypeRequest")
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -90,10 +103,13 @@ class ItemTypesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="object",
@@ -106,31 +122,34 @@ class ItemTypesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Store a newly created resource in storage.
      *
-     * @param  ItemTypeRequest  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(ItemTypeRequest $request)
     {
         $result = ItemTypeService::create($request)
-                                 ->getResult();
+            ->getResult();
 
         return (new ItemTypeResource($result))->additional(['message' => 'ItemType created'])
-                                              ->response()
-                                              ->setStatusCode(201);
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -138,7 +157,9 @@ class ItemTypesController extends ApiController
      *   tags={"ItemTypesController"},
      *   path="/api/item_types/{item_type}",
      *   summary="Get single item_type",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -146,17 +167,22 @@ class ItemTypesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="item_type",
      *     parameter="item_type",
      *     description="ItemType id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="object",
@@ -169,27 +195,30 @@ class ItemTypesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Display the specified resource.
      *
-     * @param  ItemType  $record
      * @return ItemTypeResource
      */
     public function show(ItemType $record)
     {
         $result = ItemTypeService::show($record)
-                                 ->getResult();
+            ->getResult();
 
         return (new ItemTypeResource($result))->additional(['message' => 'ItemType read']);
     }
@@ -199,10 +228,14 @@ class ItemTypesController extends ApiController
      *   tags={"ItemTypesController"},
      *   path="/api/item_types/{item_type}",
      *   summary="Update an existing item_type",
+     *
      *   @OA\RequestBody(
+     *
      *     @OA\JsonContent(ref="#/components/schemas/ItemTypeRequest")
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -210,17 +243,22 @@ class ItemTypesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="item_type",
      *     parameter="item_type",
      *     description="ItemType id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="object",
@@ -233,28 +271,30 @@ class ItemTypesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Update the specified resource in storage.
      *
-     * @param  ItemTypeRequest  $request
-     * @param  ItemType  $record
      * @return ItemTypeResource
      */
     public function update(ItemTypeRequest $request, ItemType $record)
     {
         $result = ItemTypeService::update($record, $request)
-                                 ->getResult();
+            ->getResult();
 
         return (new ItemTypeResource($result))->additional(['message' => 'ItemType updated']);
     }
@@ -264,7 +304,9 @@ class ItemTypesController extends ApiController
      *   tags={"ItemTypesController"},
      *   path="/api/item_types/{item_type}",
      *   summary="Delete a item_type",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -272,17 +314,22 @@ class ItemTypesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="item_type",
      *     parameter="item_type",
      *     description="ItemType id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="message",
      *         type="string",
@@ -290,20 +337,27 @@ class ItemTypesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   ),
+     *
      *   @OA\Response(
      *     response="400",
      *     description="Bad request",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="message",
      *         type="string",
@@ -315,13 +369,12 @@ class ItemTypesController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param  ItemType  $record
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(ItemType $record)
     {
         $result = ItemTypeService::delete($record)
-                                 ->getResult();
+            ->getResult();
 
         if ($result) {
             return response()->json(['message' => 'ItemType deleted']);

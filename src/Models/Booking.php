@@ -4,11 +4,11 @@ namespace Partymeister\Accounting\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Kra8\Snowflake\HasShortflakePrimary;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Kra8\Snowflake\HasShortflakePrimary;
 use Motor\Backend\Models\User;
 use Motor\CMS\Database\Factories\BookingFactory;
 use Motor\Core\Filter\Filter;
@@ -61,15 +61,16 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
  * @method static Builder|Booking whereUpdatedAt($value)
  * @method static Builder|Booking whereUpdatedBy($value)
  * @method static Builder|Booking whereVatPercentage($value)
+ *
  * @mixin Eloquent
  */
 class Booking extends Model
 {
-    use Searchable;
-    use Filterable;
     use BlameableTrait;
+    use Filterable;
     use HasFactory;
     use HasShortflakePrimary;
+    use Searchable;
 
     /**
      * Searchable columns for the searchable trait
@@ -78,10 +79,10 @@ class Booking extends Model
      */
     protected $searchableColumns = [
         'bookings.description',
-        //'bookings.quantity',
+        // 'bookings.quantity',
         'bookings.price_with_vat',
         'bookings.price_without_vat',
-        //'item.name'
+        // 'item.name'
     ];
 
     /**
@@ -108,9 +109,7 @@ class Booking extends Model
     }
 
     /**
-     * @param Account $account
-     * @param    $item
-     * @param int $quantity
+     * @param  int  $quantity
      * @return Booking
      */
     public static function createSale(Account $account, $item, $quantity = 1)
@@ -123,11 +122,9 @@ class Booking extends Model
     }
 
     /**
-     * @param Account $account
-     * @param    $items
      * @return Booking
      */
-    public static function createSales(Account $account, $items, $cardPayment = 0, $couponPayment)
+    public static function createSales(Account $account, $items, $cardPayment, $couponPayment)
     {
         $record = new static;
 

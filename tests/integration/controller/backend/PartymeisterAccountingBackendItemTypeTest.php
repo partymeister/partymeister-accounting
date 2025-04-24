@@ -10,24 +10,12 @@ class PartymeisterAccountingBackendItemTypeTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $readPermission;
 
-    /**
-     * @var
-     */
     protected $writePermission;
 
-    /**
-     * @var
-     */
     protected $deletePermission;
 
     /**
@@ -46,7 +34,7 @@ class PartymeisterAccountingBackendItemTypeTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -84,12 +72,12 @@ class PartymeisterAccountingBackendItemTypeTest extends TestCase
     {
         $record = create_test_item_type();
         $this->visit('/backend/item_types')
-             ->within('table', function () {
-                 $this->click('Edit');
-             })
-             ->seePageIs('/backend/item_types/'.$record->id.'/edit')
-             ->click('back')
-             ->seePageIs('/backend/item_types');
+            ->within('table', function () {
+                $this->click('Edit');
+            })
+            ->seePageIs('/backend/item_types/'.$record->id.'/edit')
+            ->click('back')
+            ->seePageIs('/backend/item_types');
     }
 
     /** @test */
@@ -98,14 +86,14 @@ class PartymeisterAccountingBackendItemTypeTest extends TestCase
         $record = create_test_item_type();
 
         $this->visit('/backend/item_types/'.$record->id.'/edit')
-             ->see($record->name)
-             ->type('Updated Item type', 'name')
-             ->within('.box-footer', function () {
-                 $this->press('Save item type');
-             })
-             ->see('Item type updated')
-             ->see('Updated Item type')
-             ->seePageIs('/backend/item_types');
+            ->see($record->name)
+            ->type('Updated Item type', 'name')
+            ->within('.box-footer', function () {
+                $this->press('Save item type');
+            })
+            ->see('Item type updated')
+            ->see('Updated Item type')
+            ->seePageIs('/backend/item_types');
 
         $record = ItemType::find($record->id);
         $this->assertEquals('Updated Item type', $record->name);
@@ -121,14 +109,14 @@ class PartymeisterAccountingBackendItemTypeTest extends TestCase
     public function can_create_a_new_item_type()
     {
         $this->visit('/backend/item_types/create')
-             ->see('Create item type')
-             ->type('Create Item type Name', 'name')
-             ->within('.box-footer', function () {
-                 $this->press('Save item type');
-             })
-             ->see('Item type created')
-             ->see('Create Item type Name')
-             ->seePageIs('/backend/item_types');
+            ->see('Create item type')
+            ->type('Create Item type Name', 'name')
+            ->within('.box-footer', function () {
+                $this->press('Save item type');
+            })
+            ->see('Item type created')
+            ->see('Create Item type Name')
+            ->seePageIs('/backend/item_types');
     }
 
     /** @test */
@@ -144,14 +132,14 @@ class PartymeisterAccountingBackendItemTypeTest extends TestCase
     {
         $record = create_test_item_type();
         $this->visit('/backend/item_types/'.$record->id.'/edit')
-             ->see('Edit item type')
-             ->type('Modified Item type Name', 'name')
-             ->within('.box-footer', function () {
-                 $this->press('Save item type');
-             })
-             ->see('Item type updated')
-             ->see('Modified Item type Name')
-             ->seePageIs('/backend/item_types');
+            ->see('Edit item type')
+            ->type('Modified Item type Name', 'name')
+            ->within('.box-footer', function () {
+                $this->press('Save item type');
+            })
+            ->see('Item type updated')
+            ->see('Modified Item type Name')
+            ->seePageIs('/backend/item_types');
     }
 
     /** @test */
@@ -182,9 +170,9 @@ class PartymeisterAccountingBackendItemTypeTest extends TestCase
     {
         $records = create_test_item_type(10);
         $this->visit('/backend/item_types')
-             ->type(substr($records[6]->name, 0, 3), 'search')
-             ->press('grid-search-button')
-             ->seeInField('search', substr($records[6]->name, 0, 3))
-             ->see($records[6]->name);
+            ->type(substr($records[6]->name, 0, 3), 'search')
+            ->press('grid-search-button')
+            ->seeInField('search', substr($records[6]->name, 0, 3))
+            ->see($records[6]->name);
     }
 }

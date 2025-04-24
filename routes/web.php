@@ -1,9 +1,9 @@
 <?php
 
 Route::group([
-    'as'         => 'backend.',
-    'prefix'     => 'backend',
-    'namespace'  => 'Partymeister\Accounting\Http\Controllers\Backend',
+    'as' => 'backend.',
+    'prefix' => 'backend',
+    'namespace' => 'Partymeister\Accounting\Http\Controllers\Backend',
     'middleware' => [
         'web',
         'web_auth',
@@ -17,11 +17,11 @@ Route::group([
     Route::resource('items', 'ItemsController');
     Route::resource('sales', 'SalesController');
     Route::get('pos/{account}', 'PosInterfacesController@show')
-         ->name('pos.show');
+        ->name('pos.show');
     Route::post('pos/{account}', 'PosInterfacesController@create')
-         ->name('pos.create');
+        ->name('pos.create');
     Route::get('pos/edit/{account}', 'PosInterfacesController@edit')
-         ->name('pos.edit');
+        ->name('pos.edit');
     Route::patch('pos/edit/{account}', 'PosInterfacesController@update')
-         ->name('pos.update');
+        ->name('pos.update');
 });

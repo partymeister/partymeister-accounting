@@ -7,6 +7,7 @@ use Motor\Backend\Http\Resources\BaseResource;
 /**
  * @OA\Schema(
  *   schema="AccountTypeResource",
+ *
  *   @OA\Property(
  *     property="id",
  *     type="integer",
@@ -30,8 +31,8 @@ class AccountTypeResource extends BaseResource
     public function toArray($request)
     {
         return [
-            'id'       => (int) $this->id,
-            'name'     => $this->name,
+            'id' => (int) $this->id,
+            'name' => $this->name,
             'accounts' => AccountResource::collection($this->whenLoaded('accounts')),
         ];
     }

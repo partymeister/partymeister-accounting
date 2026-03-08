@@ -1,0 +1,348 @@
+/* POS Dark Theme */
+:root {
+  --pos-bg: #222;
+  --pos-card: #444;
+  --pos-card-border: #333;
+  --pos-text: #fff;
+  --pos-text-muted: #999;
+  --pos-success: #00bc8c;
+  --pos-danger: #e74c3c;
+  --pos-highlight: rgba(255, 255, 255, 0.15);
+  --pos-table-border: #666;
+  --pos-total-color: #e74c3c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--pos-bg);
+  color: var(--pos-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  padding: 20px;
+}
+
+/* Layout */
+.pos-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  min-height: calc(100vh - 40px);
+}
+
+/* Cards */
+.pos-card {
+  background-color: var(--pos-card);
+  border: 1px solid var(--pos-card-border);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.pos-card-lg {
+  padding: 20px;
+}
+
+/* Zone rows */
+.pos-zone {
+  min-height: 165px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-content: flex-start;
+}
+
+/* Item tiles */
+.pos-item {
+  background-color: var(--pos-card);
+  border: 1px solid var(--pos-card-border);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  width: 250px;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.pos-item h2 {
+  font-size: 22px;
+  margin: 0 0 8px 0;
+}
+
+.pos-item-buttons {
+  display: flex;
+  gap: 4%;
+}
+
+.pos-item-btn {
+  flex: 1;
+  height: 75px;
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.1s;
+  color: var(--pos-text);
+}
+
+.pos-item-btn:active {
+  opacity: 0.7;
+}
+
+.pos-item-btn--add {
+  background-color: var(--pos-success);
+}
+
+.pos-item-btn--remove {
+  background-color: var(--pos-danger);
+}
+
+/* Button flash animation */
+.pos-flash {
+  animation: pos-flash-anim 0.3s ease-out;
+}
+
+@keyframes pos-flash-anim {
+  0% { background-color: var(--pos-highlight); }
+  100% { background-color: transparent; }
+}
+
+/* Separator */
+.pos-separator {
+  background: transparent;
+  border: 1px solid transparent;
+  width: 250px;
+  min-height: 160px;
+}
+
+/* Sidebar */
+.pos-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Cart table */
+.pos-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+}
+
+.pos-table td,
+.pos-table th {
+  font-size: 24px;
+  line-height: 30px;
+  vertical-align: middle;
+  padding: 6px 0;
+}
+
+.pos-table .pos-table-row td {
+  border-top: 1px solid var(--pos-table-border);
+}
+
+.pos-table .pos-total td {
+  font-weight: bold;
+  color: var(--pos-total-color);
+}
+
+.pos-table .pos-price {
+  text-align: right;
+}
+
+/* Cart row transitions */
+.cart-row-enter-active,
+.cart-row-leave-active {
+  transition: all 0.2s ease;
+}
+
+.cart-row-enter-from,
+.cart-row-leave-to {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+/* Payment buttons */
+.pos-pay-group {
+  display: flex;
+  gap: 0;
+  width: 100%;
+}
+
+.pos-pay-btn {
+  flex: 1;
+  height: 150px;
+  font-size: 40px;
+  font-weight: bold;
+  background-color: var(--pos-success);
+  color: var(--pos-text);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.1s;
+}
+
+.pos-pay-btn:first-child {
+  border-radius: 6px 0 0 6px;
+}
+
+.pos-pay-btn:last-child {
+  border-radius: 0 6px 6px 0;
+}
+
+.pos-pay-btn:only-child {
+  border-radius: 6px;
+}
+
+.pos-pay-btn:active {
+  opacity: 0.7;
+}
+
+.pos-pay-btn-label {
+  font-size: 16px;
+}
+
+/* Small buttons */
+.pos-btn {
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--pos-text);
+  transition: opacity 0.1s;
+}
+
+.pos-btn:active {
+  opacity: 0.7;
+}
+
+.pos-btn--danger {
+  background-color: var(--pos-danger);
+}
+
+.pos-btn--primary {
+  background-color: #375a7f;
+}
+
+.pos-btn--success {
+  background-color: var(--pos-success);
+}
+
+.pos-btn--lg {
+  padding: 12px 24px;
+  font-size: 20px;
+}
+
+/* Delete button (X) in cart and editor */
+.pos-delete-btn {
+  background-color: var(--pos-danger);
+  color: var(--pos-text);
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Booking success flash (yellow like jQuery UI highlight) */
+.pos-booking-success {
+  animation: pos-yellow-flash 1.5s ease-out;
+}
+
+@keyframes pos-yellow-flash {
+  0% { background-color: #ffff99; }
+  100% { background-color: var(--pos-card); }
+}
+
+/* Last booking highlight */
+.pos-last-booking-enter-active {
+  animation: pos-yellow-flash 1.5s ease-out;
+}
+
+/* Header row */
+.pos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.pos-header h3 {
+  font-size: 26px;
+}
+
+/* Loading state */
+.pos-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  font-size: 24px;
+  color: var(--pos-text-muted);
+}
+
+/* Editor-specific */
+.pos-editor-zone {
+  border: 1px dotted var(--pos-danger);
+  border-radius: 5px;
+  min-height: 165px;
+  margin-bottom: 20px;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-content: flex-start;
+}
+
+.pos-editor-palette {
+  height: 80vh;
+  overflow-y: auto;
+}
+
+.pos-editor-palette .pos-item {
+  width: 100%;
+  min-height: auto;
+  float: none;
+}
+
+.pos-editor-palette .pos-item-buttons {
+  display: none;
+}
+
+.pos-editor-delete {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: var(--pos-danger);
+  color: var(--pos-text);
+  border: none;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.pos-editor-palette .pos-editor-delete {
+  display: none;
+}
+
+.pos-editor-section-title {
+  font-size: 22px;
+  margin: 20px 0 10px 0;
+}
+
+.pos-editor-section-title:first-child {
+  margin-top: 0;
+}

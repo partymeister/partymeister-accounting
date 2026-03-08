@@ -14,7 +14,7 @@
 </div>
 {!! form_end($form) !!}
 @section ('view_scripts')
-    <script type="text/javascript">
+    <script type="module">
         let convertToPoint = function (value) {
             value = parseFloat(value.toString().replace(',', '.'));
             if (isNaN(value)) {

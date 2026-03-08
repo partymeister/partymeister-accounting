@@ -1,3 +1,41 @@
+@if(config('partymeister-accounting.pos_vue3', false) && file_exists(public_path('build/pos/.vite/manifest.json')))
+{{-- Vue 3 POS Viewer --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ config('motor-backend-project.name') }} - POS</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    @php
+        $manifest = json_decode(file_get_contents(public_path('build/pos/.vite/manifest.json')), true);
+        $entry = $manifest['main.ts'] ?? null;
+    @endphp
+    @if($entry && isset($entry['css']))
+        @foreach($entry['css'] as $css)
+            <link rel="stylesheet" href="/build/pos/{{ $css }}" />
+        @endforeach
+    @endif
+</head>
+<body>
+<div id="pos-app"></div>
+<script type="module">
+    window.POS_CONFIG = {
+        accountId: {{ $record->id }},
+        csrfToken: '{{ csrf_token() }}',
+        baseUrl: '{{ config('app.url') }}',
+        mode: 'viewer',
+        backUrl: '{{ route('backend.accounts.index') }}'
+    };
+</script>
+@if($entry)
+    <script type="module" src="/build/pos/{{ $entry['file'] }}"></script>
+@endif
+</body>
+</html>
+@else
+{{-- Legacy jQuery POS Viewer --}}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -358,3 +396,4 @@
 
 </body>
 </html>
+@endif

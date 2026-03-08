@@ -4,7 +4,7 @@
         <h3 class="box-title">{{ trans('motor-backend::backend/global.base_info') }}</h3>
     </div>
     <div class="@boxBody">
-        {!! form_until($form, 'is_card_payment') !!}
+        {!! form_until($form, 'is_coupon_payment') !!}
     </div>
     <!-- /.box-body -->
 
@@ -14,7 +14,7 @@
 </div>
 {!! form_end($form) !!}
 @section ('view_scripts')
-    <script type="text/javascript">
+    <script type="module">
         let convertToPoint = function (value) {
             value = parseFloat(value.toString().replace(',', '.'));
             if (isNaN(value)) {

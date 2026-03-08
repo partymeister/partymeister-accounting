@@ -58,8 +58,9 @@ class AccountResource extends BaseResource
             'id'                => (int) $this->id,
             'account_type'      => new AccountTypeResource($this->account_type),
             'name'              => $this->name,
-            'has_pos'           => (bool) $this->has_pos,
-            'has_card_payments' => (bool) $this->has_card_payments,
+            'has_pos'              => (bool) $this->has_pos,
+            'has_card_payments'    => (bool) $this->has_card_payments,
+            'has_coupon_payments'  => (bool) $this->has_coupon_payments,
             'currency_iso_4217' => $this->currency_iso_4217,
             'pos_configuration' => $this->pos_configuration,
         ];

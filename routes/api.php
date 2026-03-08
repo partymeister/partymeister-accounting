@@ -21,6 +21,10 @@ Route::group([
     Route::apiResource('sales', SalesController::class);
     Route::get('pos/{account}', [PosInterfacesController::class, 'show'])
          ->name('pos.show');
+    Route::get('pos/{account}/configured', [PosInterfacesController::class, 'configured'])
+         ->name('pos.configured');
+    Route::get('pos/{account}/editor', [PosInterfacesController::class, 'editor'])
+         ->name('pos.editor');
     Route::post('pos/{account}', [PosInterfacesController::class, 'create'])
          ->name('pos.create');
 });

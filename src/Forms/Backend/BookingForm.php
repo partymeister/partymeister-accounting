@@ -50,12 +50,11 @@ class BookingForm extends Form
                  'label'         => trans('partymeister-accounting::backend/bookings.is_manual_booking'),
                  'default_value' => true,
              ])
-            ->add('is_coupon_booking', 'checkbox', [
-                'label'         => trans('partymeister-accounting::backend/bookings.is_coupon_booking'),
-                'default_value' => true,
-            ])
             ->add('is_card_payment', 'checkbox', [
                 'label'         => trans('partymeister-accounting::backend/bookings.is_card_payment'),
+            ])
+            ->add('is_coupon_payment', 'checkbox', [
+                'label'         => trans('partymeister-accounting::backend/bookings.is_coupon_payment'),
             ])
              ->add('submit', 'submit', [
                  'attr'  => ['class' => 'btn btn-primary'],

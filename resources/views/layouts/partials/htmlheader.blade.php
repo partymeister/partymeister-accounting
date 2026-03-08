@@ -6,7 +6,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="{{ mix('/css/partymeister-accounting-pos.css') }}" rel="stylesheet" type="text/css"/>
+    @vite(['packages/partymeister-accounting/resources/assets/sass/partymeister-accounting-pos.scss'])
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),

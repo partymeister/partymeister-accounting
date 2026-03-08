@@ -1,1 +1,1 @@
-<script src="{{ mix('/js/partymeister-accounting-pos.js') }}" type="text/javascript"></script>
+@vite(['resources/assets/js/app.js'])

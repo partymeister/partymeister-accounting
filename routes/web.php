@@ -1,27 +1,34 @@
 <?php
 
+use Partymeister\Accounting\Http\Controllers\Backend\AccountTypesController;
+use Partymeister\Accounting\Http\Controllers\Backend\AccountsController;
+use Partymeister\Accounting\Http\Controllers\Backend\BookingsController;
+use Partymeister\Accounting\Http\Controllers\Backend\ItemTypesController;
+use Partymeister\Accounting\Http\Controllers\Backend\ItemsController;
+use Partymeister\Accounting\Http\Controllers\Backend\SalesController;
+use Partymeister\Accounting\Http\Controllers\Backend\PosInterfacesController;
+
 Route::group([
     'as'         => 'backend.',
     'prefix'     => 'backend',
-    'namespace'  => 'Partymeister\Accounting\Http\Controllers\Backend',
     'middleware' => [
         'web',
         'web_auth',
         'navigation',
     ],
 ], function () {
-    Route::resource('account_types', 'AccountTypesController');
-    Route::resource('accounts', 'AccountsController');
-    Route::resource('bookings', 'BookingsController');
-    Route::resource('item_types', 'ItemTypesController');
-    Route::resource('items', 'ItemsController');
-    Route::resource('sales', 'SalesController');
-    Route::get('pos/{account}', 'PosInterfacesController@show')
+    Route::resource('account_types', AccountTypesController::class);
+    Route::resource('accounts', AccountsController::class);
+    Route::resource('bookings', BookingsController::class);
+    Route::resource('item_types', ItemTypesController::class);
+    Route::resource('items', ItemsController::class);
+    Route::resource('sales', SalesController::class);
+    Route::get('pos/{account}', [PosInterfacesController::class, 'show'])
          ->name('pos.show');
-    Route::post('pos/{account}', 'PosInterfacesController@create')
+    Route::post('pos/{account}', [PosInterfacesController::class, 'create'])
          ->name('pos.create');
-    Route::get('pos/edit/{account}', 'PosInterfacesController@edit')
+    Route::get('pos/edit/{account}', [PosInterfacesController::class, 'edit'])
          ->name('pos.edit');
-    Route::patch('pos/edit/{account}', 'PosInterfacesController@update')
+    Route::patch('pos/edit/{account}', [PosInterfacesController::class, 'update'])
          ->name('pos.update');
 });

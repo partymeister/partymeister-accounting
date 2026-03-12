@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Partymeister\Accounting\Unit;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Models\Sale;

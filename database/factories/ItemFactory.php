@@ -1,6 +1,6 @@
 <?php
 
-namespace Motor\CMS\Database\Factories;
+namespace Partymeister\Accounting\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Motor\Backend\Models\User;

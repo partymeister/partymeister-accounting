@@ -10,7 +10,7 @@ return [
         'item_list' => [
             'name'            => 'ItemList',
             'description'     => 'Show ItemList component',
-            'view'            => 'partymeister-accounting::frontend.components.item-list',
+            'view'            => 'partymeister-accounting::frontend.components.item-list-tw',
             'component_class' => 'Partymeister\Accounting\Components\ComponentItemLists',
             'compatibility'   => [
 

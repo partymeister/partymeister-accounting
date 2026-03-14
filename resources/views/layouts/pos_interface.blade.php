@@ -202,7 +202,7 @@
 @show
 
 @yield('view_scripts')
-<script type="text/javascript">
+<script type="module">
     let accountId = {{ $record->id }};
 
     let addItem = function (quantity, itemId, deleteItem) {

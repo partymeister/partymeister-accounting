@@ -129,7 +129,7 @@
 @show
 
 @yield('view_scripts')
-<script type="text/javascript">
+<script type="module">
 
     $(document).ready(function () {
         $('button.delete-config-item').click(function (e) {

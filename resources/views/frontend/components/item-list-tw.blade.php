@@ -11,7 +11,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($itemType->items()->where('is_visible', true)->orderBy('sort_position', 'ASC')->get() as $item)
+                @foreach($itemType->items as $item)
                     <tr>
                         <td class="px-4 py-3 border-t border-border text-text">
                             {{$item->name}}

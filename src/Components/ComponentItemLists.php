@@ -41,6 +41,9 @@ class ComponentItemLists
     {
         $this->itemTypes = ItemType::where('is_visible', true)
                                    ->orderBy('sort_position', 'ASC')
+                                   ->with(['items' => function ($q) {
+                                       $q->where('is_visible', true)->orderBy('sort_position', 'ASC');
+                                   }])
                                    ->get();
 
         return $this->render();

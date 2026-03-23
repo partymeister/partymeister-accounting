@@ -13,5 +13,5 @@ class ItemTypeService extends BaseService
     /**
      * @var string
      */
-    protected $model = ItemType::class;
+    protected string $model = ItemType::class;
 }

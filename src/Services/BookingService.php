@@ -16,7 +16,7 @@ class BookingService extends BaseService
     /**
      * @var string
      */
-    protected $model = Booking::class;
+    protected string $model = Booking::class;
 
     public function filters()
     {

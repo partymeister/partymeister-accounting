@@ -13,5 +13,5 @@ class SaleService extends BaseService
     /**
      * @var string
      */
-    protected $model = Sale::class;
+    protected string $model = Sale::class;
 }

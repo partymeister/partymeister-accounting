@@ -15,7 +15,7 @@ class ItemService extends BaseService
     /**
      * @var string
      */
-    protected $model = Item::class;
+    protected string $model = Item::class;
 
     public function filters()
     {

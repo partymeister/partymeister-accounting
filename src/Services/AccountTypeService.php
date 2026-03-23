@@ -13,5 +13,5 @@ class AccountTypeService extends BaseService
     /**
      * @var string
      */
-    protected $model = AccountType::class;
+    protected string $model = AccountType::class;
 }

@@ -5,7 +5,7 @@ namespace Partymeister\Accounting\Http\Controllers\Backend;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
-use Motor\Backend\Http\Controllers\Controller;
+use Motor\Admin\Http\Controllers\Controller;
 use Partymeister\Accounting\Http\Requests\Backend\PosInterfaceRequest;
 use Partymeister\Accounting\Http\Resources\BookingResource;
 use Partymeister\Accounting\Models\Account;

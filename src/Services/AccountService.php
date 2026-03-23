@@ -2,7 +2,7 @@
 
 namespace Partymeister\Accounting\Services;
 
-use Motor\Backend\Services\BaseService;
+use Motor\Admin\Services\BaseService;
 use Partymeister\Accounting\Models\Account;
 
 /**

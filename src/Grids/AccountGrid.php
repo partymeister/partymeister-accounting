@@ -2,10 +2,10 @@
 
 namespace Partymeister\Accounting\Grids;
 
-use Motor\Backend\Grid\Grid;
-use Motor\Backend\Grid\Renderers\BooleanRenderer;
-use Motor\Backend\Grid\Renderers\CurrencyRenderer;
-use Motor\Backend\Grid\Renderers\DateRenderer;
+use Motor\Admin\Grid\Grid;
+use Motor\Admin\Grid\Renderers\BooleanRenderer;
+use Motor\Admin\Grid\Renderers\CurrencyRenderer;
+use Motor\Admin\Grid\Renderers\DateRenderer;
 use Partymeister\Accounting\Grid\Renderers\BalanceRowRenderer;
 
 /**
@@ -16,7 +16,7 @@ class AccountGrid extends Grid
     protected function setup()
     {
         $this->setDefaultSorting('name', 'ASC');
-        $this->addColumn('name', trans('motor-backend::backend/global.name'), true);
+        $this->addColumn('name', trans('motor-admin::backend/global.name'), true);
         $this->addColumn('account_type.name', trans('partymeister-accounting::backend/account_types.account_type'));
         $this->addColumn('has_pos', trans('partymeister-accounting::backend/accounts.has_pos'))
              ->renderer(BooleanRenderer::class);
@@ -38,8 +38,8 @@ class AccountGrid extends Grid
         $this->addAction(trans('partymeister-accounting::backend/accounts.edit_pos'), 'backend.pos.edit', ['class' => 'btn-warning'])
              ->needsPermissionTo('bookings.write')
              ->onCondition('has_pos', true);
-        $this->addEditAction(trans('motor-backend::backend/global.edit'), 'backend.accounts.edit');
-        $this->addDeleteAction(trans('motor-backend::backend/global.delete'), 'backend.accounts.destroy');
+        $this->addEditAction(trans('motor-admin::backend/global.edit'), 'backend.accounts.edit');
+        $this->addDeleteAction(trans('motor-admin::backend/global.delete'), 'backend.accounts.destroy');
 
         $this->addSpecialRow('partymeister-accounting::backend.accounts.balance')
              ->renderer(BalanceRowRenderer::class);

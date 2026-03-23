@@ -3,7 +3,7 @@
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
 use Illuminate\Http\JsonResponse;
-use Motor\Backend\Http\Controllers\Controller;
+use Motor\Admin\Http\Controllers\Controller;
 use Partymeister\Accounting\Http\Requests\Backend\PosInterfaceRequest;
 use Partymeister\Accounting\Http\Resources\AccountResource;
 use Partymeister\Accounting\Http\Resources\BookingResource;

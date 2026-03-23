@@ -32,9 +32,9 @@ class ItemForm extends Form
                  'rules' => 'required',
              ])
              ->add('internal_description', 'textarea', ['label' => trans('partymeister-accounting::backend/items.internal_description')])
-             ->add('sort_position', 'text', ['label' => trans('motor-backend::backend/global.sort_position')])
+             ->add('sort_position', 'text', ['label' => trans('motor-admin::backend/global.sort_position')])
             //->add('can_be_ordered', 'checkbox', ['label' => trans('partymeister-accounting::backend/items.can_be_ordered')])
-             ->add('is_visible', 'checkbox', ['label' => trans('motor-backend::backend/global.is_visible')])
+             ->add('is_visible', 'checkbox', ['label' => trans('motor-admin::backend/global.is_visible')])
              ->add('vat_percentage', 'text', [
                  'label' => trans('partymeister-accounting::backend/bookings.vat_percentage'),
                  'rules' => 'required',
@@ -59,13 +59,13 @@ class ItemForm extends Form
                  'label'       => trans('partymeister-accounting::backend/items.pos_cost_account'),
                  'choices'     => Account::pluck('name', 'id')
                                          ->toArray(),
-                 'empty_value' => trans('motor-backend::backend/global.please_choose'),
+                 'empty_value' => trans('motor-admin::backend/global.please_choose'),
              ])
              ->add('pos_create_booking_for_item_id', 'select2', [
                  'label'       => trans('partymeister-accounting::backend/items.pos_create_booking_for_item'),
                  'choices'     => Item::pluck('name', 'id')
                                       ->toArray(),
-                 'empty_value' => trans('motor-backend::backend/global.please_choose'),
+                 'empty_value' => trans('motor-admin::backend/global.please_choose'),
              ])
              ->add('submit', 'submit', [
                  'attr'  => ['class' => 'btn btn-primary'],

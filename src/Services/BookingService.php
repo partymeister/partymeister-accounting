@@ -3,7 +3,7 @@
 namespace Partymeister\Accounting\Services;
 
 use Illuminate\Support\Arr;
-use Motor\Backend\Services\BaseService;
+use Motor\Admin\Services\BaseService;
 use Motor\Core\Filter\Renderers\SelectRenderer;
 use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Models\Booking;
@@ -34,22 +34,22 @@ class BookingService extends BaseService
                      ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.is_manual_booking'))
                      ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.is_manual_booking').' --')
                      ->setOptions([
-                         1 => trans('motor-backend::backend/global.yes'),
-                         0 => trans('motor-backend::backend/global.no'),
+                         1 => trans('motor-admin::backend/global.yes'),
+                         0 => trans('motor-admin::backend/global.no'),
                      ]);
         $this->filter->add(new SelectRenderer('is_card_payment'))
                      ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.is_card_payment'))
                      ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.is_card_payment').' --')
                      ->setOptions([
-                         1 => trans('motor-backend::backend/global.yes'),
-                         0 => trans('motor-backend::backend/global.no'),
+                         1 => trans('motor-admin::backend/global.yes'),
+                         0 => trans('motor-admin::backend/global.no'),
                      ]);
         $this->filter->add(new SelectRenderer('is_coupon_payment'))
                      ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.is_coupon_payment'))
                      ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.is_coupon_payment').' --')
                      ->setOptions([
-                         1 => trans('motor-backend::backend/global.yes'),
-                         0 => trans('motor-backend::backend/global.no'),
+                         1 => trans('motor-admin::backend/global.yes'),
+                         0 => trans('motor-admin::backend/global.no'),
                      ]);
     }
 

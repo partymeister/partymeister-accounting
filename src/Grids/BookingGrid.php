@@ -2,9 +2,9 @@
 
 namespace Partymeister\Accounting\Grids;
 
-use Motor\Backend\Grid\Grid;
-use Motor\Backend\Grid\Renderers\CurrencyRenderer;
-use Motor\Backend\Grid\Renderers\DateRenderer;
+use Motor\Admin\Grid\Grid;
+use Motor\Admin\Grid\Renderers\CurrencyRenderer;
+use Motor\Admin\Grid\Renderers\DateRenderer;
 
 /**
  * Class BookingGrid
@@ -22,7 +22,7 @@ class BookingGrid extends Grid
         $this->addColumn('price_with_vat', trans('partymeister-accounting::backend/bookings.price_with_vat'))
              ->renderer(CurrencyRenderer::class, ['currency_column' => 'currency_iso_4217'])
              ->style('text-align: right');
-        $this->addEditAction(trans('motor-backend::backend/global.edit'), 'backend.bookings.edit');
-        $this->addDeleteAction(trans('motor-backend::backend/global.delete'), 'backend.bookings.destroy');
+        $this->addEditAction(trans('motor-admin::backend/global.edit'), 'backend.bookings.edit');
+        $this->addDeleteAction(trans('motor-admin::backend/global.delete'), 'backend.bookings.destroy');
     }
 }

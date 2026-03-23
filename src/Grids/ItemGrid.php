@@ -2,8 +2,8 @@
 
 namespace Partymeister\Accounting\Grids;
 
-use Motor\Backend\Grid\Grid;
-use Motor\Backend\Grid\Renderers\CurrencyRenderer;
+use Motor\Admin\Grid\Grid;
+use Motor\Admin\Grid\Renderers\CurrencyRenderer;
 
 /**
  * Class ItemGrid
@@ -20,8 +20,8 @@ class ItemGrid extends Grid
              ->style('text-align: right');
         $this->addColumn('sales', trans('partymeister-accounting::backend/items.sales'));
         $this->addColumn('revenue', trans('partymeister-accounting::backend/items.revenue'));
-        $this->addColumn('sort_position', trans('motor-backend::backend/global.sort_position'));
-        $this->addEditAction(trans('motor-backend::backend/global.edit'), 'backend.items.edit');
-        $this->addDeleteAction(trans('motor-backend::backend/global.delete'), 'backend.items.destroy');
+        $this->addColumn('sort_position', trans('motor-admin::backend/global.sort_position'));
+        $this->addEditAction(trans('motor-admin::backend/global.edit'), 'backend.items.edit');
+        $this->addDeleteAction(trans('motor-admin::backend/global.delete'), 'backend.items.destroy');
     }
 }

@@ -8,7 +8,7 @@ use Kra8\Snowflake\HasShortflakePrimary;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use Motor\Backend\Models\User;
+use Motor\Admin\Models\User;
 use Motor\CMS\Database\Factories\ItemTypeFactory;
 use Motor\Core\Filter\Filter;
 use Motor\Core\Traits\Filterable;

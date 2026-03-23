@@ -3,7 +3,7 @@
 namespace Partymeister\Accounting\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Motor\Backend\Models\User;
+use Motor\Admin\Models\User;
 use Partymeister\Accounting\Models\Sale;
 
 class SalesPolicy
@@ -13,7 +13,7 @@ class SalesPolicy
     /**
      * Perform pre-authorization checks.
      *
-     * @param  \Motor\Backend\Models\User  $user
+     * @param  \Motor\Admin\Models\User  $user
      * @param  string  $ability
      * @return void|bool
      */
@@ -27,7 +27,7 @@ class SalesPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \Motor\Backend\Models\User  $user
+     * @param  \Motor\Admin\Models\User  $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -38,7 +38,7 @@ class SalesPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \Motor\Backend\Models\User  $user
+     * @param  \Motor\Admin\Models\User  $user
      * @param  \Partymeister\Accounting\Models\Sale  $sale
      * @return mixed
      */
@@ -50,7 +50,7 @@ class SalesPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param  \Motor\Backend\Models\User  $user
+     * @param  \Motor\Admin\Models\User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -61,7 +61,7 @@ class SalesPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \Motor\Backend\Models\User  $user
+     * @param  \Motor\Admin\Models\User  $user
      * @param  \Partymeister\Accounting\Models\Sale  $sale
      * @return mixed
      */
@@ -73,7 +73,7 @@ class SalesPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \Motor\Backend\Models\User  $user
+     * @param  \Motor\Admin\Models\User  $user
      * @param  \Partymeister\Accounting\Models\Sale  $sale
      * @return mixed
      */
@@ -85,7 +85,7 @@ class SalesPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \Motor\Backend\Models\User  $user
+     * @param  \Motor\Admin\Models\User  $user
      * @param  \Partymeister\Accounting\Models\Sale  $sale
      * @return mixed
      */
@@ -97,7 +97,7 @@ class SalesPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \Motor\Backend\Models\User  $user
+     * @param  \Motor\Admin\Models\User  $user
      * @param  \Partymeister\Accounting\Models\Sale  $sale
      * @return mixed
      */

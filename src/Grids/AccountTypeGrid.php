@@ -2,7 +2,7 @@
 
 namespace Partymeister\Accounting\Grids;
 
-use Motor\Backend\Grid\Grid;
+use Motor\Admin\Grid\Grid;
 
 /**
  * Class AccountTypeGrid
@@ -13,8 +13,8 @@ class AccountTypeGrid extends Grid
     {
         $this->addColumn('id', 'ID', true);
         $this->setDefaultSorting('id', 'ASC');
-        $this->addColumn('name', trans('motor-backend::backend/global.name'));
-        $this->addEditAction(trans('motor-backend::backend/global.edit'), 'backend.account_types.edit');
-        $this->addDeleteAction(trans('motor-backend::backend/global.delete'), 'backend.account_types.destroy');
+        $this->addColumn('name', trans('motor-admin::backend/global.name'));
+        $this->addEditAction(trans('motor-admin::backend/global.edit'), 'backend.account_types.edit');
+        $this->addDeleteAction(trans('motor-admin::backend/global.delete'), 'backend.account_types.destroy');
     }
 }

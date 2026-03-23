@@ -2,7 +2,7 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
-use Motor\Backend\Http\Controllers\ApiController;
+use Motor\Admin\Http\Controllers\ApiController;
 use Partymeister\Accounting\Http\Requests\Backend\AccountRequest;
 use Partymeister\Accounting\Http\Resources\AccountCollection;
 use Partymeister\Accounting\Http\Resources\AccountResource;

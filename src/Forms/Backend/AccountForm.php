@@ -26,7 +26,7 @@ class AccountForm extends Form
                  'choices'       => $currencies = Currencies::getNames(),
                  'default_value' => 'EUR',
              ])
-             ->add('name', 'text', ['label' => trans('motor-backend::backend/global.name'), 'rules' => 'required'])
+             ->add('name', 'text', ['label' => trans('motor-admin::backend/global.name'), 'rules' => 'required'])
              ->add('has_pos', 'checkbox', ['label' => trans('partymeister-accounting::backend/accounts.has_pos')])
              ->add('has_coupon_payments', 'checkbox', ['label' => trans('partymeister-accounting::backend/accounts.has_coupon_payments')])
              ->add('has_card_payments', 'checkbox', ['label' => trans('partymeister-accounting::backend/accounts.has_card_payments')])

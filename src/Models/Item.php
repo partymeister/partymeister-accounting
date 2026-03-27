@@ -4,17 +4,17 @@ namespace Partymeister\Accounting\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Kra8\Snowflake\HasShortflakePrimary;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Kra8\Snowflake\HasShortflakePrimary;
 use Motor\Admin\Models\User;
-use Motor\CMS\Database\Factories\ItemFactory;
 use Motor\Core\Filter\Filter;
 use Motor\Core\Traits\Filterable;
 use Motor\Core\Traits\Searchable;
+use Partymeister\Accounting\Database\Factories\ItemFactory;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 /**
@@ -48,7 +48,6 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
  * @property-read mixed $sales
  * @property-read ItemType|null $item_type
  * @property-read Account|null $pos_cost_account
- * @property-read Account $pos_earnings_account
  * @property-read User $updater
  *
  * @method static Builder|Item filteredBy(Filter $filter, $column)
@@ -79,15 +78,16 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
  * @method static Builder|Item whereUpdatedAt($value)
  * @method static Builder|Item whereUpdatedBy($value)
  * @method static Builder|Item whereVatPercentage($value)
+ *
  * @mixin Eloquent
  */
 class Item extends Model
 {
-    use Searchable;
-    use Filterable;
     use BlameableTrait;
+    use Filterable;
     use HasFactory;
     use HasShortflakePrimary;
+    use Searchable;
 
     /**
      * Searchable columns for the searchable trait
@@ -108,6 +108,14 @@ class Item extends Model
      *
      * @var array
      */
+    protected $attributes = [
+        'description' => '',
+        'internal_description' => '',
+        'can_be_ordered' => false,
+        'is_visible' => true,
+        'pos_can_book_negative_quantities' => false,
+    ];
+
     protected $fillable = [
         'name',
         'description',
@@ -135,7 +143,7 @@ class Item extends Model
     /**
      * @return BelongsTo
      */
-    public function pos_earnings_account()
+    public function pos_cost_account()
     {
         return $this->belongsTo(Account::class);
     }
@@ -143,9 +151,9 @@ class Item extends Model
     /**
      * @return BelongsTo
      */
-    public function pos_cost_account()
+    public function pos_create_booking_for_item()
     {
-        return $this->belongsTo(Account::class);
+        return $this->belongsTo(self::class, 'pos_create_booking_for_item_id');
     }
 
     /**
@@ -157,8 +165,6 @@ class Item extends Model
     }
 
     /**
-     * @param    $quantity
-     * @param  Booking  $booking
      * @return Sale
      */
     public function sell($quantity, Booking $booking)
@@ -174,7 +180,7 @@ class Item extends Model
         $sale->save();
 
         if (! is_null($this->pos_cost_account)) {
-            $costBooking = new Booking();
+            $costBooking = new Booking;
             $costBooking->sale_id = $sale->id;
             $costBooking->description = $sale->item_and_quantity;
             $costBooking->vat_percentage = $this->vat_percentage;
@@ -197,9 +203,9 @@ class Item extends Model
     public function getSalesAttribute()
     {
         $result = DB::table('sales')
-                    ->select(DB::raw('SUM(quantity) as quantity'))
-                    ->where('item_id', $this->id)
-                    ->get();
+            ->select(DB::raw('SUM(quantity) as quantity'))
+            ->where('item_id', $this->id)
+            ->get();
         if (! is_null($result)) {
             return ! is_null($result[0]->quantity) ? $result[0]->quantity : 0;
         }
@@ -214,10 +220,10 @@ class Item extends Model
     {
         $revenue = 0;
         $result = DB::table('sales')
-                    ->select(DB::raw('SUM(quantity*items.price_with_vat) as quantity'))
-                    ->join('items', 'item_id', '=', 'items.id')
-                    ->where('item_id', $this->id)
-                    ->get();
+            ->select(DB::raw('SUM(quantity*items.price_with_vat) as quantity'))
+            ->join('items', 'item_id', '=', 'items.id')
+            ->where('item_id', $this->id)
+            ->get();
         if (! is_null($result)) {
             $revenue = (! is_null($result[0]->quantity) ? $result[0]->quantity : 0);
         }

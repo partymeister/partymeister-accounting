@@ -2,11 +2,13 @@
 
 namespace Partymeister\Accounting\Http\Resources;
 
+use Illuminate\Http\Request;
 use Motor\Admin\Http\Resources\BaseResource;
 
 /**
  * @OA\Schema(
  *   schema="ItemResource",
+ *
  *   @OA\Property(
  *     property="id",
  *     type="integer",
@@ -68,11 +70,6 @@ use Motor\Admin\Http\Resources\BaseResource;
  *     ref="#/components/schemas/AccountResource"
  *   ),
  *   @OA\Property(
- *     property="pos_earnings_account",
- *     type="object",
- *     ref="#/components/schemas/AccountResource"
- *   ),
- *   @OA\Property(
  *     property="pos_create_booking_for_item",
  *     type="object",
  *     ref="#/components/schemas/ItemResource"
@@ -107,30 +104,29 @@ class ItemResource extends BaseResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-            'id'                               => (int) $this->id,
-            'name'                             => $this->name,
-            'description'                      => $this->description,
-            'internal_description'             => $this->internal_description,
-            'item_type'                        => new ItemTypeResource($this->whenLoaded('item_type')),
-            'vat_percentage'                   => (float) $this->vat_percentage,
-            'price_with_vat'                   => (float) $this->price_with_vat,
-            'price_without_vat'                => (float) $this->price_without_vat,
-            'cost_price_with_vat'              => (float) $this->price_with_vat,
-            'cost_price_without_vat'           => (float) $this->price_without_vat,
-            'currency_iso_4217'                => $this->currency_iso_4217,
-            'pos_earnings_account'             => new AccountResource($this->pos_earnings_account),
-            'pos_cost_account'                 => new AccountResource($this->pos_cost_account),
-            'pos_create_booking_for_item'      => new ItemResource($this->pos_create_booking_for_item),
+            'id' => (int) $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'internal_description' => $this->internal_description,
+            'item_type' => new ItemTypeResource($this->whenLoaded('item_type')),
+            'vat_percentage' => (float) $this->vat_percentage,
+            'price_with_vat' => (float) $this->price_with_vat,
+            'price_without_vat' => (float) $this->price_without_vat,
+            'cost_price_with_vat' => (float) $this->cost_price_with_vat,
+            'cost_price_without_vat' => (float) $this->cost_price_without_vat,
+            'currency_iso_4217' => $this->currency_iso_4217,
+            'pos_cost_account' => new AccountResource($this->pos_cost_account),
+            'pos_create_booking_for_item' => new ItemResource($this->pos_create_booking_for_item),
             'pos_can_book_negative_quantities' => (bool) $this->pos_can_book_negative_quantities,
-            'can_be_ordered'                   => (bool) $this->can_be_ordered,
-            'is_visible'                       => (bool) $this->is_visible,
-            'sort_position'                    => (int) $this->sort_position,
+            'can_be_ordered' => (bool) $this->can_be_ordered,
+            'is_visible' => (bool) $this->is_visible,
+            'sort_position' => (int) $this->sort_position,
         ];
     }
 }

@@ -10,8 +10,5 @@ use Partymeister\Accounting\Models\ItemType;
  */
 class ItemTypeService extends BaseService
 {
-    /**
-     * @var string
-     */
     protected string $model = ItemType::class;
 }

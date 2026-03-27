@@ -4,17 +4,17 @@ namespace Partymeister\Accounting\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Kra8\Snowflake\HasShortflakePrimary;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Kra8\Snowflake\HasShortflakePrimary;
 use Motor\Admin\Models\User;
-use Motor\CMS\Database\Factories\AccountFactory;
 use Motor\Core\Filter\Filter;
 use Motor\Core\Traits\Filterable;
 use Motor\Core\Traits\Searchable;
+use Partymeister\Accounting\Database\Factories\AccountFactory;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 /**
@@ -55,15 +55,16 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
  * @method static Builder|Account wherePosConfiguration($value)
  * @method static Builder|Account whereUpdatedAt($value)
  * @method static Builder|Account whereUpdatedBy($value)
+ *
  * @mixin Eloquent
  */
 class Account extends Model
 {
-    use Searchable;
-    use Filterable;
     use BlameableTrait;
+    use Filterable;
     use HasFactory;
     use HasShortflakePrimary;
+    use Searchable;
 
     /**
      * Searchable columns for the searchable trait
@@ -96,6 +97,10 @@ class Account extends Model
      *
      * @var array
      */
+    protected $attributes = [
+        'pos_configuration' => '[]',
+    ];
+
     protected $casts = [
         'pos_configuration' => 'array',
     ];
@@ -119,15 +124,15 @@ class Account extends Model
     public function getCashBalanceAttribute()
     {
         $incoming = DB::table('bookings')
-                      ->where('to_account_id', $this->id)
-                      ->where('is_card_payment', false)
-                      ->where('is_coupon_payment', false)
-                      ->sum('price_with_vat');
+            ->where('to_account_id', $this->id)
+            ->where('is_card_payment', false)
+            ->where('is_coupon_payment', false)
+            ->sum('price_with_vat');
         $outgoing = DB::table('bookings')
-                      ->where('from_account_id', $this->id)
-                      ->where('is_card_payment', false)
-                      ->where('is_coupon_payment', false)
-                      ->sum('price_with_vat');
+            ->where('from_account_id', $this->id)
+            ->where('is_card_payment', false)
+            ->where('is_coupon_payment', false)
+            ->sum('price_with_vat');
 
         return $incoming - $outgoing;
     }
@@ -138,9 +143,9 @@ class Account extends Model
     public function getCardBalanceAttribute()
     {
         $incoming = DB::table('bookings')
-                      ->where('to_account_id', $this->id)
-                      ->where('is_card_payment', true)
-                      ->sum('price_with_vat');
+            ->where('to_account_id', $this->id)
+            ->where('is_card_payment', true)
+            ->sum('price_with_vat');
 
         return $incoming;
     }
@@ -151,9 +156,9 @@ class Account extends Model
     public function getCouponBalanceAttribute()
     {
         $incoming = DB::table('bookings')
-                      ->where('to_account_id', $this->id)
-                      ->where('is_coupon_payment', true)
-                      ->sum('price_with_vat');
+            ->where('to_account_id', $this->id)
+            ->where('is_coupon_payment', true)
+            ->sum('price_with_vat');
 
         return $incoming;
     }
@@ -164,9 +169,9 @@ class Account extends Model
     public function getLastBookingAttribute()
     {
         $booking = Booking::where('to_account_id', $this->id)
-                          ->orWhere('from_account_id', $this->id)
-                          ->orderBy('created_at', 'DESC')
-                          ->first();
+            ->orWhere('from_account_id', $this->id)
+            ->orderBy('created_at', 'DESC')
+            ->first();
         if (! is_null($booking)) {
             return $booking->created_at;
         }

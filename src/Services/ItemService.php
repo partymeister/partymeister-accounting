@@ -12,17 +12,16 @@ use Partymeister\Accounting\Models\ItemType;
  */
 class ItemService extends BaseService
 {
-    /**
-     * @var string
-     */
     protected string $model = Item::class;
 
-    public function filters()
+    protected array $loadColumns = ['item_type', 'pos_cost_account'];
+
+    public function filters(): void
     {
         $this->filter->add(new SelectRenderer('item_type_id'))
-                     ->setOptionPrefix(trans('partymeister-accounting::backend/item_types.item_type'))
-                     ->setEmptyOption('-- '.trans('partymeister-accounting::backend/item_types.item_type').' --')
-                     ->setOptions(ItemType::orderBy('sort_position', 'ASC')
-                                          ->pluck('name', 'id'));
+            ->setOptionPrefix(trans('partymeister-accounting::backend/item_types.item_type'))
+            ->setEmptyOption('-- '.trans('partymeister-accounting::backend/item_types.item_type').' --')
+            ->setOptions(ItemType::orderBy('sort_position', 'ASC')
+                ->pluck('name', 'id'));
     }
 }

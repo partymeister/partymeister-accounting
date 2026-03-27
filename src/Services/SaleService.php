@@ -10,8 +10,7 @@ use Partymeister\Accounting\Models\Sale;
  */
 class SaleService extends BaseService
 {
-    /**
-     * @var string
-     */
     protected string $model = Sale::class;
+
+    protected array $loadColumns = ['item', 'earnings_booking', 'cost_booking'];
 }

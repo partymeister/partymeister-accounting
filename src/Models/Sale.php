@@ -4,14 +4,16 @@ namespace Partymeister\Accounting\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Kra8\Snowflake\HasShortflakePrimary;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Kra8\Snowflake\HasShortflakePrimary;
 use Motor\Admin\Models\User;
 use Motor\Core\Filter\Filter;
 use Motor\Core\Traits\Filterable;
 use Motor\Core\Traits\Searchable;
+use Partymeister\Accounting\Database\Factories\SaleFactory;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 /**
@@ -59,14 +61,16 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
  * @method static Builder|Sale whereUpdatedAt($value)
  * @method static Builder|Sale whereUpdatedBy($value)
  * @method static Builder|Sale whereVatPercentage($value)
+ *
  * @mixin Eloquent
  */
 class Sale extends Model
 {
-    use Searchable;
-    use Filterable;
     use BlameableTrait;
+    use Filterable;
+    use HasFactory;
     use HasShortflakePrimary;
+    use Searchable;
 
     /**
      * Searchable columns for the searchable trait
@@ -95,6 +99,11 @@ class Sale extends Model
         'price_without_vat',
         'currency_iso_4217',
     ];
+
+    protected static function newFactory()
+    {
+        return SaleFactory::new();
+    }
 
     /**
      * @return BelongsTo

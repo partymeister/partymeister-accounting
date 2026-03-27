@@ -4,15 +4,15 @@ namespace Partymeister\Accounting\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
-use Kra8\Snowflake\HasShortflakePrimary;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Kra8\Snowflake\HasShortflakePrimary;
 use Motor\Admin\Models\User;
-use Motor\CMS\Database\Factories\AccountTypeFactory;
 use Motor\Core\Filter\Filter;
 use Motor\Core\Traits\Filterable;
 use Motor\Core\Traits\Searchable;
+use Partymeister\Accounting\Database\Factories\AccountTypeFactory;
 use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 /**
@@ -42,15 +42,16 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
  * @method static Builder|AccountType whereName($value)
  * @method static Builder|AccountType whereUpdatedAt($value)
  * @method static Builder|AccountType whereUpdatedBy($value)
+ *
  * @mixin Eloquent
  */
 class AccountType extends Model
 {
-    use Searchable;
-    use Filterable;
     use BlameableTrait;
+    use Filterable;
     use HasFactory;
     use HasShortflakePrimary;
+    use Searchable;
 
     /**
      * Searchable columns for the searchable trait

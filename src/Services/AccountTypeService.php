@@ -10,8 +10,5 @@ use Partymeister\Accounting\Models\AccountType;
  */
 class AccountTypeService extends BaseService
 {
-    /**
-     * @var string
-     */
     protected string $model = AccountType::class;
 }

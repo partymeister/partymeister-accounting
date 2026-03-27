@@ -13,59 +13,58 @@ use Partymeister\Accounting\Models\Booking;
  */
 class BookingService extends BaseService
 {
-    /**
-     * @var string
-     */
     protected string $model = Booking::class;
 
-    public function filters()
+    protected array $loadColumns = ['from_account', 'to_account'];
+
+    public function filters(): void
     {
         $this->filter->add(new SelectRenderer('from_account_id'))
-                     ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.from_account'))
-                     ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.from_account').' --')
-                     ->setOptions(Account::pluck('name', 'id'));
+            ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.from_account'))
+            ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.from_account').' --')
+            ->setOptions(Account::pluck('name', 'id'));
 
         $this->filter->add(new SelectRenderer('to_account_id'))
-                     ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.to_account'))
-                     ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.to_account').' --')
-                     ->setOptions(Account::pluck('name', 'id'));
+            ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.to_account'))
+            ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.to_account').' --')
+            ->setOptions(Account::pluck('name', 'id'));
 
         $this->filter->add(new SelectRenderer('is_manual_booking'))
-                     ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.is_manual_booking'))
-                     ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.is_manual_booking').' --')
-                     ->setOptions([
-                         1 => trans('motor-admin::backend/global.yes'),
-                         0 => trans('motor-admin::backend/global.no'),
-                     ]);
+            ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.is_manual_booking'))
+            ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.is_manual_booking').' --')
+            ->setOptions([
+                1 => trans('motor-admin::backend/global.yes'),
+                0 => trans('motor-admin::backend/global.no'),
+            ]);
         $this->filter->add(new SelectRenderer('is_card_payment'))
-                     ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.is_card_payment'))
-                     ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.is_card_payment').' --')
-                     ->setOptions([
-                         1 => trans('motor-admin::backend/global.yes'),
-                         0 => trans('motor-admin::backend/global.no'),
-                     ]);
+            ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.is_card_payment'))
+            ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.is_card_payment').' --')
+            ->setOptions([
+                1 => trans('motor-admin::backend/global.yes'),
+                0 => trans('motor-admin::backend/global.no'),
+            ]);
         $this->filter->add(new SelectRenderer('is_coupon_payment'))
-                     ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.is_coupon_payment'))
-                     ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.is_coupon_payment').' --')
-                     ->setOptions([
-                         1 => trans('motor-admin::backend/global.yes'),
-                         0 => trans('motor-admin::backend/global.no'),
-                     ]);
+            ->setOptionPrefix(trans('partymeister-accounting::backend/bookings.is_coupon_payment'))
+            ->setEmptyOption('-- '.trans('partymeister-accounting::backend/bookings.is_coupon_payment').' --')
+            ->setOptions([
+                1 => trans('motor-admin::backend/global.yes'),
+                0 => trans('motor-admin::backend/global.no'),
+            ]);
     }
 
-    public function beforeCreate()
+    public function beforeCreate(): void
     {
         $this->convertNumbers();
     }
 
-    protected function convertNumbers()
+    protected function convertNumbers(): void
     {
         $this->data['price_with_vat'] = str_replace(',', '.', Arr::get($this->data, 'price_with_vat', 0));
         $this->data['price_without_vat'] = str_replace(',', '.', Arr::get($this->data, 'price_without_vat', 0));
         $this->data['vat_percentage'] = str_replace(',', '.', Arr::get($this->data, 'vat_percentage', 0));
     }
 
-    public function beforeUpdate()
+    public function beforeUpdate(): void
     {
         $this->convertNumbers();
     }

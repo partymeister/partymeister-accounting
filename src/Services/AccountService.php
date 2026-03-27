@@ -10,8 +10,7 @@ use Partymeister\Accounting\Models\Account;
  */
 class AccountService extends BaseService
 {
-    /**
-     * @var string
-     */
     protected string $model = Account::class;
+
+    protected array $loadColumns = ['account_type'];
 }

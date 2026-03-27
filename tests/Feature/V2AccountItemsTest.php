@@ -78,6 +78,11 @@ beforeEach(function () {
 
 describe('V2 Account Items API', function () {
 
+    it('requires authentication', function () {
+        $account = Account::where('name', 'POS')->first();
+        assertV2RequiresAuth('/api/v2/accounts/'.$account->id.'/items');
+    });
+
     it('returns items for the given account from pos_configuration', function () {
         $pos = Account::where('name', 'POS')->first();
         $response = $this->asAdmin()->getJson('/api/v2/accounts/'.$pos->id.'/items');

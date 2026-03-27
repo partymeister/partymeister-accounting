@@ -60,6 +60,11 @@ beforeEach(function () {
 
 describe('V2 POS Layout API', function () {
 
+    it('requires authentication', function () {
+        $account = Account::where('name', 'POS')->first();
+        assertV2RequiresAuth('/api/v2/accounts/'.$account->id.'/pos');
+    });
+
     it('can get POS layout with zones and resolved items', function () {
         $account = Account::where('name', 'POS')->first();
         $response = $this->asAdmin()->getJson('/api/v2/accounts/'.$account->id.'/pos');
@@ -111,6 +116,11 @@ describe('V2 POS Layout API', function () {
 });
 
 describe('V2 POS Book RPC', function () {
+
+    it('requires authentication', function () {
+        $account = Account::where('name', 'POS')->first();
+        assertV2RequiresAuth('/api/v2/rpc/accounts/'.$account->id.'/book', 'post');
+    });
 
     it('can process a cart into bookings and sales', function () {
         $account = Account::where('name', 'POS')->first();

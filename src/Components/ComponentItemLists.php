@@ -18,15 +18,10 @@ class ComponentItemLists
      */
     protected $pageVersionComponent;
 
-    /**
-     * @var
-     */
     protected $itemTypes;
 
     /**
      * ComponentItemLists constructor.
-     *
-     * @param  PageVersionComponent  $pageVersionComponent
      */
     public function __construct(PageVersionComponent $pageVersionComponent)
     {
@@ -34,17 +29,16 @@ class ComponentItemLists
     }
 
     /**
-     * @param  Request  $request
      * @return Factory|View
      */
     public function index(Request $request)
     {
         $this->itemTypes = ItemType::where('is_visible', true)
-                                   ->orderBy('sort_position', 'ASC')
-                                   ->with(['items' => function ($q) {
-                                       $q->where('is_visible', true)->orderBy('sort_position', 'ASC');
-                                   }])
-                                   ->get();
+            ->orderBy('sort_position', 'ASC')
+            ->with(['items' => function ($q) {
+                $q->where('is_visible', true)->orderBy('sort_position', 'ASC');
+            }])
+            ->get();
 
         return $this->render();
     }

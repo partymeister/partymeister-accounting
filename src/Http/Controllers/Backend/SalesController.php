@@ -2,6 +2,8 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Backend;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 use Motor\Admin\Http\Controllers\Controller;
 use Partymeister\Accounting\Grids\SaleGrid;
@@ -18,7 +20,7 @@ class SalesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      *
      * @throws \ReflectionException
      */
@@ -35,8 +37,6 @@ class SalesController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param $id
      */
     public function show($id)
     {

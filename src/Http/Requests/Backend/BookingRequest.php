@@ -12,6 +12,7 @@ class BookingRequest extends Request
     /**
      * @OA\Schema(
      *   schema="BookingRequest",
+     *
      *   @OA\Property(
      *     property="sale_id",
      *     type="integer",
@@ -79,12 +80,12 @@ class BookingRequest extends Request
     public function rules()
     {
         return [
-            'sale_id'           => 'nullable|integer',
-            'from_account_id'   => 'nullable|integer',
-            'to_account_id'     => 'nullable|integer',
-            'description'       => 'required',
-            'vat_percentage'    => 'required|numeric',
-            'price_with_vat'    => 'required|numeric',
+            'sale_id' => 'nullable|integer',
+            'from_account_id' => 'nullable|integer',
+            'to_account_id' => 'nullable|integer',
+            'description' => 'required',
+            'vat_percentage' => 'required|numeric',
+            'price_with_vat' => 'required|numeric',
             'price_without_vat' => 'nullable|numeric',
             'currency_iso_4217' => 'currency_compatibility',
             'is_manual_booking' => 'nullable|boolean',

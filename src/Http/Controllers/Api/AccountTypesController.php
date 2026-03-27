@@ -2,6 +2,7 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Api;
 
+use Illuminate\Http\JsonResponse;
 use Motor\Admin\Http\Controllers\ApiController;
 use Partymeister\Accounting\Http\Requests\Backend\AccountTypeRequest;
 use Partymeister\Accounting\Http\Resources\AccountTypeCollection;
@@ -23,7 +24,9 @@ class AccountTypesController extends ApiController
      *   tags={"AccountTypesController"},
      *   path="/api/account_types",
      *   summary="Get account_type collection",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -31,15 +34,20 @@ class AccountTypesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="array",
+     *
      *         @OA\Items(ref="#/components/schemas/AccountTypeResource")
      *       ),
+     *
      *       @OA\Property(
      *         property="meta",
      *         ref="#/components/schemas/PaginationMeta"
@@ -55,9 +63,11 @@ class AccountTypesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   )
      * )
@@ -69,7 +79,7 @@ class AccountTypesController extends ApiController
     public function index()
     {
         $paginator = AccountTypeService::collection()
-                                       ->getPaginator();
+            ->getPaginator();
 
         return (new AccountTypeCollection($paginator))->additional(['message' => 'AccountType collection read']);
     }
@@ -79,10 +89,14 @@ class AccountTypesController extends ApiController
      *   tags={"AccountTypesController"},
      *   path="/api/account_types",
      *   summary="Create new account_type",
+     *
      *   @OA\RequestBody(
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccountTypeRequest")
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -90,10 +104,13 @@ class AccountTypesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="object",
@@ -106,31 +123,34 @@ class AccountTypesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Store a newly created resource in storage.
      *
-     * @param  AccountTypeRequest  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store(AccountTypeRequest $request)
     {
         $result = AccountTypeService::create($request)
-                                    ->getResult();
+            ->getResult();
 
         return (new AccountTypeResource($result))->additional(['message' => 'AccountType created'])
-                                                 ->response()
-                                                 ->setStatusCode(201);
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -138,7 +158,9 @@ class AccountTypesController extends ApiController
      *   tags={"AccountTypesController"},
      *   path="/api/account_types/{account_type}",
      *   summary="Get single account_type",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -146,17 +168,22 @@ class AccountTypesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="account_type",
      *     parameter="account_type",
      *     description="AccountType id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="object",
@@ -169,27 +196,30 @@ class AccountTypesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Display the specified resource.
      *
-     * @param  AccountType  $record
      * @return AccountTypeResource
      */
     public function show(AccountType $record)
     {
         $result = AccountTypeService::show($record)
-                                    ->getResult();
+            ->getResult();
 
         return (new AccountTypeResource($result))->additional(['message' => 'AccountType read']);
     }
@@ -199,10 +229,14 @@ class AccountTypesController extends ApiController
      *   tags={"AccountTypesController"},
      *   path="/api/account_types/{account_type}",
      *   summary="Update an existing account_type",
+     *
      *   @OA\RequestBody(
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccountTypeRequest")
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -210,17 +244,22 @@ class AccountTypesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="account_type",
      *     parameter="account_type",
      *     description="AccountType id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="data",
      *         type="object",
@@ -233,28 +272,30 @@ class AccountTypesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   )
      * )
      *
      * Update the specified resource in storage.
      *
-     * @param  AccountTypeRequest  $request
-     * @param  AccountType  $record
      * @return AccountTypeResource
      */
     public function update(AccountTypeRequest $request, AccountType $record)
     {
         $result = AccountTypeService::update($record, $request)
-                                    ->getResult();
+            ->getResult();
 
         return (new AccountTypeResource($result))->additional(['message' => 'AccountType updated']);
     }
@@ -264,7 +305,9 @@ class AccountTypesController extends ApiController
      *   tags={"AccountTypesController"},
      *   path="/api/account_types/{account_type}",
      *   summary="Delete a account_type",
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="string"),
      *     in="query",
      *     allowReserved=true,
@@ -272,17 +315,22 @@ class AccountTypesController extends ApiController
      *     parameter="api_token",
      *     description="Personal api_token of the user"
      *   ),
+     *
      *   @OA\Parameter(
+     *
      *     @OA\Schema(type="integer"),
      *     in="path",
      *     name="account_type",
      *     parameter="account_type",
      *     description="AccountType id"
      *   ),
+     *
      *   @OA\Response(
      *     response=200,
      *     description="Success",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="message",
      *         type="string",
@@ -290,20 +338,27 @@ class AccountTypesController extends ApiController
      *       )
      *     )
      *   ),
+     *
      *   @OA\Response(
      *     response="403",
      *     description="Access denied",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/AccessDenied"),
      *   ),
+     *
      *   @OA\Response(
      *     response="404",
      *     description="Not found",
+     *
      *     @OA\JsonContent(ref="#/components/schemas/NotFound"),
      *   ),
+     *
      *   @OA\Response(
      *     response="400",
      *     description="Bad request",
+     *
      *     @OA\JsonContent(
+     *
      *       @OA\Property(
      *         property="message",
      *         type="string",
@@ -315,13 +370,12 @@ class AccountTypesController extends ApiController
      *
      * Remove the specified resource from storage.
      *
-     * @param  AccountType  $record
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy(AccountType $record)
     {
         $result = AccountTypeService::delete($record)
-                                    ->getResult();
+            ->getResult();
 
         if ($result) {
             return response()->json(['message' => 'AccountType deleted']);

@@ -2,11 +2,13 @@
 
 namespace Partymeister\Accounting\Http\Resources;
 
+use Illuminate\Http\Request;
 use Motor\Admin\Http\Resources\BaseResource;
 
 /**
  * @OA\Schema(
  *   schema="ItemTypeResource",
+ *
  *   @OA\Property(
  *     property="id",
  *     type="integer",
@@ -34,17 +36,17 @@ class ItemTypeResource extends BaseResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-            'id'            => (int) $this->id,
-            'name'          => $this->name,
-            'is_visible'    => (bool) $this->is_visible,
+            'id' => (int) $this->id,
+            'name' => $this->name,
+            'is_visible' => (bool) $this->is_visible,
             'sort_position' => (int) $this->sort_position,
-            'items'         => ItemResource::collection($this->whenLoaded('items')),
+            'items' => ItemResource::collection($this->whenLoaded('items')),
         ];
     }
 }

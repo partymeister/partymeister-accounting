@@ -17,7 +17,7 @@ class ItemTypeGrid extends Grid
         $this->addColumn('item_count', trans('partymeister-accounting::backend/items.items'));
         $this->addColumn('sort_position', trans('motor-admin::backend/global.sort_position'), true);
         $this->addColumn('is_visible', trans('motor-admin::backend/global.is_visible'))
-             ->renderer(BooleanRenderer::class);
+            ->renderer(BooleanRenderer::class);
         $this->addEditAction(trans('motor-admin::backend/global.edit'), 'backend.item_types.edit');
         $this->addDeleteAction(trans('motor-admin::backend/global.delete'), 'backend.item_types.destroy');
     }

@@ -39,9 +39,7 @@ class PartymeisterServiceProvider extends ServiceProvider
         merge_local_config_with_db_configuration_variables('partymeister-accounting');
     }
 
-    public function config()
-    {
-    }
+    public function config() {}
 
     public function routes()
     {
@@ -130,8 +128,8 @@ class PartymeisterServiceProvider extends ServiceProvider
     {
         $assets = [
             __DIR__.'/../../resources/assets/sass' => resource_path('assets/sass'),
-            __DIR__.'/../../resources/assets/js'   => resource_path('assets/js'),
-            __DIR__.'/../../resources/assets/npm'  => resource_path('assets/npm'),
+            __DIR__.'/../../resources/assets/js' => resource_path('assets/js'),
+            __DIR__.'/../../resources/assets/npm' => resource_path('assets/npm'),
         ];
 
         $this->publishes($assets, 'partymeister-accounting-install-resources');

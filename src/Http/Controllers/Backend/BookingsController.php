@@ -2,7 +2,11 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Backend;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 use Motor\Admin\Http\Controllers\Controller;
 use Partymeister\Accounting\Forms\Backend\BookingForm;
@@ -21,7 +25,7 @@ class BookingsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      *
      * @throws \ReflectionException
      */
@@ -44,8 +48,8 @@ class BookingsController extends Controller
     public function create()
     {
         $form = $this->form(BookingForm::class, [
-            'method'  => 'POST',
-            'route'   => 'backend.bookings.store',
+            'method' => 'POST',
+            'route' => 'backend.bookings.store',
             'enctype' => 'multipart/form-data',
         ]);
 
@@ -55,8 +59,7 @@ class BookingsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  BookingRequest  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function store(BookingRequest $request)
     {
@@ -79,8 +82,6 @@ class BookingsController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param $id
      */
     public function show($id)
     {
@@ -90,16 +91,15 @@ class BookingsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Booking  $record
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Booking $record)
     {
         $form = $this->form(BookingForm::class, [
-            'method'  => 'PATCH',
-            'url'     => route('backend.bookings.update', [$record->id]),
+            'method' => 'PATCH',
+            'url' => route('backend.bookings.update', [$record->id]),
             'enctype' => 'multipart/form-data',
-            'model'   => $record,
+            'model' => $record,
         ]);
 
         return view('partymeister-accounting::backend.bookings.edit', compact('form'));
@@ -108,9 +108,7 @@ class BookingsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  BookingRequest  $request
-     * @param  Booking  $record
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function update(BookingRequest $request, Booking $record)
     {
@@ -134,8 +132,7 @@ class BookingsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Booking  $record
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function destroy(Booking $record)
     {

@@ -2,7 +2,11 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Backend;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 use Motor\Admin\Http\Controllers\Controller;
 use Partymeister\Accounting\Forms\Backend\AccountForm;
@@ -21,7 +25,7 @@ class AccountsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      *
      * @throws \ReflectionException
      */
@@ -44,8 +48,8 @@ class AccountsController extends Controller
     public function create()
     {
         $form = $this->form(AccountForm::class, [
-            'method'  => 'POST',
-            'route'   => 'backend.accounts.store',
+            'method' => 'POST',
+            'route' => 'backend.accounts.store',
             'enctype' => 'multipart/form-data',
         ]);
 
@@ -55,8 +59,7 @@ class AccountsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  AccountRequest  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function store(AccountRequest $request)
     {
@@ -79,8 +82,6 @@ class AccountsController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param $id
      */
     public function show($id)
     {
@@ -90,16 +91,15 @@ class AccountsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Account  $record
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Account $record)
     {
         $form = $this->form(AccountForm::class, [
-            'method'  => 'PATCH',
-            'url'     => route('backend.accounts.update', [$record->id]),
+            'method' => 'PATCH',
+            'url' => route('backend.accounts.update', [$record->id]),
             'enctype' => 'multipart/form-data',
-            'model'   => $record,
+            'model' => $record,
         ]);
 
         return view('partymeister-accounting::backend.accounts.edit', compact('form'));
@@ -108,9 +108,7 @@ class AccountsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  AccountRequest  $request
-     * @param  Account  $record
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function update(AccountRequest $request, Account $record)
     {
@@ -134,8 +132,7 @@ class AccountsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Account  $record
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function destroy(Account $record)
     {

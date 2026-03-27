@@ -20,40 +20,35 @@ class PosInterfacesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Account  $record
      * @return Factory|View
      */
     public function show(Account $record)
     {
         $booking = Booking::where('to_account_id', $record->id)
-                          ->orderBy('created_at', 'DESC')
-                          ->first();
+            ->orderBy('created_at', 'DESC')
+            ->first();
 
-        $last_booking = "{}";
+        $last_booking = '{}';
 
-        if (!is_null($booking)) {
-            $last_booking = json_encode( (new BookingResource($booking))->toArrayRecursive());
+        if (! is_null($booking)) {
+            $last_booking = json_encode((new BookingResource($booking))->toArrayRecursive());
         }
-
 
         return view('partymeister-accounting::layouts.pos_interface', compact('record', 'last_booking'));
     }
 
     /**
-     * @param  Account  $record
      * @return Factory|View
      */
     public function edit(Account $record)
     {
         $itemTypes = ItemType::orderBy('sort_position', 'ASC')
-                             ->get();
+            ->get();
 
         return view('partymeister-accounting::layouts.pos_interface_editor', compact('record', 'itemTypes'));
     }
 
     /**
-     * @param  Account  $record
-     * @param  PosInterfaceRequest  $request
      * @return JsonResponse
      */
     public function update(Account $record, PosInterfaceRequest $request)
@@ -65,8 +60,6 @@ class PosInterfacesController extends Controller
     }
 
     /**
-     * @param  PosInterfaceRequest  $request
-     * @param  Account  $record
      * @return JsonResponse
      */
     public function create(PosInterfaceRequest $request, Account $record)

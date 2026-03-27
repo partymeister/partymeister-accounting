@@ -2,11 +2,13 @@
 
 namespace Partymeister\Accounting\Http\Resources;
 
+use Illuminate\Http\Request;
 use Motor\Admin\Http\Resources\BaseResource;
 
 /**
  * @OA\Schema(
  *   schema="SaleResource",
+ *
  *   @OA\Property(
  *     property="id",
  *     type="integer",
@@ -59,19 +61,19 @@ class SaleResource extends BaseResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return array
      */
     public function toArray($request)
     {
         return [
-            'id'                => (int) $this->id,
-            'earnings_booking'  => new BookingResource($this->earnings_booking_id),
-            'cost_booking'      => new BookingResource($this->cost_booking_id),
-            'item'              => new ItemResource($this->item_id),
-            'quantity'          => (int) $this->quantity,
-            'vat_percentage'    => (float) $this->vat_percentage,
-            'price_with_vat'    => (float) $this->price_with_vat,
+            'id' => (int) $this->id,
+            'earnings_booking' => new BookingResource($this->earnings_booking_id),
+            'cost_booking' => new BookingResource($this->cost_booking_id),
+            'item' => new ItemResource($this->item_id),
+            'quantity' => (int) $this->quantity,
+            'vat_percentage' => (float) $this->vat_percentage,
+            'price_with_vat' => (float) $this->price_with_vat,
             'price_without_vat' => (float) $this->price_without_vat,
             'currency_iso_4217' => $this->currency_iso_4217,
         ];

@@ -12,6 +12,7 @@ class ItemRequest extends Request
     /**
      * @OA\Schema(
      *   schema="ItemRequest",
+     *
      *   @OA\Property(
      *     property="name",
      *     type="string",
@@ -118,22 +119,22 @@ class ItemRequest extends Request
     public function rules()
     {
         return [
-            'item_type_id'                     => 'required',
-            'name'                             => 'required',
-            'description'                      => 'nullable',
-            'internal_description'             => 'nullable',
-            'vat_percentage'                   => 'required|numeric',
-            'price_with_vat'                   => 'required|numeric',
-            'price_without_vat'                => 'nullable|numeric',
-            'cost_price_with_vat'              => 'required|numeric',
-            'cost_price_without_vat'           => 'nullable|numeric',
-            'can_be_ordered'                   => 'nullable|boolean',
-            'is_visible'                       => 'nullable|boolean',
-            'sort_position'                    => 'nullable|integer',
+            'item_type_id' => 'required',
+            'name' => 'required',
+            'description' => 'nullable',
+            'internal_description' => 'nullable',
+            'vat_percentage' => 'required|numeric',
+            'price_with_vat' => 'required|numeric',
+            'price_without_vat' => 'nullable|numeric',
+            'cost_price_with_vat' => 'required|numeric',
+            'cost_price_without_vat' => 'nullable|numeric',
+            'can_be_ordered' => 'nullable|boolean',
+            'is_visible' => 'nullable|boolean',
+            'sort_position' => 'nullable|integer',
             'pos_can_book_negative_quantities' => 'nullable|boolean',
-            'pos_cost_account_id'              => 'nullable|integer',
-            'pos_create_booking_for_item_id'   => 'nullable|integer',
-            'currency_iso_4217'                => 'currency_compatibility',
+            'pos_cost_account_id' => 'nullable|integer',
+            'pos_create_booking_for_item_id' => 'nullable|integer',
+            'currency_iso_4217' => 'currency_compatibility',
         ];
     }
 }

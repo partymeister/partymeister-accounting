@@ -2,7 +2,11 @@
 
 namespace Partymeister\Accounting\Http\Controllers\Backend;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 use Kris\LaravelFormBuilder\FormBuilderTrait;
 use Motor\Admin\Http\Controllers\Controller;
 use Partymeister\Accounting\Forms\Backend\ItemForm;
@@ -21,7 +25,7 @@ class ItemsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      *
      * @throws \ReflectionException
      */
@@ -44,8 +48,8 @@ class ItemsController extends Controller
     public function create()
     {
         $form = $this->form(ItemForm::class, [
-            'method'  => 'POST',
-            'route'   => 'backend.items.store',
+            'method' => 'POST',
+            'route' => 'backend.items.store',
             'enctype' => 'multipart/form-data',
         ]);
 
@@ -55,8 +59,7 @@ class ItemsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ItemRequest  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function store(ItemRequest $request)
     {
@@ -79,8 +82,6 @@ class ItemsController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param $id
      */
     public function show($id)
     {
@@ -90,16 +91,15 @@ class ItemsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Item  $record
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(Item $record)
     {
         $form = $this->form(ItemForm::class, [
-            'method'  => 'PATCH',
-            'url'     => route('backend.items.update', [$record->id]),
+            'method' => 'PATCH',
+            'url' => route('backend.items.update', [$record->id]),
             'enctype' => 'multipart/form-data',
-            'model'   => $record,
+            'model' => $record,
         ]);
 
         return view('partymeister-accounting::backend.items.edit', compact('form'));
@@ -108,9 +108,7 @@ class ItemsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  ItemRequest  $request
-     * @param  Item  $record
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function update(ItemRequest $request, Item $record)
     {
@@ -134,8 +132,7 @@ class ItemsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Item  $record
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function destroy(Item $record)
     {

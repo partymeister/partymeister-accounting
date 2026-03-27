@@ -12,6 +12,7 @@ class AccountTypeRequest extends Request
     /**
      * @OA\Schema(
      *   schema="AccountTypeRequest",
+     *
      *   @OA\Property(
      *     property="name",
      *     type="string",

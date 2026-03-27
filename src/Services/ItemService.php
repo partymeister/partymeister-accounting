@@ -14,7 +14,7 @@ class ItemService extends BaseService
 {
     protected string $model = Item::class;
 
-    protected array $loadColumns = ['item_type', 'pos_cost_account'];
+    protected array $loadColumns = ['item_type', 'pos_cost_account', 'pos_create_booking_for_item'];
 
     public function filters(): void
     {

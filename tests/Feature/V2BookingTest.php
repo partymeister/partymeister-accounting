@@ -16,34 +16,30 @@ beforeEach(function () {
     ]);
     $user->assignRole($role);
 
-    $type = AccountType::create(['name' => 'Cash']);
-    $from = Account::create([
+    $type = AccountType::factory()->create(['name' => 'Cash']);
+    $from = Account::factory()->create([
         'name' => 'Customer',
         'account_type_id' => $type->id,
-        'currency_iso_4217' => 'EUR',
     ]);
-    $to = Account::create([
+    $to = Account::factory()->create([
         'name' => 'POS',
         'account_type_id' => $type->id,
-        'currency_iso_4217' => 'EUR',
         'has_pos' => true,
     ]);
 
-    Booking::create([
+    Booking::factory()->create([
         'description' => '2x Water',
         'vat_percentage' => 19,
         'price_with_vat' => 5.00,
         'price_without_vat' => 4.20,
-        'currency_iso_4217' => 'EUR',
         'to_account_id' => $to->id,
         'is_manual_booking' => false,
     ]);
-    Booking::create([
+    Booking::factory()->create([
         'description' => '1x Beer',
         'vat_percentage' => 19,
         'price_with_vat' => 3.00,
         'price_without_vat' => 2.52,
-        'currency_iso_4217' => 'EUR',
         'to_account_id' => $to->id,
         'is_manual_booking' => false,
     ]);
@@ -107,8 +103,8 @@ describe('V2 Bookings API', function () {
     });
 
     it('rejects mismatched currency between booking and account', function () {
-        $usdType = AccountType::create(['name' => 'USD Type']);
-        $usdAccount = Account::create([
+        $usdType = AccountType::factory()->create(['name' => 'USD Type']);
+        $usdAccount = Account::factory()->create([
             'name' => 'USD Account',
             'account_type_id' => $usdType->id,
             'currency_iso_4217' => 'USD',

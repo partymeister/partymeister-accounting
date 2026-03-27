@@ -15,39 +15,29 @@ beforeEach(function () {
     ]);
     $user->assignRole($role);
 
-    $type = ItemType::create(['name' => 'Beverages', 'is_visible' => true, 'sort_position' => 1]);
+    $type = ItemType::factory()->create(['name' => 'Beverages', 'is_visible' => true, 'sort_position' => 1]);
 
-    Item::create([
+    Item::factory()->create([
         'name' => 'Water',
         'description' => '1L PET',
-        'internal_description' => '',
         'item_type_id' => $type->id,
         'vat_percentage' => 19,
         'price_with_vat' => 2.50,
         'price_without_vat' => 2.10,
         'cost_price_with_vat' => 0.50,
         'cost_price_without_vat' => 0.42,
-        'currency_iso_4217' => 'EUR',
-        'can_be_ordered' => false,
-        'is_visible' => true,
         'sort_position' => 1,
-        'pos_can_book_negative_quantities' => false,
     ]);
-    Item::create([
+    Item::factory()->create([
         'name' => 'Beer',
         'description' => '0.5L',
-        'internal_description' => '',
         'item_type_id' => $type->id,
         'vat_percentage' => 19,
         'price_with_vat' => 3.00,
         'price_without_vat' => 2.52,
         'cost_price_with_vat' => 1.00,
         'cost_price_without_vat' => 0.84,
-        'currency_iso_4217' => 'EUR',
-        'can_be_ordered' => false,
-        'is_visible' => true,
         'sort_position' => 2,
-        'pos_can_book_negative_quantities' => false,
     ]);
 });
 

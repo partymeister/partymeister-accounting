@@ -5,7 +5,6 @@ use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Models\AccountType;
 use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Models\Item;
-use Partymeister\Accounting\Models\ItemType;
 use Partymeister\Accounting\Models\Sale;
 use Spatie\Permission\Models\Role;
 
@@ -19,43 +18,37 @@ beforeEach(function () {
     ]);
     $user->assignRole($role);
 
-    $accountType = AccountType::create(['name' => 'Cash']);
-    $account = Account::create([
+    $accountType = AccountType::factory()->create(['name' => 'Cash']);
+    $account = Account::factory()->create([
         'name' => 'POS',
         'account_type_id' => $accountType->id,
-        'currency_iso_4217' => 'EUR',
         'has_pos' => true,
     ]);
 
-    $itemType = ItemType::create(['name' => 'Beverages', 'is_visible' => true, 'sort_position' => 1]);
-    $item = Item::create([
+    $item = Item::factory()->create([
         'name' => 'Water',
-        'item_type_id' => $itemType->id,
         'vat_percentage' => 19,
         'price_with_vat' => 2.50,
         'price_without_vat' => 2.10,
         'cost_price_with_vat' => 0.50,
         'cost_price_without_vat' => 0.42,
-        'currency_iso_4217' => 'EUR',
     ]);
 
-    $booking = Booking::create([
+    $booking = Booking::factory()->create([
         'description' => '2x Water',
         'vat_percentage' => 19,
         'price_with_vat' => 5.00,
         'price_without_vat' => 4.20,
-        'currency_iso_4217' => 'EUR',
         'to_account_id' => $account->id,
     ]);
 
-    Sale::create([
+    Sale::factory()->create([
         'item_id' => $item->id,
         'earnings_booking_id' => $booking->id,
         'quantity' => 2,
         'vat_percentage' => 19,
         'price_with_vat' => 5.00,
         'price_without_vat' => 4.20,
-        'currency_iso_4217' => 'EUR',
     ]);
 });
 

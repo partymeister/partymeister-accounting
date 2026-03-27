@@ -14,8 +14,8 @@ beforeEach(function () {
     ]);
     $user->assignRole($role);
 
-    ItemType::create(['name' => 'Beverages', 'is_visible' => true, 'sort_position' => 1]);
-    ItemType::create(['name' => 'Merchandise', 'is_visible' => true, 'sort_position' => 2]);
+    ItemType::factory()->create(['name' => 'Beverages', 'is_visible' => true, 'sort_position' => 1]);
+    ItemType::factory()->create(['name' => 'Merchandise', 'is_visible' => true, 'sort_position' => 2]);
 });
 
 describe('V2 ItemTypes API', function () {

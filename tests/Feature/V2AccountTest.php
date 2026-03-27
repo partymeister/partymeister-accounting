@@ -15,21 +15,17 @@ beforeEach(function () {
     ]);
     $user->assignRole($role);
 
-    $type = AccountType::create(['name' => 'Cash']);
+    $type = AccountType::factory()->create(['name' => 'Cash']);
 
-    Account::create([
+    Account::factory()->create([
         'name' => 'POS',
         'account_type_id' => $type->id,
-        'currency_iso_4217' => 'EUR',
         'has_pos' => true,
-        'pos_configuration' => [],
     ]);
-    Account::create([
+    Account::factory()->create([
         'name' => 'Cost Account',
         'account_type_id' => $type->id,
-        'currency_iso_4217' => 'EUR',
         'has_pos' => false,
-        'pos_configuration' => [],
     ]);
 });
 

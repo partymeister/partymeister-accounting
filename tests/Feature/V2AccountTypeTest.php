@@ -14,8 +14,8 @@ beforeEach(function () {
     ]);
     $user->assignRole($role);
 
-    AccountType::create(['name' => 'Cash']);
-    AccountType::create(['name' => 'Card']);
+    AccountType::factory()->create(['name' => 'Cash']);
+    AccountType::factory()->create(['name' => 'Card']);
 });
 
 describe('V2 AccountTypes API', function () {

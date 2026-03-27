@@ -1,12 +1,19 @@
 <?php
 
+use Partymeister\Accounting\Models\Account;
+use Partymeister\Accounting\Models\AccountType;
+use Partymeister\Accounting\Models\Booking;
+use Partymeister\Accounting\Models\Item;
+use Partymeister\Accounting\Models\ItemType;
+use Partymeister\Accounting\Models\Sale;
+
 /**
  * @param  int  $count
  * @return mixed
  */
 function create_test_account_type($count = 1)
 {
-    return factory(Partymeister\Accounting\Models\AccountType::class, $count)->create();
+    return factory(AccountType::class, $count)->create();
 }
 
 /**
@@ -15,7 +22,7 @@ function create_test_account_type($count = 1)
  */
 function create_test_account($count = 1)
 {
-    return factory(Partymeister\Accounting\Models\Account::class, $count)->create();
+    return factory(Account::class, $count)->create();
 }
 
 /**
@@ -24,7 +31,7 @@ function create_test_account($count = 1)
  */
 function create_test_booking($count = 1)
 {
-    return factory(Partymeister\Accounting\Models\Booking::class, $count)->create();
+    return factory(Booking::class, $count)->create();
 }
 
 /**
@@ -33,7 +40,7 @@ function create_test_booking($count = 1)
  */
 function create_test_item_type($count = 1)
 {
-    return factory(Partymeister\Accounting\Models\ItemType::class, $count)->create();
+    return factory(ItemType::class, $count)->create();
 }
 
 /**
@@ -42,18 +49,17 @@ function create_test_item_type($count = 1)
  */
 function create_test_item($count = 1)
 {
-    return factory(Partymeister\Accounting\Models\Item::class, $count)->create();
+    return factory(Item::class, $count)->create();
 }
 
 /**
- * @param    $earningsAccountId
  * @param  int  $count
  * @return mixed
  */
 function create_test_items_for_earnings_account($earningsAccountId, $count = 1)
 {
     return factory(
-        Partymeister\Accounting\Models\Item::class,
+        Item::class,
         $count
     )->create(['pos_earnings_account_id' => $earningsAccountId]);
 }
@@ -64,5 +70,5 @@ function create_test_items_for_earnings_account($earningsAccountId, $count = 1)
  */
 function create_test_sale($count = 1)
 {
-    return factory(Partymeister\Accounting\Models\Sale::class, $count)->create();
+    return factory(Sale::class, $count)->create();
 }

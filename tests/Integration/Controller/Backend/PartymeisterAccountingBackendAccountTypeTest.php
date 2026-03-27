@@ -12,24 +12,12 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $readPermission;
 
-    /**
-     * @var
-     */
     protected $writePermission;
 
-    /**
-     * @var
-     */
     protected $deletePermission;
 
     /**
@@ -48,7 +36,7 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -86,12 +74,12 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
     {
         $record = create_test_account_type();
         $this->visit('/backend/account_types')
-             ->within('table', function () {
-                 $this->click('Edit');
-             })
-             ->seePageIs('/backend/account_types/'.$record->id.'/edit')
-             ->click('back')
-             ->seePageIs('/backend/account_types');
+            ->within('table', function () {
+                $this->click('Edit');
+            })
+            ->seePageIs('/backend/account_types/'.$record->id.'/edit')
+            ->click('back')
+            ->seePageIs('/backend/account_types');
     }
 
     /** @test */
@@ -100,14 +88,14 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
         $record = create_test_account_type();
 
         $this->visit('/backend/account_types/'.$record->id.'/edit')
-             ->see($record->name)
-             ->type('Updated Account type', 'name')
-             ->within('.box-footer', function () {
-                 $this->press('Save account type');
-             })
-             ->see('Account type updated')
-             ->see('Updated Account type')
-             ->seePageIs('/backend/account_types');
+            ->see($record->name)
+            ->type('Updated Account type', 'name')
+            ->within('.box-footer', function () {
+                $this->press('Save account type');
+            })
+            ->see('Account type updated')
+            ->see('Updated Account type')
+            ->seePageIs('/backend/account_types');
 
         $record = AccountType::find($record->id);
         $this->assertEquals('Updated Account type', $record->name);
@@ -117,22 +105,22 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
     public function can_click_the_create_button()
     {
         $this->visit('/backend/account_types')
-             ->click('Create account type')
-             ->seePageIs('/backend/account_types/create');
+            ->click('Create account type')
+            ->seePageIs('/backend/account_types/create');
     }
 
     /** @test */
     public function can_create_a_new_account_type()
     {
         $this->visit('/backend/account_types/create')
-             ->see('Create account type')
-             ->type('Create Account type Name', 'name')
-             ->within('.box-footer', function () {
-                 $this->press('Save account type');
-             })
-             ->see('Account type created')
-             ->see('Create Account type Name')
-             ->seePageIs('/backend/account_types');
+            ->see('Create account type')
+            ->type('Create Account type Name', 'name')
+            ->within('.box-footer', function () {
+                $this->press('Save account type');
+            })
+            ->see('Account type created')
+            ->see('Create Account type Name')
+            ->seePageIs('/backend/account_types');
     }
 
     /** @test */
@@ -148,14 +136,14 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
     {
         $record = create_test_account_type();
         $this->visit('/backend/account_types/'.$record->id.'/edit')
-             ->see('Edit account type')
-             ->type('Modified Account type Name', 'name')
-             ->within('.box-footer', function () {
-                 $this->press('Save account type');
-             })
-             ->see('Account type updated')
-             ->see('Modified Account type Name')
-             ->seePageIs('/backend/account_types');
+            ->see('Edit account type')
+            ->type('Modified Account type Name', 'name')
+            ->within('.box-footer', function () {
+                $this->press('Save account type');
+            })
+            ->see('Account type updated')
+            ->see('Modified Account type Name')
+            ->seePageIs('/backend/account_types');
     }
 
     /** @test */
@@ -186,9 +174,9 @@ class PartymeisterAccountingBackendAccountTypeTest extends TestCase
     {
         $records = create_test_account_type(10);
         $this->visit('/backend/account_types')
-             ->type(substr($records[6]->name, 0, 3), 'search')
-             ->press('grid-search-button')
-             ->seeInField('search', substr($records[6]->name, 0, 3))
-             ->see($records[6]->name);
+            ->type(substr($records[6]->name, 0, 3), 'search')
+            ->press('grid-search-button')
+            ->seeInField('search', substr($records[6]->name, 0, 3))
+            ->see($records[6]->name);
     }
 }

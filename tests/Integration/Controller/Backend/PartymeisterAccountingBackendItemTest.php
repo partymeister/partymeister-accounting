@@ -12,24 +12,12 @@ class PartymeisterAccountingBackendItemTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $readPermission;
 
-    /**
-     * @var
-     */
     protected $writePermission;
 
-    /**
-     * @var
-     */
     protected $deletePermission;
 
     /**
@@ -51,7 +39,7 @@ class PartymeisterAccountingBackendItemTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -99,15 +87,15 @@ class PartymeisterAccountingBackendItemTest extends TestCase
         $record = create_test_item();
 
         $this->visit('/backend/items/'.$record->id.'/edit')
-             ->see($record->name)
-             ->type('Updated Item', 'name')
-             ->type('Updated Item Description', 'description')
-             ->within('.box-footer', function () {
-                 $this->press('Save item');
-             })
-             ->see('Item updated')
-             ->see('Updated Item')
-             ->seePageIs('/backend/items');
+            ->see($record->name)
+            ->type('Updated Item', 'name')
+            ->type('Updated Item Description', 'description')
+            ->within('.box-footer', function () {
+                $this->press('Save item');
+            })
+            ->see('Item updated')
+            ->see('Updated Item')
+            ->seePageIs('/backend/items');
 
         $record = Item::find($record->id);
         $this->assertEquals('Updated Item', $record->name);
@@ -124,16 +112,16 @@ class PartymeisterAccountingBackendItemTest extends TestCase
     {
         $item_type = create_test_item_type();
         $this->visit('/backend/items/create')
-             ->see('Create item')
-             ->type($item_type->id, 'item_type_id')
-             ->type('Create Item Name', 'name')
-             ->type('Create Item Description', 'description')
-             ->within('.box-footer', function () {
-                 $this->press('Save item');
-             })
-             ->see('Item created')
-             ->see('Create Item Name')
-             ->seePageIs('/backend/items');
+            ->see('Create item')
+            ->type($item_type->id, 'item_type_id')
+            ->type('Create Item Name', 'name')
+            ->type('Create Item Description', 'description')
+            ->within('.box-footer', function () {
+                $this->press('Save item');
+            })
+            ->see('Item created')
+            ->see('Create Item Name')
+            ->seePageIs('/backend/items');
     }
 
     /** @test */
@@ -149,15 +137,15 @@ class PartymeisterAccountingBackendItemTest extends TestCase
     {
         $record = create_test_item();
         $this->visit('/backend/items/'.$record->id.'/edit')
-             ->see('Edit item')
-             ->type('Modified Item Name', 'name')
-             ->type('Modified Item Description', 'description')
-             ->within('.box-footer', function () {
-                 $this->press('Save item');
-             })
-             ->see('Item updated')
-             ->see('Modified Item Name')
-             ->seePageIs('/backend/items');
+            ->see('Edit item')
+            ->type('Modified Item Name', 'name')
+            ->type('Modified Item Description', 'description')
+            ->within('.box-footer', function () {
+                $this->press('Save item');
+            })
+            ->see('Item updated')
+            ->see('Modified Item Name')
+            ->seePageIs('/backend/items');
     }
 
     /** @test */
@@ -188,9 +176,9 @@ class PartymeisterAccountingBackendItemTest extends TestCase
     {
         $records = create_test_item(10);
         $this->visit('/backend/items')
-             ->type(substr($records[6]->name, 0, 3), 'search')
-             ->press('grid-search-button')
-             ->seeInField('search', substr($records[6]->name, 0, 3))
-             ->see($records[6]->name);
+            ->type(substr($records[6]->name, 0, 3), 'search')
+            ->press('grid-search-button')
+            ->seeInField('search', substr($records[6]->name, 0, 3))
+            ->see($records[6]->name);
     }
 }

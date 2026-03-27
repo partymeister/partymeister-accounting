@@ -12,24 +12,12 @@ class PartymeisterAccountingSalesTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $sale;
 
-    /**
-     * @var
-     */
     protected $booking;
 
-    /**
-     * @var
-     */
     protected $item;
 
     /**
@@ -51,7 +39,7 @@ class PartymeisterAccountingSalesTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -71,7 +59,7 @@ class PartymeisterAccountingSalesTest extends TestCase
     {
         $booking = create_test_booking();
         $item = create_test_item();
-        $sale = new Sale();
+        $sale = new Sale;
         $sale->earnings_booking_id = $booking->id;
         $sale->item_id = $item->id;
         $sale->quantity = -2;

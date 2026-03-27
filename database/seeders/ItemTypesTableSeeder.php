@@ -20,29 +20,29 @@ class ItemTypesTableSeeder extends Seeder
     {
         $itemTypes = [
             [
-                'name'          => 'Beverages',
+                'name' => 'Beverages',
                 'sort_position' => 10,
-                'is_visible'    => true,
+                'is_visible' => true,
             ],
             [
-                'name'          => 'Entrance',
+                'name' => 'Entrance',
                 'sort_position' => 20,
-                'is_visible'    => true,
+                'is_visible' => true,
             ],
             [
-                'name'          => 'Merchandise',
+                'name' => 'Merchandise',
                 'sort_position' => 30,
-                'is_visible'    => true,
+                'is_visible' => true,
             ],
         ];
 
         foreach ($itemTypes as $itemType) {
             DB::table('item_types')->insert([
-                'name'          => $itemType['name'],
+                'name' => $itemType['name'],
                 'sort_position' => $itemType['sort_position'],
-                'is_visible'    => $itemType['is_visible'],
-                'created_by'    => User::get()->first()->id,
-                'updated_by'    => User::get()->first()->id,
+                'is_visible' => $itemType['is_visible'],
+                'created_by' => User::get()->first()->id,
+                'updated_by' => User::get()->first()->id,
             ]);
         }
     }

@@ -4,8 +4,6 @@ namespace Partymeister\Accounting\Http\Resources\V2;
 
 use Motor\Core\Http\Resources\V2\BaseResource;
 use Partymeister\Accounting\Models\Account;
-use Partymeister\Accounting\Models\Booking;
-use Partymeister\Accounting\Models\Item;
 
 /**
  * @mixin Account
@@ -15,14 +13,7 @@ class PosLayoutResource extends BaseResource
     public function toArray($request): array
     {
         $config = $this->pos_configuration ?? [];
-
-        $itemIds = collect($config)
-            ->flatten()
-            ->filter(fn ($id) => $id !== 'separator')
-            ->unique()
-            ->values();
-
-        $items = Item::whereIn('id', $itemIds)->get()->keyBy('id');
+        $items = $this->pos_items ?? collect();
 
         $zones = [];
         foreach ($config as $zoneNumber => $zoneItems) {
@@ -43,9 +34,7 @@ class PosLayoutResource extends BaseResource
             }
         }
 
-        $lastBooking = Booking::where('to_account_id', $this->id)
-            ->orderBy('created_at', 'DESC')
-            ->first();
+        $lastBooking = $this->pos_last_booking;
 
         return [
             'account' => [

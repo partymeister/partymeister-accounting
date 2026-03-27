@@ -11,24 +11,12 @@ class PartymeisterAccountingApiSaleTest extends TestCase
 {
     use DatabaseTransactions;
 
-    /**
-     * @var
-     */
     protected $user;
 
-    /**
-     * @var
-     */
     protected $readPermission;
 
-    /**
-     * @var
-     */
     protected $writePermission;
 
-    /**
-     * @var
-     */
     protected $deletePermission;
 
     /**
@@ -47,7 +35,7 @@ class PartymeisterAccountingApiSaleTest extends TestCase
         'media',
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -85,10 +73,10 @@ class PartymeisterAccountingApiSaleTest extends TestCase
         $this->user->givePermissionTo($this->readPermission);
         $record = create_test_sale();
         $this->json('GET', '/api/sales/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(200)
-             ->seeJson([
-                 'quantity' => $record->quantity,
-             ]);
+            ->seeStatusCode(200)
+            ->seeJson([
+                'quantity' => $record->quantity,
+            ]);
     }
 
     /** @test */
@@ -96,10 +84,10 @@ class PartymeisterAccountingApiSaleTest extends TestCase
     {
         $record = create_test_sale();
         $this->json('GET', '/api/sales/'.$record->id.'?api_token='.$this->user->api_token)
-             ->seeStatusCode(403)
-             ->seeJson([
-                 'error' => 'Access denied.',
-             ]);
+            ->seeStatusCode(403)
+            ->seeJson([
+                'error' => 'Access denied.',
+            ]);
     }
 
     /** @test */
@@ -127,11 +115,11 @@ class PartymeisterAccountingApiSaleTest extends TestCase
         $this->user->givePermissionTo($this->readPermission);
         $records = create_test_sale(10);
         $this->json('GET', '/api/sales?api_token='.$this->user->api_token.'&search='.$records[2]->name)
-             ->seeStatusCode(200)
-             ->seeJson([
-                 'quantity'    => $records[2]->quantity,
-                 'description' => $records[2]->earnings_booking->description,
-             ]);
+            ->seeStatusCode(200)
+            ->seeJson([
+                'quantity' => $records[2]->quantity,
+                'description' => $records[2]->earnings_booking->description,
+            ]);
     }
 
     /** @test */

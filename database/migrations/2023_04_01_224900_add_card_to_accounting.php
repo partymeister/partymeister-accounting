@@ -6,7 +6,8 @@ use Illuminate\Database\Schema\Blueprint;
 /**
  * Class CreateAccountsTable
  */
-return new class extends Migration{
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -16,11 +17,11 @@ return new class extends Migration{
     {
         Schema::table('accounts', function (Blueprint $table) {
             $table->boolean('has_card_payments')
-                  ->after('has_pos')
-                  ->default(false);
+                ->after('has_pos')
+                ->default(false);
             $table->boolean('has_coupon_payments')
-                  ->after('has_pos')
-                  ->default(false);
+                ->after('has_pos')
+                ->default(false);
         });
     }
 

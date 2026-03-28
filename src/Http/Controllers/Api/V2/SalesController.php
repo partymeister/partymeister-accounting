@@ -14,7 +14,7 @@ use Partymeister\Accounting\Models\Sale;
 use Partymeister\Accounting\Services\SaleService;
 
 /**
- * @tags Sales
+ * @tags Accounting: Sales
  */
 class SalesController extends ApiController
 {

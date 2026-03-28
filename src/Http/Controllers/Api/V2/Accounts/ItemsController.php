@@ -7,6 +7,9 @@ use Partymeister\Accounting\Http\Resources\V2\ItemCollection;
 use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Models\Item;
 
+/**
+ * @tags Accounting: Accounts
+ */
 class ItemsController extends Controller
 {
     public function index(Account $account): ItemCollection

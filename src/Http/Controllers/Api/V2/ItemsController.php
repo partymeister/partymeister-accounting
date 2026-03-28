@@ -14,7 +14,7 @@ use Partymeister\Accounting\Models\Item;
 use Partymeister\Accounting\Services\ItemService;
 
 /**
- * @tags Items
+ * @tags Accounting: Items
  */
 class ItemsController extends ApiController
 {

@@ -9,6 +9,9 @@ use Partymeister\Accounting\Http\Resources\V2\BookingResource;
 use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Models\Booking;
 
+/**
+ * @tags Accounting: POS
+ */
 class BookController extends Controller
 {
     public function __invoke(BookPostRequest $request, Account $account): JsonResponse

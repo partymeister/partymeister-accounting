@@ -14,7 +14,7 @@ use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Services\BookingService;
 
 /**
- * @tags Bookings
+ * @tags Accounting: Bookings
  */
 class BookingsController extends ApiController
 {

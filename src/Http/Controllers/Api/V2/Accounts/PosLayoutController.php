@@ -9,6 +9,9 @@ use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Models\Booking;
 use Partymeister\Accounting\Models\Item;
 
+/**
+ * @tags Accounting: POS
+ */
 class PosLayoutController extends Controller
 {
     public function show(Account $account): PosLayoutResource

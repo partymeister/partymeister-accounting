@@ -14,7 +14,7 @@ use Partymeister\Accounting\Models\Account;
 use Partymeister\Accounting\Services\AccountService;
 
 /**
- * @tags Accounts
+ * @tags Accounting: Accounts
  */
 class AccountsController extends ApiController
 {

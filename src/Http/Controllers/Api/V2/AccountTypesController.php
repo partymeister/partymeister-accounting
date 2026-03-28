@@ -14,7 +14,7 @@ use Partymeister\Accounting\Models\AccountType;
 use Partymeister\Accounting\Services\AccountTypeService;
 
 /**
- * @tags Account Types
+ * @tags Accounting: Account Types
  */
 class AccountTypesController extends ApiController
 {

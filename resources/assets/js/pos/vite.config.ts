@@ -13,6 +13,7 @@ export default defineConfig({
     },
   },
   envDir: path.resolve(laravelRoot, 'packages/partymeister-apps'),
+  base: '/build/pos/',
   build: {
     outDir: path.resolve(laravelRoot, 'public/build/pos'),
     emptyOutDir: true,

@@ -99,7 +99,6 @@ async function handleBook(paymentType: PaymentType) {
   }
 }
 
-const config = window.POS_CONFIG
 </script>
 
 <template>
@@ -150,10 +149,6 @@ const config = window.POS_CONFIG
         :booking="lastBooking"
         :format="formatCurrency"
       />
-
-      <a :href="config.backUrl">
-        <button class="pos-btn pos-btn--primary pos-btn--lg" style="float: right;">Back</button>
-      </a>
     </div>
   </div>
 </template>

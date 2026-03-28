@@ -9,14 +9,15 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname),
+      '@auth': path.resolve(laravelRoot, 'packages/partymeister-apps/shared/auth'),
     },
   },
+  envDir: path.resolve(laravelRoot, 'packages/partymeister-apps'),
   build: {
     outDir: path.resolve(laravelRoot, 'public/build/pos'),
     emptyOutDir: true,
-    manifest: true,
     rollupOptions: {
-      input: path.resolve(__dirname, 'main.ts'),
+      input: path.resolve(__dirname, 'index.html'),
     },
   },
   server: {

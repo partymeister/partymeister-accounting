@@ -49,14 +49,7 @@ export type ZoneConfig = Record<number, ZoneEntry[]>
 
 export type PaymentType = 'cash' | 'card' | 'coupon'
 
-declare global {
-  interface Window {
-    POS_CONFIG: {
-      accountId: number
-      csrfToken: string
-      baseUrl: string
-      mode: 'viewer' | 'editor'
-      backUrl: string
-    }
-  }
+export interface PosConfig {
+  mode: string
+  accountId: string
 }

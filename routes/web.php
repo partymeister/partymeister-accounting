@@ -1,5 +1,6 @@
 <?php
-
+// Legacy backend web routes commented out — backend uses V2 API
+/*
 use Partymeister\Accounting\Http\Controllers\Backend\AccountsController;
 use Partymeister\Accounting\Http\Controllers\Backend\AccountTypesController;
 use Partymeister\Accounting\Http\Controllers\Backend\BookingsController;
@@ -36,3 +37,4 @@ Route::group([
     Route::patch('pos/edit/{account}', [PosInterfacesController::class, 'update'])
         ->name('pos.update');
 });
+*/

@@ -40,7 +40,8 @@ Route::prefix('api/v2/rpc')
             ->name('accounts.book');
     });
 
-// Legacy API routes (kept as reference)
+// V1 routes commented out — V2 API is the active API
+/*
 Route::group([
     'middleware' => ['auth:api', 'bindings', 'permission'],
     'prefix' => 'api',
@@ -61,3 +62,4 @@ Route::group([
     Route::post('pos/{account}', [PosInterfacesController::class, 'create'])
         ->name('pos.create');
 });
+*/

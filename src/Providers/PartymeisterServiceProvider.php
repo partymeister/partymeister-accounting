@@ -28,14 +28,12 @@ class PartymeisterServiceProvider extends ServiceProvider
         $this->routes();
         $this->routeModelBindings();
         $this->translations();
-        $this->views();
         $this->navigationItems();
         $this->permissions();
         $this->registerCommands();
         $this->migrations();
         $this->validators();
         $this->publishResourceAssets();
-        $this->components();
         merge_local_config_with_db_configuration_variables('partymeister-accounting');
     }
 
@@ -44,7 +42,6 @@ class PartymeisterServiceProvider extends ServiceProvider
     public function routes()
     {
         if (! $this->app->routesAreCached()) {
-            require __DIR__.'/../../routes/web.php';
             require __DIR__.'/../../routes/api.php';
         }
     }
@@ -83,15 +80,6 @@ class PartymeisterServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../resources/lang' => resource_path('lang/vendor/partymeister-accounting'),
         ], 'motor-admin-translations');
-    }
-
-    public function views()
-    {
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'partymeister-accounting');
-
-        $this->publishes([
-            __DIR__.'/../../resources/views' => resource_path('views/vendor/partymeister-accounting'),
-        ], 'motor-admin-views');
     }
 
     public function navigationItems()
@@ -133,11 +121,5 @@ class PartymeisterServiceProvider extends ServiceProvider
         ];
 
         $this->publishes($assets, 'partymeister-accounting-install-resources');
-    }
-
-    public function components()
-    {
-        $config = $this->app['config']->get('motor-cms-page-components', []);
-        $this->app['config']->set('motor-cms-page-components', array_replace_recursive(require __DIR__.'/../../config/motor-cms-page-components.php', $config));
     }
 }

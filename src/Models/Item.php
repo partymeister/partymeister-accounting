@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Kra8\Snowflake\HasShortflakePrimary;
+use Mattiverse\Userstamps\Traits\Userstamps;
 use Motor\Admin\Models\User;
 use Motor\Core\Filter\Filter;
 use Motor\Core\Traits\Filterable;
 use Motor\Core\Traits\Searchable;
 use Partymeister\Accounting\Database\Factories\ItemFactory;
-use RichanFongdasen\EloquentBlameable\BlameableTrait;
 
 /**
  * Partymeister\Accounting\Models\Item
@@ -83,11 +83,11 @@ use RichanFongdasen\EloquentBlameable\BlameableTrait;
  */
 class Item extends Model
 {
-    use BlameableTrait;
     use Filterable;
     use HasFactory;
     use HasShortflakePrimary;
     use Searchable;
+    use Userstamps;
 
     /**
      * Searchable columns for the searchable trait
